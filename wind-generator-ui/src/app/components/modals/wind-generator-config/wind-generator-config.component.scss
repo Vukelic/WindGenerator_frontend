@@ -1,0 +1,27 @@
+.addre-holder {
+    display: flex;
+    flex-direction: column;
+}
+
+// .are-form-element {
+//     width: 50%;
+//     justify-content: space-between;
+// }
+
+// .ml10 {
+//     padding-left: 20px;
+// }
+
+.are-form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    mat-form-field {
+        flex: 1;
+    }
+}
+
+textarea {
+    resize: none;
+  }
