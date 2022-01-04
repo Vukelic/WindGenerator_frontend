@@ -7,6 +7,8 @@ import { GlobalService } from 'src/app/services/global.service';
 import { MarkerService } from 'src/app/services/marker.service';
 import $ from "jquery"; 
 import { WindGeneratorConfigComponent } from '../modals/wind-generator-config/wind-generator-config.component';
+import { WindGeneratorDeviceService } from 'src/app/services/wind-generator-device.service';
+import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -25,7 +27,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   totalLength: any;
   page: number = 1;
 
-  realEstates: any[] = [];
+  realEstates: DtoWindGeneratorDevice[] = [];
 
   options: FormGroup;
   isOpened: boolean = false;
@@ -82,7 +84,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private globalService: GlobalService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private windGeneratorService: WindGeneratorDeviceService
   ) {
     this.options = fb.group({
       bottom: 0,
@@ -122,7 +125,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     console.log('rl', this.realEstateFilters);
 
-    this.getRealEstates(null);
+   // this.getRealEstates(null);
   //  this.getProjects();
 
     this.filteredOptions = this.filterAuto.valueChanges.pipe(
@@ -130,11 +133,22 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       map((value) => this._filter(value))
     );
 
-    this.projectsList = [
-      { value: null, viewValue: 'None' },
-      { value: 'proj1', viewValue: 'Project 1' },
-      { value: 'proj2', viewValue: 'Project 2' },
-    ];
+    // this.projectsList = [
+    //   { value: null, viewValue: 'None' },
+    //   { value: 'proj1', viewValue: 'Project 1' },
+    //   { value: 'proj2', viewValue: 'Project 2' },
+    // ];
+
+    this.getAllGenerators();
+  }
+
+  getAllGenerators(){
+    console.warn('getAllGenerators ');
+    this.windGeneratorService.GetList(null).subscribe((res:any) => {
+      this.emitRealEstates.next(<any>res.Value);
+      this.realEstates = res.Value;
+    console.warn('all ', res);
+    });
   }
 
   ngAfterViewInit() {
@@ -232,7 +246,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           };
 
           this.globalService.createRealEstate(newRealEstate);
-          this.getRealEstates(null);
+          //this.getRealEstates(null);
+          this.getAllGenerators();
         }
       }
     });
@@ -304,7 +319,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           };
 
           this.globalService.createRealEstate(newRealEstate);
-          this.getRealEstates(null);
+         // this.getRealEstates(null);
+         this.getAllGenerators();
         }
       }
     });
@@ -460,15 +476,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   gotoUserSettings() {
-    this.router.navigate(['/user-settings']);
+   // this.router.navigate(['/user-settings']);
   }
 
   gotoAppSettings() {
-    this.router.navigate(['/app-settings']);
+   // this.router.navigate(['/app-settings']);
   }
 
   gotoAuditLog() {
-    this.router.navigate(['/audit-log']);
+    //this.router.navigate(['/audit-log']);
   }
 
    openChooseFiltersModal() {

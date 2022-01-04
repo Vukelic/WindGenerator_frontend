@@ -5,6 +5,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { MarkerService } from 'src/app/services/marker.service';
 import * as L from 'leaflet';
 import $ from "jquery";
+import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
 
 const iconRetinaUrl = '/assets/marker-icon-2x.png';
 const iconUrl = '/assets/marker-icon.png';
@@ -238,6 +239,10 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.addNewRealEstateFromMap();
     });
 
+    $('#checkPower').on('mousedown', (e) => {
+      this.checkPowerFromMap();
+    });
+
     $('#zoomIn').on('mousedown', (e) => {
       this.map.zoomIn();
     });
@@ -249,6 +254,10 @@ export class MapComponent implements OnInit, AfterViewInit {
     $('#centerMarkers').on('mousedown', (e) => {
       this.resetView();
     });
+  }
+
+  checkPowerFromMap(){
+    
   }
 
   addNewRealEstateFromMap() {
@@ -268,12 +277,12 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   // Creating markers and adding them to marker layerGroup + adds info from marker to info box through markerService
-  makeCustomMarkers(map: L.Map, realEstateMapList: any[]): void {
+  makeCustomMarkers(map: L.Map, realEstateMapList: DtoWindGeneratorDevice[]): void {
     if (realEstateMapList && realEstateMapList.length > 0) {
       realEstateMapList.forEach((re, i, arr) => {
-        console.log('re', re.city);
-        const lat = re.coordinates[0];
-        const lon = re.coordinates[1];
+        console.warn('reeee', re);
+        const lat = re.GeographicalLatitude;
+        const lon = re.GeographicalLongitude;
         //const marker = L.marker([lat, lon], { setForceZIndex: 1 }).addTo(
           const marker = L.marker([lat, lon], { }).addTo( 
         this.markers
@@ -336,9 +345,10 @@ export class MapComponent implements OnInit, AfterViewInit {
     if (reList && reList.length > 0) {
       var coordListForBounds = <any>[];
       reList.forEach((item: any) => {
-        coordListForBounds.push(item.coordinates);
+    //    coordListForBounds.push(item.coordinates);
+    coordListForBounds.push([item.GeographicalLatitude, item.GeographicalLongitude]);
       });
-
+      console.warn('reList',reList);
       var myBounds = new L.LatLngBounds(coordListForBounds);
       this.map.fitBounds(myBounds, { padding: [100, 200] });
     }
@@ -363,7 +373,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     if (this.realestateMapList != null) {
       var coordListForBounds = <any>[];
       this.realestateMapList.forEach((item: any) => {
-        coordListForBounds.push(item.coordinates);
+      //  coordListForBounds.push(item.coordinates);
+      coordListForBounds.push([item.GeographicalLatitude, item.GeographicalLongitude]);
       });
 
       var myBounds = new L.LatLngBounds(coordListForBounds);

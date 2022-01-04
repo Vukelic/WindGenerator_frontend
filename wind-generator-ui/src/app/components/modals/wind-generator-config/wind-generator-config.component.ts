@@ -3,7 +3,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
+import { DtoWindGeneratorDeviceListResponse } from 'src/app/dto/DtoResponseObjectModels/WindGeneratorDevice/DtoWindGeneratorDeviceListResponse';
+import { DtoWindGeneratorDeviceResponse } from 'src/app/dto/DtoResponseObjectModels/WindGeneratorDevice/DtoWindGeneratorDeviceResponse';
 import { GlobalService } from 'src/app/services/global.service';
+import { WindGeneratorDeviceService } from 'src/app/services/wind-generator-device.service';
 import { SelectLocationMapModalComponent } from '../select-location-map-modal/select-location-map-modal.component';
 
 @Component({
@@ -15,7 +19,7 @@ export class WindGeneratorConfigComponent implements OnInit {
 
  
 
-  addNewReForm: FormGroup;
+  windForm: FormGroup;
   choiceFromMap: boolean = true;
 
   // filtersModal = {
@@ -42,44 +46,39 @@ export class WindGeneratorConfigComponent implements OnInit {
   optionsF: string[] = ['Novi Sad', 'Beograd', 'Kragujevac', 'Subotica', 'Nis'];
   filteredOptions: Observable<string[]>;
 
+  currentWindGenerator: DtoWindGeneratorDevice = new DtoWindGeneratorDevice();
   constructor(
     public addRE: MatDialogRef<WindGeneratorConfigComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
     public dialog: MatDialog, 
     private globalService: GlobalService,  
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private windGeneratorService: WindGeneratorDeviceService) { }
 
   ngOnInit() {
-    this.addNewReForm = this.formBuilder.group({
+    this.windForm = this.formBuilder.group({
       country: ['Country placeholder'],
       city: ['City placeholder'],
-      type: ['Type placeholder'],
-      client: ['Client placeholder'],
-      shortName: ['Shortname placeholder'],
+      name: [],
       description: ['Description placeholder'],
-      land: ['Land placeholder'],
-      buildingSize: ['Buildingsize placeholder'],
-      value: ['Value placeholder'],
-      additionalInfo: ['AdditionalInfo placeholder'],
       lat: [this.data.lat ? this.data.lat : null, Validators.required],
       lon: [this.data.lng ? this.data.lng : null, Validators.required],
-      images: [`assets/gallery/gallery_image1.jpg\nassets/gallery/gallery_image2.jpg\nassets/gallery/gallery_image3.jpg\nassets/gallery/gallery_image4.jpg\nassets/gallery/gallery_image5.jpg\nassets/gallery/gallery_image6.jpg\nassets/gallery/gallery_image7.jpg\nassets/gallery/gallery_image8.jpg`],
-      
-      documents: ['color.docx\ndokument.docx\ntabela.xlsx'],
-      plans: ['assets/gallery/plan1.png\nassets/gallery/plan2.png\nassets/gallery/plan3.png\nassets/gallery/plan4.png\nassets/gallery/plan5.png']
+     // images: [`assets/gallery/gallery_image1.jpg\nassets/gallery/gallery_image2.jpg\nassets/gallery/gallery_image3.jpg\nassets/gallery/gallery_image4.jpg\nassets/gallery/gallery_image5.jpg\nassets/gallery/gallery_image6.jpg\nassets/gallery/gallery_image7.jpg\nassets/gallery/gallery_image8.jpg`],
     })
 
     if(this.data != null && this.data != undefined) {
+      console.warn('data', this.data);
+     // this.currentWindGenerator = this.data;
       if(this.data.lat != null && this.data.lat != undefined && this.data.lng != null && this.data.lng != undefined)
       this.globalService.getAdressFromCoords(this.data.lat, this.data.lng)
           .subscribe(res => {
             if(res != null && res != undefined) {
               if(res.address) {
                 if(res.address.city) {
-                  this.addNewReForm.patchValue({city: res.address.city});  
+                  this.windForm.patchValue({city: res.address.city});  
                 }
                 if(res.address.country) {
-                  this.addNewReForm.patchValue({country: res.address.country});
+                  this.windForm.patchValue({country: res.address.country});
                 }
               }
             }
@@ -91,6 +90,11 @@ export class WindGeneratorConfigComponent implements OnInit {
         startWith(''),
         map(value => this._filter(value))
       );
+
+      //ngOnInit(); 
+  this.objSetConfigFormSubscription();
+  //sa servera
+  // this.updatePropertiesFromObjectSetToFormGroup(this.objSetConfigurationForm, this.objSet);
   }
 
   private _filter(value: string): string[] {
@@ -99,14 +103,71 @@ export class WindGeneratorConfigComponent implements OnInit {
     return this.optionsF.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  addRealEstate() {
-    let formData = this.addNewReForm.value;
-    // console.log(formData);
-    if (this.addNewReForm.invalid) {
-      return;
+  //#region  forms
+
+  objSetConfigFormSubscription() {
+    this.windForm.valueChanges.subscribe(x => {
+      setTimeout(() => {
+        this.updatePropertiesFromFormGroupToObject(this.windForm, this.currentWindGenerator);
+      }, 0);
+    });
+  }
+
+    updatePropertiesFromFormGroupToObject(formGroup:any, object:DtoWindGeneratorDevice) {
+      console.warn('updatePropertiesFromFormGroupToObject');
+      if (object) {
+        object.Name = formGroup.getRawValue().name;
+        object.Description = formGroup.getRawValue().description;
+        object.Country = formGroup.getRawValue().country;
+        object.City = formGroup.getRawValue().city;
+        object.GeographicalLatitude = formGroup.getRawValue().lat;
+        object.GeographicalLongitude = formGroup.getRawValue().lon;
+      }
+    }
+  
+    updatePropertiesFromObjectSetToFormGroup(formGroup:any, object:DtoWindGeneratorDevice) {
+      if (object) {
+        formGroup.setValue({
+          name: object.Name,
+          description: object.Description,
+          country: object.Country,
+          city: object.City,
+          lat: object.GeographicalLatitude,
+          lon: object.GeographicalLongitude,
+        });
+      }
     }
 
-    this.addRE.close({ formData: formData });
+    // this.objSetConfigurationForm.get("firstname").valueChanges.subscribe(x => {
+    //   console.log('firstname value changed')
+    //   console.log(x)
+    // })
+  //#endregion
+
+  addWindGenerator() {
+    let formData = this.windForm.value;
+    // console.log(formData);
+    if (this.windForm.invalid) {
+      return;
+    }
+    console.warn('currentWindGenerator', this.currentWindGenerator);
+    this.windGeneratorService.Post(this.currentWindGenerator).subscribe((res: DtoWindGeneratorDeviceResponse) => {
+      this.addRE.close({ formData: formData });
+      console.log('prosao');
+      this.getAllGenerators();
+    }, (error: any) => {
+      console.log(error);
+    
+    });
+  }
+
+  getAllGenerators(){
+    this.windGeneratorService.GetList(null).subscribe((res) => {
+    console.warn('all ', res);
+    }, (error: any) => {
+      console.log(error);
+    
+    });
   }
 
   openSelectFromMap() {
@@ -120,14 +181,14 @@ export class WindGeneratorConfigComponent implements OnInit {
       // this.blockUI.start('');
       if(result != null && result != undefined) {
         if (result.latlon != null && result.latlon != undefined) {
-          this.addNewReForm.patchValue({lat: result.latlon.lat, lon: result.latlon.lng})
-          // console.log(this.addNewReForm.value);
+          this.windForm.patchValue({lat: result.latlon.lat, lon: result.latlon.lng})
+          // console.log(this.windForm.value);
 
-          this.globalService.getAdressFromCoords(this.addNewReForm.value.lat, this.addNewReForm.value.lon)
+          this.globalService.getAdressFromCoords(this.windForm.value.lat, this.windForm.value.lon)
           .subscribe(res => {
             if(res != null && res != undefined) {
               // console.log(res)
-              this.addNewReForm.patchValue({city: res.address.city, country: res.address.country});
+              this.windForm.patchValue({city: res.address.city, country: res.address.country});
             }
           });
         }

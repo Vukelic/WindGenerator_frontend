@@ -5,7 +5,7 @@
         <button  *ngIf="choiceFromMap" style="margin-left: 15px; height: 44px;" mat-raised-button (click)='openSelectFromMap()'><mat-icon>room</mat-icon> Choose location from map</button>
     </div>
     
-    <form [formGroup]='addNewReForm' class='addre-holder' (ngSubmit)="addRealEstate()">
+    <form [formGroup]='windForm' class='addre-holder' (ngSubmit)="addWindGenerator()">
         <div class="w100" style="display: flex; flex-direction: row; justify-content: space-between;">
             <mat-form-field class="example-form-field w100" style='flex: 1; margin-right: 15px;'>
                 <input matInput type="text" placeholder="Latitude" formControlName="lat">
@@ -16,24 +16,11 @@
             </mat-form-field>
         </div>
     
-        <!-- <div style="display: flex; flex-direction: row;" class="w100" *ngIf="choiceFromMap">
-            <mat-form-field class="example-form-field" style="flex: 1; width: 50px;">
-                <input matInput type="text" placeholder="Lat" [(ngModel)]="filtersModal.lat">
-            </mat-form-field>
-    
-            <mat-form-field class="example-form-field" style="flex: 1; margin-left: 10px; width: 50px;">
-                <input matInput type="text" placeholder="Lng" [(ngModel)]="filtersModal.lng">
-            </mat-form-field>
-    
-            <mat-form-field class="example-form-field" style="flex: 1; width: 50px;">
-                <input matInput type="text" placeholder="Location" formControlName="city" [disabled]='true'>
-            </mat-form-field>
-    
-            <button mat-raised-button style="height: 44px; margin-left: 15px;" (click)='openSelectFromMap()'>Choose from map</button>
-        </div> -->
-    
         <div style="display: flex; flex-direction: column;">
             <div class="are-form-row">
+                <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
+                    <input matInput type="text" placeholder="Name" formControlName="name">
+                </mat-form-field>
                 <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
                     <input matInput type="text" placeholder="Country" formControlName="country">
                 </mat-form-field>
@@ -43,16 +30,7 @@
                 </mat-form-field>
             </div>
         
-            <!-- <mat-form-field class="w100">
-                <mat-label>Type</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let filterChoice of filterSelectionModal" [value]="filterChoice.value" formControlName="type">
-                        {{filterChoice.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field> -->
-
-            <div class="are-form-row">
+            <!-- <div class="are-form-row">
                 <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
                     <input matInput type="text" placeholder="Client" formControlName="client">
                 </mat-form-field>
@@ -60,12 +38,12 @@
                 <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
                     <input matInput type="text" placeholder="Short name" formControlName="shortName">
                 </mat-form-field>
-            </div>
+            </div> -->
         
-            <div class="are-form-row">
-                <!-- <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
+             <!-- <div class="are-form-row">
+                 <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
                     <input matInput type="text" placeholder="Description" formControlName="description">
-                </mat-form-field> -->
+                </mat-form-field> 
 
                 <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
                     <input matInput type="text" placeholder="Additional info" formControlName="additionalInfo">
@@ -74,9 +52,10 @@
                 <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
                     <input matInput type="text" placeholder="Land Size (sqm)" formControlName="land">
                 </mat-form-field>
-            </div>
-        
-            <div class="are-form-row">
+            </div> 
+         -->
+           
+         <!-- <div class="are-form-row">
                 <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
                     <input matInput type="text" placeholder="Building size (sqm)" formControlName="buildingSize">
                 </mat-form-field>
@@ -84,7 +63,7 @@
                 <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
                     <input matInput type="text" placeholder="Value (EUR)" formControlName="value">
                 </mat-form-field>
-            </div>
+            </div> -->
 
             <div class="are-form-row">
                 <!-- <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
@@ -95,12 +74,12 @@
                     <textarea matInput type="text" placeholder="Description" formControlName="description" rows="5"></textarea>
                 </mat-form-field>
 
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
+                <!-- <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
                     <textarea matInput type="text" placeholder="Images" formControlName="images" rows="5"></textarea>
-                </mat-form-field>
+                </mat-form-field> -->
             </div>
 
-            <div class="are-form-row">
+            <!-- <div class="are-form-row">
                 <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
                     <textarea matInput type="text" placeholder="Documents" formControlName="documents" rows="4"></textarea>
                 </mat-form-field>
@@ -108,7 +87,7 @@
                 <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
                     <textarea matInput type="text" placeholder="Plans" formControlName="plans" rows="4"></textarea>
                 </mat-form-field>
-            </div>
+            </div> -->
         </div>
     
         <button style='margin-top: 15px; border-radius: 0px;' class='global-button' type="submit">Add Wind Generator</button>

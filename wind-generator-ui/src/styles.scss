@@ -41,6 +41,77 @@ $wind-generator-ui-theme: mat.define-light-theme((
 
 $default-border-radius: 5px;
 
+.popup-error {
+	background-color: #7c1010;
+	color: #fff;
+
+	button {
+		color: #fff;		
+	}
+}
+
+.popup-warning {
+	background-color: #ffc508;
+	color: #101010;
+
+	button {
+		color: #101010;		
+	}
+}
+
+.popup-success {
+	background-color: #69c40e;
+	color: #fff;
+
+	button {
+		color: #fff;		
+	}
+}
+
+.popup-info {
+	background-color: #5c5c5c;
+	color: #dcdcdc;
+
+	button {
+		color: #e4e4e4;		
+	}
+}
+
+.snack-bar-warning {
+	background-color: #7c1010;
+	color: #fff;
+
+	button {
+		color: #fff;		
+	}
+}
+
+.snack-bar-important {
+	background-color: #ffc508;
+	color: #101010;
+
+	button {
+		color: #101010;		
+	}
+}
+
+.snack-bar-confirmed {
+	background-color: #69c40e;
+	color: #fff;
+
+	button {
+		color: #fff;		
+	}
+}
+
+.snack-bar-info {
+	background-color: #0c8bdf;
+	color: #fff;
+
+	button {
+		color: #fff;		
+	}
+}
 // html, body { height: 100%; }
 html,
 body {
