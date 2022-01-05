@@ -22,5 +22,31 @@ export  class DtoUser extends ARepoBaseEntity{
     //COMPLEX PROPERTIES
     AssignRole: DtoRole;
     AssignRoleId?: number;
+
+    /**
+     *
+     */
+    constructor() {
+        super();
+        this.UserName = "";
+        this.Surname = "";
+        this.Name = "";
+        this.Phone = "";
+        this.UserToken = "";
+        this.ExpireTokenDateTime = null;
+        this.Workplace = "";
+        this.Password = "";
+        this.Susspend = false;
+        this.EmailConfirmed = false;
+        this.FailedAttempt = 0;
+        this.StartTrackingInterval = null;
+        this.LastLoginTime = null;
+        this.AppFlag = "";
+        this.RssId = "";;
+    
+        //COMPLEX PROPERTIES
+        this.AssignRole = null;
+        this.AssignRoleId = 0;
+    }
    
 }

@@ -37,6 +37,26 @@ export class UserServiceService {
     );
   }
 
+  Register(user: DtoUser) {
+    return this.http.post(environment.BaseAPIUrl + 'User/' + 'Register', user).pipe(
+      map((resp: any) => {
+        if (!resp.Success) {
+          // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'UserService, Post');
+          this.errService.displayDescriptiveErrorMessage("User", "Can't create user", resp, 5, 'popup-error');
+        }
+        else if (resp.Success) {
+          this.errService.displayDescriptiveMessage("User", "User created successfully!", resp, 5, 'popup-success');
+        }
+        return resp;
+      }),
+      catchError(error => {
+        // Errors 500, 403, already resolved in interceptor
+        // return throwError(this.errService.getErrorMessage(error));
+        return error;
+      })
+    );
+  }
+
   GetList(paging: DtoPaging) {
     var objAsJson = JSON.stringify(paging);
     return this.http.get<DtoUserListResponse>(environment.BaseAPIUrl + 'User/' + 'Get' + '?inPaggingJson=' + objAsJson).pipe(

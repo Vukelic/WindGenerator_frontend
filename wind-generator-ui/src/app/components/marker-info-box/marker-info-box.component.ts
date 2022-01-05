@@ -69,6 +69,9 @@ export class MarkerInfoBoxComponent implements OnInit {
     });
   }
 
+  openHistory(markerInfo: any){
+
+  }
   openAddToProject() {
     console.log('klik na mmarker +project');
     console.log(this.markerInfo);
