@@ -9,6 +9,7 @@ import $ from "jquery";
 import { WindGeneratorConfigComponent } from '../modals/wind-generator-config/wind-generator-config.component';
 import { WindGeneratorDeviceService } from 'src/app/services/wind-generator-device.service';
 import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
+import { MyAccountComponent } from '../my-account/my-account.component';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -103,6 +104,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.markerService.isMarkerSelectedChange.subscribe((res) => {
       this.showMarkerInfoBlock = res;
     });
+
+    this.markerService.refresh.subscribe(res=>{
+      console.warn('aaaaaaaaaaaaaaa',res);
+      this.getAllGenerators();
+    })
   }
 
   ngOnInit() {
@@ -187,69 +193,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result != undefined) {
-        if (result.formData != null && result.formData != undefined) {
-
-          let imageList = <any>[];
-          let documentList = <any>[];
-          let planList = <any>[];
-
-          if (result.formData.images != null && result.formData.images != undefined) {
-            let tmpImages = result.formData.images;
-            // tmpImages = tmpImages.replace('/n', '');
-            // tmpImages = tmpImages.replace('/t', '');
-            // tmpImages = tmpImages.replace(' ', '');
-            tmpImages.split('\n').forEach((image:any) => {
-              if (image != '') {
-                imageList.push({ source: image });
-              }
-            });
-          }
-
-          if (result.formData.documents != null && result.formData.documents != undefined) {
-            let tmpDocuments = result.formData.documents;
-            tmpDocuments.split('\n').forEach((document:any) => {
-              if (document != '') {
-                let extension = document.substr(document.lastIndexOf('.') + 1);
-                documentList.push({ source: document, extension: extension });
-              }
-            });
-          }
-
-          if (result.formData.plans != null && result.formData.plans != undefined) {
-            let tmpPlans = result.formData.plans;
-
-            tmpPlans.split('\n').forEach((plan:any) => {
-              if (plan != '') {
-                planList.push({ source: plan });
-              }
-            });
-          }
-
-          let newRealEstate = {
-            coordinates: [result.formData.lat, result.formData.lon],
-            country: result.formData.country,
-            city: result.formData.city,
-            type: result.formData.type,
-            client: result.formData.client,
-            shortName: result.formData.shortName,
-            description: result.formData.description,
-            land: result.formData.land,
-            buildingSize: result.formData.buildingSize,
-            value: result.formData.value,
-            additionalInfo: result.formData.additionalInfo,
-            street: "",
-            images: imageList,
-            documents: documentList,
-            plans: planList,
-            connectedProjects: <any>[]
-          };
-
-          this.globalService.createRealEstate(newRealEstate);
-          //this.getRealEstates(null);
-          this.getAllGenerators();
-        }
-      }
+      this.markerService.refresh.next(true);
+      
     });
   }
 
@@ -394,7 +339,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   gotoProjects() {
     // DANAS
-    this.router.navigate(['/projects']);
+   // this.router.navigate(['/projects']);
   }
 
   // openRealEstateDetails() {
@@ -476,11 +421,21 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   gotoUserSettings() {
-   // this.router.navigate(['/user-settings']);
+    //this.router.navigate(['/users']);
+  }
+  gotoLogout(){
+    this.router.navigate(['/login']);
   }
 
-  gotoAppSettings() {
-   // this.router.navigate(['/app-settings']);
+  gotoAccountSettings() {
+      const dialogRef = this.dialog.open(MyAccountComponent, {
+       width: '400px',
+      data: {},
+      autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+
+    });
   }
 
   gotoAuditLog() {

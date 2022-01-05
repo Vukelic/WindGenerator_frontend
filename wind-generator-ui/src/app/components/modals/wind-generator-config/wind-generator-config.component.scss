@@ -25,3 +25,24 @@
 textarea {
     resize: none;
   }
+.footers-line{
+    display: flex;
+flex-direction: row;
+
+justify-content: space-between;
+text-align: center;
+
+margin-top: 15px; 
+border-radius: 0px
+}
+
+.footer-button{
+display: flex;
+flex-direction: row;
+
+justify-content: flex-end;
+text-align: center;
+
+//margin-top: 15px; 
+border-radius: 0px
+}

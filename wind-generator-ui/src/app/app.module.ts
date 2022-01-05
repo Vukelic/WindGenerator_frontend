@@ -44,7 +44,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { WindGeneratorConfigComponent } from './components/modals/wind-generator-config/wind-generator-config.component';
-import { SelectLocationMapModalComponent } from './components/modals/select-location-map-modal/select-location-map-modal.component'; 
+import { SelectLocationMapModalComponent } from './components/modals/select-location-map-modal/select-location-map-modal.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
+import { UsersComponent } from './components/users/users.component';
+import { RegistrationComponent } from './components/registration/registration.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +56,10 @@ import { SelectLocationMapModalComponent } from './components/modals/select-loca
     MarkerInfoBoxComponent,
     MapComponent,
     WindGeneratorConfigComponent,
-    SelectLocationMapModalComponent
+    SelectLocationMapModalComponent,
+    MyAccountComponent,
+    UsersComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

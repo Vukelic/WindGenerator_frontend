@@ -2,8 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
 import { GlobalService } from 'src/app/services/global.service';
 import { MarkerService } from 'src/app/services/marker.service';
+import { WindGeneratorConfigComponent } from '../modals/wind-generator-config/wind-generator-config.component';
 
 @Component({
   selector: 'app-marker-info-box',
@@ -42,17 +44,29 @@ export class MarkerInfoBoxComponent implements OnInit {
     );
   }
 
-  openRealEstateDetails() {
-    // const dialogRef = this.dialog.open(ViewDetailsModalComponent, {
-    //   width: '900px',
-    //   // height: '94vh',
-    //   panelClass: 'custom-scroll1',
-    //   data: { markerInfo: this.markerInfo },
-    //   autoFocus: false,
-    // });
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   // kad se ovaj zatvori treba refreshovati mapu
-    // });
+  openDetails(markerInfo: any) {
+    var objectToSend = new DtoWindGeneratorDevice();
+    objectToSend.Id = markerInfo.id;
+    objectToSend.Description = markerInfo.description;
+    objectToSend.Name = markerInfo.name;
+    objectToSend.Country = markerInfo.country;
+    objectToSend.City = markerInfo.city;
+    objectToSend.GeographicalLatitude = markerInfo.lat;
+    objectToSend.GeographicalLongitude = markerInfo.lon;
+    console.warn('markerInfo', markerInfo);
+    const dialogRef = this.dialog.open(WindGeneratorConfigComponent, {
+      width: '1000px',
+      data: objectToSend,
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // kad se ovaj zatvori treba refreshovati mapu
+      this.showMarkerInfoBlock = false;
+      this.markerService.refresh.next(true);
+      this.eventsSubscription = this.showMarkerInfoBlockO.subscribe(() =>
+      this.setVisibility()
+    );
+    });
   }
 
   openAddToProject() {

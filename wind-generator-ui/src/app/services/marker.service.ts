@@ -15,6 +15,7 @@ export class MarkerService {
   public isMarkerSelected: boolean = false;
   isMarkerSelectedChange: Subject<any> = new Subject<any>();
 
+  public refresh: Subject<any> = new Subject<any>();
   constructor(
     private http: HttpClient,
     private popupService: PopUpService,
@@ -28,24 +29,24 @@ export class MarkerService {
 
       this.markerInfo = {
         index: i,
-        id: v.id,
+        id: v.Id,
         country: v.Country,
         city: v.City,
-        type: v.type,
-        client: v.client,
+       // type: v.type,
+       // client: v.client,
         value: v.value,
         description: v.Description,
         name: v.Name,
-        land: v.land,
-        buildingSize: v.buildingSize,
-        additionalInfo: v.additionalInfo,
+      //  land: v.land,
+      //  buildingSize: v.buildingSize,
+       // additionalInfo: v.additionalInfo,
         coordinates: [lat, lon],
          lat: lat,
          lon: lon,
-        images: v.images,
-        documents: v.documents,
-        plans: v.plans,
-        connectedProjects: v.connectedProjects,
+     //   images: v.images,
+     //   documents: v.documents,
+     //   plans: v.plans,
+     //   connectedProjects: v.connectedProjects,
       };
 
       this.isMarkerSelected = true;

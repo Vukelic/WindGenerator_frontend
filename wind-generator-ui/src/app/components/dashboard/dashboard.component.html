@@ -27,7 +27,7 @@
               <img src="assets/windLogo.png" style="width: 200px" />
             </div>
   
-            <!-- <div
+           <div
               style="
                 display: flex;
                 width: 100%;
@@ -37,18 +37,18 @@
               "
             >
               <button class="sidenav-menu-button" (click)="gotoProjects()">
-                <mat-icon style="margin-right: 5px">folder</mat-icon> Projects
+                <mat-icon style="margin-right: 5px">folder</mat-icon> 
               </button>
               <button class="sidenav-menu-button" (click)="gotoClients()">
-                <mat-icon style="margin-right: 5px">person</mat-icon> Clients
+                <mat-icon style="margin-right: 5px">person</mat-icon> Users
               </button>
               <button class="sidenav-menu-button" (click)="openWindGenerator(null)">
-                <mat-icon style="margin-right: 5px">add</mat-icon> Add real estate
+                <mat-icon style="margin-right: 5px">add</mat-icon> Add new wind generator
               </button>
   
-              <button class='global-button-default add-re-btn' style="margin-left: 10px;" (click)='consoleTest()'>ConsoleTest</button>
+              <!-- <button class='global-button-default add-re-btn' style="margin-left: 10px;" (click)='consoleTest()'>ConsoleTest</button> -->
             </div>
-   -->
+   
             <!-- <div
               class="flex-row-start"
               style="justify-content: space-between; margin-top: 20px"
@@ -244,7 +244,7 @@
               </button>
   
               <mat-menu #baseSettings="matMenu">
-                <button mat-menu-item (click)="gotoUserSettings()">
+                <button mat-menu-item (click)="gotoAccountSettings()">
                   <mat-icon>account_circle</mat-icon>
                   <span>Account settings</span>
                 </button>
@@ -252,9 +252,14 @@
                   <mat-icon>settings</mat-icon>
                   <span>App settings</span>
                 </button> -->
-                <button mat-menu-item (click)="gotoManageUsers()">
+                <!-- <button mat-menu-item (click)="gotoManageUsers()">
                   <mat-icon>admin_panel_settings</mat-icon>
                   <span>Manage users</span>
+                </button> -->
+
+                <button mat-menu-item (click)="gotoLogout()">
+                  <mat-icon>exit_to_app</mat-icon>
+                  <span>Logout</span>
                 </button>
                 <!-- <button mat-menu-item (click)="gotoAuditLog()">
                   <mat-icon>list_alt</mat-icon>
@@ -323,14 +328,14 @@
           >
             <mat-icon>arrow_right</mat-icon>
           </button>
-          <button
+          <!-- <button
             class="toggle-sidenav-button-right global-button"
             color="primary"
             *ngIf="!rightSidenavOpened"
             (click)="toggleRightSidenav($event)"
           >
             <mat-icon>arrow_left</mat-icon>
-          </button>
+          </button> -->
   
           <div class="main-contr">
             <div class="main-content">

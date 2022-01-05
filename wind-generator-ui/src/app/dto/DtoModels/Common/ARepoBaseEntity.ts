@@ -12,6 +12,25 @@ export abstract class ARepoBaseEntity{
     SystemString: string;
     AdditionalJsonData: string;
     SoftDeleteReasonJson: string;
-    SoftDeleteReasonInt: string;
+    SoftDeleteReasonInt: number;
 
+    /**
+     *
+     */
+    constructor() {
+    this.Id = 0;
+    this.TimeCreated = null;
+    this.CreatedUserId= '';
+    this.CreatedUserName= '';
+    this.TimeModified = null;
+    this.ModifiedUserId= '';
+    this.ModifiedUserName= '';
+    this.SoftDeleted = false;
+    this.IsVirtual= false;
+    this.SystemString= '';
+    this.AdditionalJsonData= '';
+    this.SoftDeleteReasonJson= '';
+    this.SoftDeleteReasonInt= 0;
+
+    }
 }
