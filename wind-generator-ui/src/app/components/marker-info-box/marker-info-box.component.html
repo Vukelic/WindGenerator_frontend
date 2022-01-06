@@ -1,0 +1,37 @@
+<div class="marker-box" *ngIf="showMarkerInfoBlock">
+    <div class="info-title">
+      Info
+      <div>
+        <!-- TODO: Only for admin -->
+        <button style="margin-right: 10px;" (click)="openDetails(markerInfo)" class="details-button">
+          Details
+        </button>
+        <button (click)="openHistory(markerInfo)" class="details-button">
+          History
+        </button>
+      </div>
+    </div>
+
+    <div class="info-title-wh">
+      <strong>Wind power:</strong> {{ markerInfo.value ? markerInfo.value : "/" }}
+      </div>
+    <p>
+      <strong>Country:</strong>
+      {{ markerInfo.country ? markerInfo.country : "/" }}
+    </p>
+    <p><strong>City:</strong> {{ markerInfo.city ? markerInfo.city : "/" }}</p>
+    <!-- <p>
+      <strong>Client:</strong> {{ markerInfo.client ? markerInfo.client : "/" }}
+    </p>
+    <p><strong>Type:</strong> {{ markerInfo.type ? markerInfo.type : "/" }}</p> -->
+    <!-- <p><strong>Wind power:</strong> {{ markerInfo.value ? markerInfo.value : "/" }}</p> -->
+    <p>
+      <strong>Name:</strong>
+      {{ markerInfo.name ? markerInfo.name : "/" }}
+    </p>
+    <p>
+      <strong>Description:</strong>
+      {{ markerInfo.description ? markerInfo.description : "/" }}
+    </p>
+  </div>
+  

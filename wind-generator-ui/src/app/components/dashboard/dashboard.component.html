@@ -1,0 +1,361 @@
+<block-ui>
+    <ng-container>
+      <mat-sidenav-container class="example-container">
+        <!-- LEFT SIDENAV -->
+        <mat-sidenav
+          #sidenav
+          #left
+          position="start"
+          mode="side"
+          class="left-sidenav"
+          id="leftSidenav"
+          opened
+          [fixedInViewport]="options.value.fixed"
+          [fixedTopGap]="options.value.top"
+          [fixedBottomGap]="options.value.bottom"
+        >
+          <div
+            style="
+              padding: 0;
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              margin-top: 20px;
+            "
+          >
+            <div class="logo-header">
+              <img src="assets/windLogo.png" style="width: 200px" />
+            </div>
+  
+           <div
+              style="
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                flex-direction: column;
+                border-bottom: 1px solid #f2f2f2;
+              "
+            >
+              <!-- <button class="sidenav-menu-button" (click)="gotoProjects()">
+                <mat-icon style="margin-right: 5px">folder</mat-icon> 
+              </button>
+              <button class="sidenav-menu-button" (click)="gotoClients()">
+                <mat-icon style="margin-right: 5px">person</mat-icon> Users
+              </button> -->
+              <button class="sidenav-menu-button" (click)="openWindGenerator(null)">
+                <mat-icon style="margin-right: 5px">add</mat-icon> Add new wind generator
+              </button>
+  
+              <!-- <button class='global-button-default add-re-btn' style="margin-left: 10px;" (click)='consoleTest()'>ConsoleTest</button> -->
+            </div>
+   
+            <!-- <div
+              class="flex-row-start"
+              style="justify-content: space-between; margin-top: 20px"
+            >
+              <div class="filter-icon">
+                <mat-icon>filter_alt</mat-icon>
+                <span style="margin-top: 2px">Filters</span>
+              </div>
+  
+              <button
+                class="add-filter-button"
+                (click)="openChooseFiltersModal()"
+                matTooltip="Change filters"
+                [matTooltipPosition]="'after'"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+            </div> -->
+            <!-- <div class="result-div">
+              <ul>
+                <li
+                  *ngFor="
+                    let res of realEstates
+                      | paginate
+                        : {
+                            itemsPerPage: 3,
+                            currentPage: page,
+                            totalItems: totalLength
+                          }
+                  "
+                >
+                  <h3>
+                    <b>{{ res.city }} realestate information</b>
+                  </h3>
+                  <p><b>country:</b>{{ res.country }}</p>
+                  <p><b>city:</b>{{ res.city }}</p>
+                  <p><b>description:</b>{{ res.description }}</p>
+                  <hr />
+                </li>
+              </ul>
+              <pagination-controls
+                class="ngx-pagination"
+                (pageChange)="page = $event"
+                previousLabel=""
+                nextLabel=""
+              ></pagination-controls>
+            </div> -->
+  
+            <!-- <form [formGroup]="realEstateFilters" *ngIf="false">
+              <div class="filter-box">
+                <div class="filter-box-row">
+                  <span>Land</span>
+                </div>
+                <div class="filter-box-row">
+                  <div class="range-input-row">
+                    <input
+                      type="number"
+                      class="filter-input"
+                      placeholder="Land from (sqm)"
+                      formControlName="landFrom"
+                      [(ngModel)]="filters.landFrom"
+                    />
+                    <input
+                      type="number"
+                      class="filter-input"
+                      placeholder="Land to (sqm)"
+                      formControlName="landTo"
+                      [(ngModel)]="filters.landTo"
+                    />
+                  </div>
+                </div>
+              </div>
+  
+              <div class="filter-box">
+                <div class="filter-box-row">
+                  <span>Value</span>
+                </div>
+                <div class="filter-box-row">
+                  <div class="range-input-row">
+                    <input
+                      type="number"
+                      class="filter-input"
+                      placeholder="Value from (eur)"
+                      formControlName="valueFrom"
+                    />
+                    <input
+                      type="number"
+                      class="filter-input"
+                      placeholder="Value to (eur)"
+                      formControlName="valueTo"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form> -->
+  
+            <!-- <form [formGroup]="realEstateFilters" *ngIf="true">
+              <div class="filters-holder">
+                <mat-form-field>
+                  <mat-label>Filter by project</mat-label>
+                  <mat-select formControlName="selectedProjectFilter">
+                    <mat-option *ngFor="let proj of projects" [value]="proj">
+                      {{ proj.project }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+  
+                <input
+                  type="text"
+                  class="filter-input"
+                  placeholder="City"
+                  formControlName="city"
+                />
+                <div class="range-input-row">
+                  <input
+                    type="number"
+                    class="filter-input"
+                    placeholder="Land from (sqm)"
+                    formControlName="landFrom"
+                    [(ngModel)]="filters.landFrom"
+                  />
+                  <input
+                    type="number"
+                    class="filter-input"
+                    placeholder="Land to (sqm)"
+                    formControlName="landTo"
+                    [(ngModel)]="filters.landTo"
+                  />
+                </div>
+                <div class="range-input-row">
+                  <input
+                    type="number"
+                    class="filter-input"
+                    placeholder="BuildSize to (sqm)"
+                    formControlName="buildingSizeFrom"
+                  />
+                  <input
+                    type="number"
+                    class="filter-input"
+                    placeholder="BuildSize from (sqm)"
+                    formControlName="buildingSizeTo"
+                  />
+                </div>
+                <div class="range-input-row">
+                  <input
+                    type="number"
+                    class="filter-input"
+                    placeholder="Value from (eur)"
+                    formControlName="valueFrom"
+                  />
+                  <input
+                    type="number"
+                    class="filter-input"
+                    placeholder="Value to (eur)"
+                    formControlName="valueTo"
+                  />
+                </div>
+              </div>
+            </form> -->
+  
+            <!-- <div
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin-top: 25px;
+              "
+              *ngIf="true"
+            >
+              <button class="global-button filter-btn" (click)="filterByValue()">
+                <mat-icon class="button-icon">search</mat-icon><span>Filter</span>
+              </button>
+              <button
+                class="global-button-default filter-btn"
+                (click)="resetFilters()"
+              >
+                <mat-icon class="button-icon">cancel</mat-icon><span>Reset</span>
+              </button>
+            </div> -->
+          </div>
+  
+          <div class="nav-menu-holder">
+            <div class="nav-menu-profile" (click)="gotoUserSettings()">
+              <!-- <img src="assets/profile.png" alt="" /> -->
+            </div>
+            <div class="nav-menu-settings">
+              <button
+                class="global-button-icon"
+                style="margin: 0"
+                [matMenuTriggerFor]="baseSettings"
+              >
+                <mat-icon>settings</mat-icon>
+              </button>
+  
+              <mat-menu #baseSettings="matMenu">
+                <button mat-menu-item (click)="gotoAccountSettings()">
+                  <mat-icon>account_circle</mat-icon>
+                  <span>Account settings</span>
+                </button>
+                <!-- <button mat-menu-item (click)="gotoAppSettings()">
+                  <mat-icon>settings</mat-icon>
+                  <span>App settings</span>
+                </button> -->
+                <!-- <button mat-menu-item (click)="gotoManageUsers()">
+                  <mat-icon>admin_panel_settings</mat-icon>
+                  <span>Manage users</span>
+                </button> -->
+
+                <button mat-menu-item (click)="gotoLogout()">
+                  <mat-icon>exit_to_app</mat-icon>
+                  <span>Logout</span>
+                </button>
+                <!-- <button mat-menu-item (click)="gotoAuditLog()">
+                  <mat-icon>list_alt</mat-icon>
+                  <span>Audit Log</span>
+                </button> -->
+                <!-- <button mat-menu-item [matMenuTriggerFor]="invertebrates">Invertebrates</button> -->
+              </mat-menu>
+            </div>
+          </div>
+  
+          <!-- <div style='display: flex; width: 100%; justify-content: center;'>
+                      <button class='global-button add-re-btn' (click)='openAddNewRE($event)'>Add Real Estate</button>
+                      <button class='global-button-default add-re-btn' style="margin-left: 10px;" (click)='consoleTest()'>ConsoleTest</button>
+                  </div> -->
+  
+          <button
+            class="toggle-sidenav-button-left-inside global-button"
+            color="primary"
+            *ngIf="leftSidenavOpened"
+            (click)="toggleLeftSidenav($event)"
+          >
+            <mat-icon>arrow_left</mat-icon>
+          </button>
+        </mat-sidenav>
+  
+        <!-- RIGHT SIDENAV -->
+        <mat-sidenav
+          #sidenav
+          #right
+          position="end"
+          mode="side"
+          class="right-sidenav custom-scroll1"
+          [fixedInViewport]="options.value.fixed"
+          [fixedTopGap]="options.value.top"
+          [fixedBottomGap]="options.value.bottom"
+        >
+          <button
+            class="toggle-sidenav-button-right-inside global-button"
+            color="primary"
+            *ngIf="rightSidenavOpened"
+            (click)="toggleRightSidenav($event)"
+          >
+            <mat-icon>arrow_right</mat-icon>
+          </button>
+  
+          <div class="width-button">
+            <button
+              id="rightSidenavFullscreenToggleButton"
+              class="global-button fullscr-btn"
+            >
+              Toggle fullscreen
+            </button>
+          </div>
+  
+          <app-multisort-table
+            [realEstatesEvent]="emitRealEstates.asObservable()"
+          ></app-multisort-table>
+        </mat-sidenav>
+  
+        <mat-sidenav-content [formGroup]="options">
+          <button
+            class="toggle-sidenav-button-left global-button"
+            color="primary"
+            *ngIf="!leftSidenavOpened"
+            (click)="toggleLeftSidenav($event)"
+          >
+            <mat-icon>arrow_right</mat-icon>
+          </button>
+          <!-- <button
+            class="toggle-sidenav-button-right global-button"
+            color="primary"
+            *ngIf="!rightSidenavOpened"
+            (click)="toggleRightSidenav($event)"
+          >
+            <mat-icon>arrow_left</mat-icon>
+          </button> -->
+  
+          <div class="main-contr">
+            <div class="main-content">
+              <app-map
+                [realEstatesEvent]="emitRealEstates.asObservable()"
+                [dashboardLeftSidebarWidthEvent]="emitLeftSidebarWidth"
+                [invalidateSizeMapEvent]="emitInvalidateSizeMap"
+                (addNewRealEstateFromContextMenu)="addNewWind($event)"
+                [centerMapZoomEvent]="emitCenterMarkers"
+              ></app-map>
+              <div class="marker-info-box">
+                <app-marker-info-box
+                  [showMarkerInfoBlockO]="eventSubjectInfoBox.asObservable()"
+                >
+                </app-marker-info-box>
+              </div>
+            </div>
+          </div>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </ng-container>
+  </block-ui>
+  

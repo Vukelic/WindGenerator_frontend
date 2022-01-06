@@ -1,0 +1,48 @@
+<div id="mapid"></div>
+
+<div class="custom-context-menu" id='customContextMenu'>
+  <ul class="menu-options">
+    <li class="menu-option" id="addMarker">
+      <mat-icon style='margin-right: 10px;'>toys</mat-icon> Add wind generator here
+    </li>
+    <!-- <li class="menu-option" id="checkPower">
+      <mat-icon style='margin-right: 10px;'>flash_on</mat-icon> Check wind power
+    </li> -->
+    <li class="menu-option" id="zoomIn">
+      <mat-icon style='margin-right: 10px;'>zoom_in</mat-icon> Zoom in
+    </li>
+    <li class="menu-option" id="zoomOut">
+      <mat-icon style='margin-right: 10px;'>zoom_out</mat-icon> Zoom out
+    </li>
+    <li class="menu-option" id="centerMarkers">
+      <mat-icon style='margin-right: 10px;'>crop_free</mat-icon> Center visible markers
+    </li>
+  </ul>
+</div>
+
+<!-- <button (click)='testConsole()' class='global-button-default test-btn'>Map: testconsole()</button> -->
+<button (click)='resetView()' class='global-button-default test-btn'>Reset View</button>
+
+<div class="map-change-holder">
+  <!-- <button (click)='resetView()' class='global-button-default map-button-change-left' (click)="changeLayoutTo('openStreet')">OpenStreet Map</button>
+    <button (click)='resetView()' class='global-button-default map-button-change-right' (click)="changeLayoutTo('google')">Google Map</button> -->
+  <mat-form-field>
+    <mat-label>Change map view</mat-label>
+    <div style="display: flex; flex-direction: row; align-items: center;">
+      <mat-icon style="margin-right: 10px;">map</mat-icon>
+      <mat-select [formControl]='mapViews' style="font-weight: 500; font-size: 0.9em;">
+        <mat-option *ngFor="let map of mapViewList" [value]="map" class='map-mat-option'>
+          {{map.name}}
+        </mat-option>
+      </mat-select>
+    </div>
+  </mat-form-field>
+</div>
+
+<div class='map-search-holder'>
+  <input type="text" [(ngModel)]='mapSearchTerm' class='map-search-input' id='inputMapSelectionSearchTerm'
+    placeholder="Insert place for search.." (keyup.enter)="searchMap()">
+  <button (click)='searchMap()' class="map-search-button" id='searchMapSelectionButton'>
+    <mat-icon>search</mat-icon>
+  </button>
+</div>

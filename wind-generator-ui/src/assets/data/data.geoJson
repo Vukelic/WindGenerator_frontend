@@ -1,0 +1,410 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [43.16224375443991, 22.58173690764003]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Pirot",
+              "type": "Investment opportunity",
+              "client": "AB Market",
+              "shortName": "RP Pirot",
+              "description": "Potential Retail Park with extension on remaining part of plot",
+              "land": 55655,
+              "buildingSize": 7300,
+              "value": "9000000",
+              "additionalInfo": "Part A, B, C and D with more details in GE",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image1.jpg"},
+                  {"source": "assets/gallery/gallery_image3.jpg"},
+                  {"source": "assets/gallery/gallery_image6.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"}
+              ],
+              "documents": [
+                  {"source": "Document.docx", "extension": "docx"},
+                  {"source": "Sheet.xlsx", "extension": "xlsx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan1.png"},
+                  {"source": "assets/gallery/plan4.png"}
+              ]
+          }
+      },
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [44.84430709023277, 20.207378239879578]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Belgrade",
+              "type": "Investment opportunity",
+              "client": "Miroslav Micic",
+              "shortName": "Dobanovci - Micic",
+              "description": "Commercial plots",
+              "land": 17800,
+              "buildingSize": 0,
+              "value": "0",
+              "additionalInfo": "5 plots (3 owed by legal entity and 2 by private owner)",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image4.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"},
+                  {"source": "assets/gallery/gallery_image8.jpg"}
+              ],
+              "documents": [
+                  {"source": "Document.docx", "extension": "docx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan5.png"},
+                  {"source": "assets/gallery/plan2.png"}
+              ]
+          }
+      },
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [44.8226408, 20.2413415]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Dobanovci",
+              "type": "Investment opportunity",
+              "client": "Alca Trgovina doo",
+              "shortName": "Alca Warehouse",
+              "description": "Office/ Warehouse buildings + Potential expansion to adjacent plots",
+              "land": 17820,
+              "buildingSize": 9079,
+              "value": "0",
+              "additionalInfo": "Extension potential 1 (26,307 sqm) and 2 (35,262 sqm) - asking price 20eur/sqm",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image4.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"},
+                  {"source": "assets/gallery/gallery_image8.jpg"}
+              ],
+              "documents": [
+                  {"source": "Excel.xlsx", "extension": "xlsx"},
+                  {"source": "Sheet.xlsx", "extension": "xlsx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan3.png"},
+                  {"source": "assets/gallery/plan5.png"},
+                  {"source": "assets/gallery/plan2.png"}
+              ]
+          }
+      },
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [45.3027361, 19.8333635]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Novi Sad",
+              "type": "Investment opportunity",
+              "client": "AddikoBanka.d.Belgrade",
+              "shortName": "Land Plot Novi Sad 2.06Ha",
+              "description": "Construction land",
+              "land": 20669,
+              "buildingSize": 0,
+              "value": "1,150,000 (55eur/sqm)",
+              "additionalInfo": "Urban parameters: P+2+Pk, occupancy max.50%, coeficient 0,5–2.",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image4.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"},
+                  {"source": "assets/gallery/gallery_image8.jpg"}
+              ],
+              "documents": [
+                  {"source": "Document.docx", "extension": "docx"},
+                  {"source": "Sheet.xlsx", "extension": "xlsx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan3.png"},
+                  {"source": "assets/gallery/plan5.png"},
+                  {"source": "assets/gallery/plan2.png"}
+              ]
+          }
+      },
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [44.9168806, 20.2554007]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Batajnica",
+              "type": "Investment opportunity",
+              "client": "NB Čelik d.o.o.",
+              "shortName": "Land Plot Batajnica, 2.1Ha",
+              "description": "Land Plot",
+              "land": 21621,
+              "buildingSize": 0,
+              "value": "0",
+              "additionalInfo": "Land plot is currently used as agricultural, but subject to conversion. Construction of commercial properties is allowed",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image1.jpg"},
+                  {"source": "assets/gallery/gallery_image3.jpg"},
+                  {"source": "assets/gallery/gallery_image4.jpg"},
+                  {"source": "assets/gallery/gallery_image6.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"}
+              ],
+              "documents": [
+                  {"source": "Excel.xlsx", "extension": "xlsx"},
+                  {"source": "Document.docx", "extension": "docx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan1.png"},
+                  {"source": "assets/gallery/plan4.png"}
+              ]
+          }
+      },
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [45.757546191262854, 19.134499761951073]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Sombor",
+              "type": "Investment opportunity",
+              "client": "Gucci",
+              "shortName": "Land plot Sombor",
+              "description": "Gucci Production Facility Sombor, Progetti doo",
+              "land": 64000,
+              "buildingSize": 9500,
+              "value": "460000",
+              "additionalInfo": "",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image1.jpg"},
+                  {"source": "assets/gallery/gallery_image3.jpg"},
+                  {"source": "assets/gallery/gallery_image4.jpg"},
+                  {"source": "assets/gallery/gallery_image6.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"}
+              ],
+              "documents": [
+                  {"source": "Document.docx", "extension": "docx"},
+                  {"source": "Excel.xlsx", "extension": "xlsx"},
+                  {"source": "Sheet.xlsx", "extension": "xlsx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan1.png"},
+                  {"source": "assets/gallery/plan4.png"}
+              ]
+          }
+      },
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [45.5539898, 19.743973]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Srbobran",
+              "type": "Investment opportunity",
+              "client": "Private owner",
+              "shortName": "Land Plot Srbobran 7.5 Ha",
+              "description": "Land plots",
+              "land": 75559,
+              "buildingSize": 0,
+              "value": "12eur/sqm",
+              "additionalInfo": "5 cadastral plots CM Srbobran (9351/16,9351/17,9351/18,9351/19 and 9351/20)",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image1.jpg"},
+                  {"source": "assets/gallery/gallery_image3.jpg"},
+                  {"source": "assets/gallery/gallery_image4.jpg"},
+                  {"source": "assets/gallery/gallery_image6.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"}
+              ],
+              "documents": [
+                  {"source": "Sheet.xlsx", "extension": "xlsx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan1.png"},
+                  {"source": "assets/gallery/plan4.png"}
+              ]
+          }
+      },
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [44.8489268, 20.1915334]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Ugrinovci",
+              "type": "Investment opportunity",
+              "client": "Private owners (2)",
+              "shortName": "Land Plot Ugrinovci 2.5 Ha",
+              "description": "Land Plot for sale",
+              "land": 25174,
+              "buildingSize": 0,
+              "value": "0",
+              "additionalInfo": "",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image4.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"},
+                  {"source": "assets/gallery/gallery_image8.jpg"}
+              ],
+              "documents": [
+                  {"source": "Sheet.xlsx", "extension": "xlsx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan3.png"},
+                  {"source": "assets/gallery/plan5.png"},
+                  {"source": "assets/gallery/plan2.png"}
+              ]
+          }
+      },
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [43.8748999, 20.354806]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Čačak",
+              "type": "Investment opportunity",
+              "client": "Republic of Serbia - Ex Military complex",
+              "shortName": "Land Plot 1- 26Ha",
+              "description": "Construction land",
+              "land": 266306,
+              "buildingSize": 0,
+              "value": "6600000",
+              "additionalInfo": "17 inscribed object, Utilities: water, sewage, electricity, Latest General regulation plan 2014/2017 : sport center, hospital, nursing home, greenery",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image4.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"},
+                  {"source": "assets/gallery/gallery_image8.jpg"}
+              ],
+              "documents": [
+                  {"source": "Document.docx", "extension": "docx"},
+                  {"source": "Sheet.xlsx", "extension": "xlsx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan3.png"},
+                  {"source": "assets/gallery/plan5.png"},
+                  {"source": "assets/gallery/plan2.png"}
+              ]
+          }
+      },
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [43.8815067, 20.3703741]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Čačak",
+              "type": "Investment opportunity",
+              "client": "Private owner",
+              "shortName": "Land Plot 2 - 2.8Ha",
+              "description": "Land Plot with potential expansion to adjacent plots ( A i B)",
+              "land": 28000,
+              "buildingSize": 0,
+              "value": "0",
+              "additionalInfo": "Main plot size is 22,446 sqm and potential expansion ( A+B ) is 6,000sqm, potential expansion C is separated plot that can be used for pylon purposes",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image4.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"},
+                  {"source": "assets/gallery/gallery_image8.jpg"}
+              ],
+              "documents": [
+                  {"source": "Document.docx", "extension": "docx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan3.png"},
+                  {"source": "assets/gallery/plan5.png"},
+                  {"source": "assets/gallery/plan2.png"}
+              ]
+          }
+      },
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [44.82549926471988, 20.37230353493217]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Belgrade",
+              "type": "Investment opportunity",
+              "client": "RKB",
+              "shortName": "RKB 27Ha",
+              "description": "Office/ Warehouse buildings",
+              "land": 274793,
+              "buildingSize": 24350,
+              "value": "0",
+              "additionalInfo": "Cadastral parcel 492/1 (100% oved by RKB)",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image4.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"},
+                  {"source": "assets/gallery/gallery_image8.jpg"}
+              ],
+              "documents": [
+                  {"source": "Sheet.xlsx", "extension": "xlsx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan3.png"},
+                  {"source": "assets/gallery/plan5.png"},
+                  {"source": "assets/gallery/plan2.png"}
+              ]
+          }
+      },
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [44.8438127, 20.2780219]
+          },
+          "properties": {
+              "country": "Serbia",
+              "city": "Dobanovci",
+              "type": "Investment opportunity",
+              "client": "Fontes Group",
+              "shortName": "Land Plot - Fontes Group 11.3Ha",
+              "description": "Construction land",
+              "land": 113800,
+              "buildingSize": "30,000-150,000",
+              "value": "0",
+              "additionalInfo": "According to DRP there is an opportunity to construct 51% of object of business purpose and 49% of compatible purpose which may be: retail and wholesale, hotel industry and hospitality, sport, culture, science, development research and similar facilities.",
+              "street": "",
+              "images": [
+                  {"source": "assets/gallery/gallery_image4.jpg"},
+                  {"source": "assets/gallery/gallery_image7.jpg"},
+                  {"source": "assets/gallery/gallery_image8.jpg"}
+              ],
+              "documents": [
+                  {"source": "Document.docx", "extension": "docx"}
+              ],
+              "plans": [
+                  {"source": "assets/gallery/plan3.png"},
+                  {"source": "assets/gallery/plan5.png"},
+                  {"source": "assets/gallery/plan2.png"}
+              ]
+          }
+      }
+    ]
+  }
