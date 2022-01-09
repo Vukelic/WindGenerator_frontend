@@ -9,13 +9,37 @@ import { DtoUser } from '../dto/DtoModels/User/DtoUser';
 import { DtoPaging } from '../dto/DtoRequestObjectModels/DtoPaging';
 import { DtoUserListResponse } from '../dto/DtoResponseObjectModels/User/DtoUserListResponse';
 import { DtoUserResponse } from '../dto/DtoResponseObjectModels/User/DtoUserResponse';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserServiceService {
 
-  constructor(private http: HttpClient, private errService: ErrorHandlingService) { }
+  constructor(private http: HttpClient, private errService: ErrorHandlingService,private router: Router) { }
+
+  Login(user: DtoUser) {
+    return this.http.post(environment.BaseAPIUrl + 'User/' + 'Login', user).pipe(
+      map((resp: any) => {
+        if (resp.Success && resp.Value != null) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('token', resp.Value.UserToken);  
+         this.router.navigateByUrl("/dashboard");
+        }
+        else if (!resp.Success) {
+          // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'UserService, Post');
+          this.errService.displayDescriptiveErrorMessage("User", "Can't login user", resp, 5, 'popup-error');
+        }
+       
+        return resp;
+      }),
+      catchError(error => {
+        // Errors 500, 403, already resolved in interceptor
+        // return throwError(this.errService.getErrorMessage(error));
+        return error;
+      })
+    );
+  }
 
   Post(user: DtoUser) {
     return this.http.post(environment.BaseAPIUrl + 'User/' + 'Post', user).pipe(
@@ -56,6 +80,18 @@ export class UserServiceService {
       })
     );
   }
+
+  RegenerateToken() {
+    return this.http.get<DtoUserResponse>(environment.BaseAPIUrl + 'AcUsercount/' + 'RegenerateToken').pipe(map((response: DtoUserResponse) => {
+      if (response.Success && response.Value != null) {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('token', response.Value.UserToken);
+      
+      }
+      return response.Value;
+    }));
+  }
+
 
   GetList(paging: DtoPaging) {
     var objAsJson = JSON.stringify(paging);
