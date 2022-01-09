@@ -95,13 +95,13 @@ $orange-color: #f09030;
                 input {
                     padding: 5px;
                     border: none;
-                    border-bottom: 1px solid #dbdbdb;
+                  //  border-bottom: 1px solid #dbdbdb;
 
                     transition: all 0.2s ease-in-out;
                 }
 
                 input:focus {
-                    border-bottom: 1px solid $orange-color;
+                    //border-bottom: 1px solid $orange-color;
                 }
 
                 .user {
@@ -129,7 +129,7 @@ $orange-color: #f09030;
                 border: none;
                 padding: 10px 20px;
 
-                cursor: pointer;
+               // cursor: pointer;
             }
         }
     }

@@ -6,7 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { MarkerInfoBoxComponent } from './components/marker-info-box/marker-info-box.component';
 import { MapComponent } from './components/map/map.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -48,6 +48,7 @@ import { SelectLocationMapModalComponent } from './components/modals/select-loca
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { UsersComponent } from './components/users/users.component';
 import { RegistrationComponent } from './components/registration/registration.component'; 
+import { AuthInterceptorInterceptor } from './core/interceptor/auth-interceptor.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,7 +103,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     DragDropModule,
     MatTooltipModule,
   ],
-  providers: [],
+  providers: [  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorInterceptor, multi: true }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
