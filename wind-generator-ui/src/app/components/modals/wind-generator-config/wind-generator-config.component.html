@@ -1,6 +1,6 @@
 <div class="addre-holder">
 
-    <div style='display: flex; flex-direction: row; justify-content: space-between; height: 44px'>
+    <div *ngIf="false" style='display: flex; flex-direction: row; justify-content: space-between; height: 44px'>
         <mat-slide-toggle [(ngModel)]="choiceFromMap">Geolocation</mat-slide-toggle>
         <button  *ngIf="choiceFromMap" style="margin-left: 15px; height: 44px;" mat-raised-button (click)='openSelectFromMap()'><mat-icon>room</mat-icon> Choose location from map</button>
     </div>

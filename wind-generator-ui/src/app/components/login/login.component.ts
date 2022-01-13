@@ -39,7 +39,11 @@ export class LoginComponent implements OnInit {
      autoFocus: false,
    });
    dialogRef.afterClosed().subscribe((result) => {
-
+    if(result && result.userClickedOk){
+      if(result.user){
+        
+      }
+    }
    });
   }
 

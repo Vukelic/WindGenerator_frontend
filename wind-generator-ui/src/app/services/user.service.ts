@@ -15,8 +15,66 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UserServiceService {
+  public currentUser:DtoUser = null;
+
+  isLoggedIn: boolean = false;
+  jwtTokenValue: any;
+  tokenValue: any;
+  decodedTokenValue: any;
 
   constructor(private http: HttpClient, private errService: ErrorHandlingService,private router: Router) { }
+
+  doesJwtTokenExists(): boolean {
+    var jwtTokenValue = localStorage.getItem('token');
+    if (jwtTokenValue) {
+      return true;
+    }
+    return false;
+  }
+
+  decodeJwtToken() {
+    if(!this.jwtTokenValue){
+    this.jwtTokenValue = localStorage.getItem('token');
+
+    if (this.jwtTokenValue) {
+      this.tokenValue = atob(this.jwtTokenValue.split('.')[1]);
+
+      if (this.tokenValue) {
+        this.decodedTokenValue = JSON.parse(this.tokenValue);
+        console.log('decodedTokenValue', this.decodedTokenValue);
+        this.currentUser = new DtoUser();
+        if (this.decodedTokenValue.role) {
+          this.currentUser.currentRoleName = this.decodedTokenValue.role;
+        }
+
+        if (this.decodedTokenValue.name) {
+          this.currentUser.UserName = this.decodedTokenValue.name;
+        }
+
+        if (this.decodedTokenValue.UserId) {
+          this.currentUser.Id = this.decodedTokenValue.UserId;
+        }
+
+        if (this.decodedTokenValue.RoleId) {
+          this.currentUser.AssignRoleId = this.decodedTokenValue.RoleId;
+        }
+        if (this.decodedTokenValue.roleSettingsKey) {
+          this.currentUser.roleSettingsKey = this.decodedTokenValue.roleSettingsKey;
+        }
+
+        console.warn('currentUser', this.currentUser);
+      }
+    }
+   }
+  }
+
+  clearToken(){
+    localStorage.removeItem('token');
+    this.jwtTokenValue = null;
+    this.tokenValue = null;
+    this.decodedTokenValue = null;
+    this.currentUser = null;
+  }
 
   Login(user: DtoUser) {
     return this.http.post(environment.BaseAPIUrl + 'User/' + 'Login', user).pipe(
@@ -24,7 +82,8 @@ export class UserServiceService {
         if (resp.Success && resp.Value != null) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('token', resp.Value.UserToken);  
-         this.router.navigateByUrl("/dashboard");
+          this.decodeJwtToken();
+          this.router.navigateByUrl("/dashboard");
         }
         else if (!resp.Success) {
           // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'UserService, Post');
@@ -32,6 +91,20 @@ export class UserServiceService {
         }
        
         return resp;
+      }),
+      catchError(error => {
+        // Errors 500, 403, already resolved in interceptor
+        // return throwError(this.errService.getErrorMessage(error));
+        return error;
+      })
+    );
+  }
+
+  Logout() {
+    return this.http.get(environment.BaseAPIUrl + 'User/' + 'Logout').pipe(
+      map((resp: any) => {       
+          this.clearToken();
+          this.router.navigateByUrl("/login");       
       }),
       catchError(error => {
         // Errors 500, 403, already resolved in interceptor
@@ -204,4 +277,9 @@ export class UserServiceService {
   //     })
   //   );
   // }
+}
+
+export  class RoleKeys{
+  public static SuperAdmin_GlobalSettings_Key: string = "{system-admin-role}";
+  public static RegularUser_GlobalSettings_Key: string = "{system-user-role}}";
 }

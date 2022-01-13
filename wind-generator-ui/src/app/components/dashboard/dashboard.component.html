@@ -42,7 +42,7 @@
               <button class="sidenav-menu-button" (click)="gotoClients()">
                 <mat-icon style="margin-right: 5px">person</mat-icon> Users
               </button> -->
-              <button class="sidenav-menu-button" (click)="openWindGenerator(null)">
+              <button *ngIf="userService?.currentUser?.roleSettingsKey == RoleKeys.SuperAdmin_GlobalSettings_Key"  class="sidenav-menu-button" (click)="openWindGenerator(null)">
                 <mat-icon style="margin-right: 5px">add</mat-icon> Add new wind generator
               </button>
   

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { GlobalService } from './global.service';
 import { PopUpService } from './pop-up.service';
+import { WindGeneratorDeviceService } from './wind-generator-device.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +20,17 @@ export class MarkerService {
   constructor(
     private http: HttpClient,
     private popupService: PopUpService,
-    private globalService: GlobalService
+    private globalService: GlobalService,
+    private windGeneratorService: WindGeneratorDeviceService
   ) {}
 
+  getAllGenerators(): Observable<any>
+  {
+   return this.windGeneratorService.GetList(null);
+  }
+
   updateMarkerInfo(v: any, i:any, marker:any, lat:any, lon:any) {
+    console.warn('marker',v);
     marker.on('click', () => {
       this.markerInfo = v;
       console.log(this.markerInfo);
@@ -34,7 +42,7 @@ export class MarkerService {
         city: v.City,
        // type: v.type,
        // client: v.client,
-        value: v.value,
+        value: v.ValueDec,
         description: v.Description,
         name: v.Name,
       //  land: v.land,

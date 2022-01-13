@@ -49,6 +49,7 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { UsersComponent } from './components/users/users.component';
 import { RegistrationComponent } from './components/registration/registration.component'; 
 import { AuthInterceptorInterceptor } from './core/interceptor/auth-interceptor.interceptor';
+import { HistoriesComponent } from './components/modals/histories/histories.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,8 @@ import { AuthInterceptorInterceptor } from './core/interceptor/auth-interceptor.
     SelectLocationMapModalComponent,
     MyAccountComponent,
     UsersComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    HistoriesComponent
   ],
   imports: [
     BrowserModule,

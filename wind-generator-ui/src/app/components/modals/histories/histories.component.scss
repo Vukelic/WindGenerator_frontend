@@ -1,0 +1,20 @@
+table {
+    width: 100%;
+}
+
+.ws-holder{
+      display: flex;
+      flex-direction: column;
+     // height: 500px;
+}
+
+.footer-button{
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: flex-end;
+    text-align: center;
+    
+    //margin-top: 15px; 
+    border-radius: 0px
+}
