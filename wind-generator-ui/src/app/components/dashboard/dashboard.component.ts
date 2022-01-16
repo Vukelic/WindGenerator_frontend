@@ -10,13 +10,15 @@ import { WindGeneratorConfigComponent } from '../modals/wind-generator-config/wi
 import { WindGeneratorDeviceService } from 'src/app/services/wind-generator-device.service';
 import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
 import { MyAccountComponent } from '../my-account/my-account.component';
+import { RoleKeys, UserServiceService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  title = 'nekretnine-app';
+  title = 'wind-service-app';
+  public RoleKeys = RoleKeys;
 
   @ViewChild('left', { static: true }) leftSidenav:any;
   @ViewChild('right', { static: true }) rightSidenav:any;
@@ -86,7 +88,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private windGeneratorService: WindGeneratorDeviceService
+    private windGeneratorService: WindGeneratorDeviceService,
+    public userService: UserServiceService
   ) {
     this.options = fb.group({
       bottom: 0,
@@ -150,11 +153,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   getAllGenerators(){
     console.warn('getAllGenerators ');
+
     this.windGeneratorService.GetList(null).subscribe((res:any) => {
       this.emitRealEstates.next(<any>res.Value);
+      this.eventSubjectInfoBox.next();
       this.realEstates = res.Value;
     console.warn('all ', res);
     });
+
   }
 
   ngAfterViewInit() {
@@ -283,14 +289,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.eventSubjectInfoBox.next();
   }
 
-  getRealEstates(realEstateFilters:any) {
-    this.globalService.getRealEstates(realEstateFilters).subscribe(res => {
-      this.emitRealEstates.next(<any>res);
-      // console.log(res);
-    }, er => {
+  // getRealEstates(realEstateFilters:any) {
+  //   this.globalService.getRealEstates(realEstateFilters).subscribe(res => {
+  //     this.emitRealEstates.next(<any>res);
+  //     // console.log(res);
+  //   }, er => {
 
-    })
-  }
+  //   })
+  // }
   resetFilters() {
     // this.filters = {
     //   city: '',
@@ -424,7 +430,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     //this.router.navigate(['/users']);
   }
   gotoLogout(){
-    this.router.navigate(['/login']);
+    this.userService.Logout().subscribe(()=>{
+
+    });
+
   }
 
   gotoAccountSettings() {

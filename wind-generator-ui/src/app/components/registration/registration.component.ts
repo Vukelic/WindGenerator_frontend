@@ -69,11 +69,9 @@ export class RegistrationComponent implements OnInit {
     console.warn('current user:', this.currentUser);
     //SEND REQ TO SERVICE
 
-    // this.userService.Register(this.currentUser).subscribe(res => {
-     
-    //  // this.getAllGenerators();
-    // });
+    this.userService.Register(this.currentUser).subscribe(res => {
+      this.diag.close({userClickedOk: true, user: this.currentUser});
+    });
 
-     this.diag.close();
   }
 }

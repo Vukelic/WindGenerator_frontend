@@ -59,10 +59,10 @@ export class WindGeneratorConfigComponent implements OnInit {
 
   ngOnInit() {
     this.windForm = this.formBuilder.group({
-      country: ['Country placeholder'],
-      city: ['City placeholder'],
+      country: [],
+      city: [],
       name: [],
-      description: ['Description placeholder'],
+      description: [],
       lat: [this.data && this.data.lat ? this.data.lat : null, Validators.required],
       lon: [this.data && this.data.lng ? this.data.lng : null, Validators.required],
      // images: [`assets/gallery/gallery_image1.jpg\nassets/gallery/gallery_image2.jpg\nassets/gallery/gallery_image3.jpg\nassets/gallery/gallery_image4.jpg\nassets/gallery/gallery_image5.jpg\nassets/gallery/gallery_image6.jpg\nassets/gallery/gallery_image7.jpg\nassets/gallery/gallery_image8.jpg`],

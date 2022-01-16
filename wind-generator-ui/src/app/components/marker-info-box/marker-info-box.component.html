@@ -3,7 +3,7 @@
       Info
       <div>
         <!-- TODO: Only for admin -->
-        <button style="margin-right: 10px;" (click)="openDetails(markerInfo)" class="details-button">
+        <button *ngIf="userService?.currentUser?.roleSettingsKey == RoleKeys.SuperAdmin_GlobalSettings_Key" style="margin-right: 10px;" (click)="openDetails(markerInfo)" class="details-button">
           Details
         </button>
         <button (click)="openHistory(markerInfo)" class="details-button">
@@ -13,7 +13,7 @@
     </div>
 
     <div class="info-title-wh">
-      <strong>Wind power:</strong> {{ markerInfo.value ? markerInfo.value : "/" }}
+      <strong>Wind power:</strong> {{ markerInfo.value ? markerInfo.value.toFixed(2) : "0" }} kW
       </div>
     <p>
       <strong>Country:</strong>

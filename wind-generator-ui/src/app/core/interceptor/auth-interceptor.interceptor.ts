@@ -21,6 +21,7 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('interceptor');
     const tokenFromLocalStorage = localStorage.getItem('token');
+    this.userService.decodeJwtToken();
     const expirationDate = jwtHelper.getTokenExpirationDate(tokenFromLocalStorage);
     const isExpired = jwtHelper.isTokenExpired(tokenFromLocalStorage);
 

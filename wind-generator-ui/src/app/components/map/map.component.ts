@@ -6,6 +6,8 @@ import { MarkerService } from 'src/app/services/marker.service';
 import * as L from 'leaflet';
 import $ from "jquery";
 import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
+import { RoleKeys, UserServiceService } from 'src/app/services/user.service';
+import { DtoWindGeneratorDeviceListResponse } from 'src/app/dto/DtoResponseObjectModels/WindGeneratorDevice/DtoWindGeneratorDeviceListResponse';
 
 const iconRetinaUrl = '/assets/marker-icon-2x.png';
 const iconUrl = '/assets/marker-icon.png';
@@ -37,6 +39,8 @@ L.Marker.prototype.options.icon = iconDefault;
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit, AfterViewInit {
+  public RoleKeys = RoleKeys;
+  
   @ViewChild('resetViewButton', { static: true }) resetViewButton: any;
   private eventsSubscription: Subscription;
   @Input() realEstatesEvent: Observable<any>;
@@ -70,7 +74,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   constructor(
     private markerService: MarkerService,
-    private globalService: GlobalService
+    private globalService: GlobalService,
+    public userService: UserServiceService
   ) {
     this.mapViews.valueChanges.subscribe((item) => {
       this.changeLayoutTo(item);
@@ -277,67 +282,55 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   // Creating markers and adding them to marker layerGroup + adds info from marker to info box through markerService
-  makeCustomMarkers(map: L.Map, realEstateMapList: DtoWindGeneratorDevice[]): void {
-    if (realEstateMapList && realEstateMapList.length > 0) {
-      realEstateMapList.forEach((re, i, arr) => {
-        console.warn('reeee', re);
-        const lat = re.GeographicalLatitude;
-        const lon = re.GeographicalLongitude;
-        //const marker = L.marker([lat, lon], { setForceZIndex: 1 }).addTo(
-          const marker = L.marker([lat, lon], { }).addTo( 
-        this.markers
-        );
-        this.map.invalidateSize();
-        // When marker is clicked, icon is changed to iconSelected, and it's placed on top of all markers to be visible at all zoom levels
-        marker.on('click', () => {
-          // CLICK NA MARKER
-          this.markers.eachLayer(function (layer:any) {
-            layer.setZIndexOffset(1);
-            layer.setIcon(iconDefault);
-            // this.map.invalidateSize();
+  makeCustomMarkers(map: L.Map, realEstateMap: DtoWindGeneratorDevice[]): void {
+    this.markerService.getAllGenerators().subscribe((response: any)=>{
+      console.warn('response',response);
+      if(response.Success){
+      var realEstateMapList = response.Value;
+      if (realEstateMapList && realEstateMapList.length > 0) {
+        realEstateMapList.forEach((re:any, i:any, arr:any) => {
+          console.warn('reeee', re);
+          const lat = re.GeographicalLatitude;
+          const lon = re.GeographicalLongitude;
+          const val = re.ValueDec;
+          //const marker = L.marker([lat, lon], { setForceZIndex: 1 }).addTo(
+           const marker = L.marker([lat, lon], { }).addTo( this.markers);
+         // this.map.invalidateSize();
+          // When marker is clicked, icon is changed to iconSelected, and it's placed on top of all markers to be visible at all zoom levels
+          marker.on('click', () => {
+            // CLICK NA MARKER
+            this.markers.eachLayer(function (layer:any) {
+              layer.setZIndexOffset(1);
+              layer.setIcon(iconDefault);
+              // this.map.invalidateSize();
+            });
+            marker.setIcon(iconSelected);
+            marker.setZIndexOffset(1000);
+            map.panTo(marker.getLatLng());
+  
+            this.map.invalidateSize();
+ 
           });
-          marker.setIcon(iconSelected);
-          marker.setZIndexOffset(1000);
-          map.panTo(marker.getLatLng());
-
-          // L.Map.prototype.panToOffset = function (latlng, offset, options) {
-          //     var x = this.latLngToContainerPoint(latlng).x - offset[0]
-          //     var y = this.latLngToContainerPoint(latlng).y - offset[1]
-          //     var point = this.containerPointToLatLng([x, y])
-          //     return this.setView(point, this._zoom, { pan: options })
-          // }
-
-          // L.Map.prototype.setViewOffset = function (latlng, offset, targetZoom) {
-          //   var targetPoint = this.project(latlng, targetZoom).subtract(offset),
-          //   targetLatLng = this.unproject(targetPoint, targetZoom);
-          //   return this.setView(targetLatLng, targetZoom);
-          // }
-
-          // map.panToOffset(marker._latlng, [-140,0], {"animate":true});
-          // map.setViewOffset(marker._latlng,[-140,0],7);
-
-          this.map.invalidateSize();
-
-          // console.log(map.getPixelBounds());
-          // let tmpProject = map.project(marker._latlng, map.getZoom());
-          // map.panBy(marker._latlng);
-        });
-
-        // When clicked on map outside of marker, icon is set back to default
-        map.on('click', () => {
-          this.markers.eachLayer(function (layer:any) {
-            marker.setZIndexOffset(1);
-            layer.setIcon(iconDefault);
-            // this.map.invalidateSize();
+  
+          // When clicked on map outside of marker, icon is set back to default
+          map.on('click', () => {
+            this.markers.eachLayer(function (layer:any) {
+              marker.setZIndexOffset(1);
+              layer.setIcon(iconDefault);
+              // this.map.invalidateSize();
+            });
+            marker.setIcon(iconDefault);
+  
+            this.map.invalidateSize();
           });
-          marker.setIcon(iconDefault);
-
-          this.map.invalidateSize();
+        
+          this.markerService.updateMarkerInfo(re, i, marker, lat, lon);
         });
-
-        this.markerService.updateMarkerInfo(re, i, marker, lat, lon);
-      });
+      }
     }
+    });
+
+    
   }
 
   // Creating bounds around filtered markers and centering them in view

@@ -23,6 +23,9 @@ export  class DtoUser extends ARepoBaseEntity{
     AssignRole: DtoRole;
     AssignRoleId?: number;
 
+    //angular
+    currentRoleName: string;
+    roleSettingsKey: string;
     /**
      *
      */
