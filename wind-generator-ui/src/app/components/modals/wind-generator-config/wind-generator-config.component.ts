@@ -182,6 +182,7 @@ export class WindGeneratorConfigComponent implements OnInit {
       this.windGeneratorService.Put(this.currentWindGenerator.Id, this.currentWindGenerator).subscribe((res: DtoWindGeneratorDeviceResponse) => {
         this.addRE.close({ formData: formData });
         console.log('prosao');
+        this.markerService.refresh.next(true);
        // this.getAllGenerators();
       }, (error: any) => {
         console.log(error);
@@ -191,6 +192,7 @@ export class WindGeneratorConfigComponent implements OnInit {
           this.windGeneratorService.Post(this.currentWindGenerator).subscribe((res: DtoWindGeneratorDeviceResponse) => {
             this.addRE.close({ formData: formData });
             console.log('prosao');
+            this.markerService.refresh.next(true);
            // this.getAllGenerators();
           }, (error: any) => {
             console.log(error); 

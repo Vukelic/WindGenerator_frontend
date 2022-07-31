@@ -1,0 +1,17 @@
+<fieldset *ngIf="displayedColumnsItem && selectedItems && selectedItems.length > 0" style="margin-left: 70px;
+    width: 300px;" class="position-relative ml-2">
+    <legend class="display-4 mb-0">Chart</legend>
+    <google-chart #chart  [type]="type" [data]="selectedItems" [columns]="displayedColumnsItem"
+      [width]="width" [height]="height">
+    </google-chart>
+</fieldset>
+
+<!-- <google-chart 
+    [type]="chartData.type" 
+    [data]="chartData.data" 
+    [columns]="chartData.columnNames" 
+    [options]="chartData.options" 
+    [width]="chartData.width"
+    [height]="chartData.height">
+      
+</google-chart> -->

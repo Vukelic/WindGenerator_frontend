@@ -50,6 +50,8 @@ import { UsersComponent } from './components/users/users.component';
 import { RegistrationComponent } from './components/registration/registration.component'; 
 import { AuthInterceptorInterceptor } from './core/interceptor/auth-interceptor.interceptor';
 import { HistoriesComponent } from './components/modals/histories/histories.component';
+import { ChartItemsComponent } from './components/chart-items/chart-items.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +64,8 @@ import { HistoriesComponent } from './components/modals/histories/histories.comp
     MyAccountComponent,
     UsersComponent,
     RegistrationComponent,
-    HistoriesComponent
+    HistoriesComponent,
+    ChartItemsComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +106,7 @@ import { HistoriesComponent } from './components/modals/histories/histories.comp
     MatSortModule,
     MatPaginatorModule,
     DragDropModule,
-    MatTooltipModule,
+    GoogleChartsModule
   ],
   providers: [  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorInterceptor, multi: true }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

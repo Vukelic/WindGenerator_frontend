@@ -1,36 +1,38 @@
 
 <div class="ws-holder">
-    <h1>History deatils of {{parentGenerator?.Name}} generator</h1>
-    <div class="mat-elevation-z8" >
+    <h1>History details of {{parentGenerator?.Name}} generator</h1>
+    <!-- <div class="mat-elevation-z8" >
         <table mat-table [dataSource]="dataSource" style="overflow-y: scroll;">
       
-          <!-- Name Column -->
-          <ng-container matColumnDef="Name">
+          Name Column -->
+          <!-- <ng-container matColumnDef="Name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
             <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
-          </ng-container>
+          </ng-container> -->
       
           <!-- Weight Column -->
-          <ng-container matColumnDef="ValueDec">
+          <!-- <ng-container matColumnDef="ValueDec">
             <th mat-header-cell *matHeaderCellDef> Wind Power </th>
             <td mat-cell *matCellDef="let element"> {{element.ValueDec.toFixed(2)}} </td>
-          </ng-container>
+          </ng-container> -->
       
           <!-- Symbol Column -->
-          <ng-container matColumnDef="TimeCreated">
+          <!-- <ng-container matColumnDef="TimeCreated">
             <th mat-header-cell *matHeaderCellDef> TimeCreated </th>
             <td mat-cell *matCellDef="let element"> {{element.TimeCreated | date:'short'}} </td>
-          </ng-container>
-      
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          </ng-container> -->
+    
+          <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       
         <mat-paginator showFirstLastButtons (page)="pageChanged($event)" [length]="paginatorCount" [pageSize]="pageSize"
         [pageSizeOptions]="[5, 10, 25, 100]">
       </mat-paginator>
-      </div>
+      </div>  -->
 
+      <app-chart-items style="width: 100%;margin-top: 20px;" *ngIf="isReadyPreviewChart"
+      [selectedItems]="historyItems" [displayedColumnsItem]="displayedColumnsItemChart"></app-chart-items>
       <div class="footer-button" style="margin-top: 10px;" >
         <button style="margin-right: 10px;"  class='global-button'(click)="ok()"  type="submit">Ok</button>
         <button  (click)="cancel()" class='global-button'>Cancel</button>
