@@ -24,9 +24,10 @@
             "
           >
             <div class="logo-header">
-              <img src="assets/windLogo.png" style="width: 200px" />
+              <img src="assets/windLogo.png" style="width: 300px" />
             </div>
-  
+            <!-- <p>Wind Turbines & Services</p>
+            <p>Highly profitable</p> -->
            <div
               style="
                 display: flex;
@@ -42,197 +43,133 @@
               <button class="sidenav-menu-button" (click)="gotoClients()">
                 <mat-icon style="margin-right: 5px">person</mat-icon> Users
               </button> -->
-              <button *ngIf="userService?.currentUser?.roleSettingsKey == RoleKeys.SuperAdmin_GlobalSettings_Key"  class="sidenav-menu-button" (click)="openWindGenerator(null)">
+              <button class="sidenav-menu-button" (click)="gotoMyInvestments()">
+                <mat-icon style="margin-right: 5px">folder</mat-icon> My investments
+              </button>
+              <!-- <button class="sidenav-menu-button" (click)="gotoClients()">
+                <mat-icon style="margin-right: 5px">person</mat-icon> Clients
+              </button> -->
+              <button *ngIf="false && userService?.currentUser?.roleSettingsKey == RoleKeys.SuperAdmin_GlobalSettings_Key"  class="sidenav-menu-button" (click)="openWindGenerator(null)">
                 <mat-icon style="margin-right: 5px">add</mat-icon> Add new wind generator
               </button>
   
               <!-- <button class='global-button-default add-re-btn' style="margin-left: 10px;" (click)='consoleTest()'>ConsoleTest</button> -->
             </div>
    
-            <!-- <div
-              class="flex-row-start"
-              style="justify-content: space-between; margin-top: 20px"
+            <div
+            class="flex-row-start"
+            style="justify-content: space-between; margin-top: 50px"
+          >
+            <div class="filter-icon">
+              <mat-icon>paid</mat-icon>
+              <span style="display:flex;justify-content: center; font-weight: bold; border-bottom: 2px solid #e88653;">Invest in wind power</span>
+            </div>
+
+            <!-- <button
+              class="add-filter-button"
+              (click)="openChooseFiltersModal()"
+              matTooltip="Change filters"
+              [matTooltipPosition]="'after'"
             >
-              <div class="filter-icon">
-                <mat-icon>filter_alt</mat-icon>
-                <span style="margin-top: 2px">Filters</span>
+              <mat-icon>add</mat-icon>
+            </button> -->
+          </div>
+        
+
+          <form [formGroup]="realEstateFilters" *ngIf="true">
+            <div  class="filters-holder">           
+              <button  style="margin-left: 15px; height: 44px;margin-top: 20px;" mat-raised-button (click)='openSelectFromMap()'><mat-icon>room</mat-icon> Choose location from map</button>
+              <input
+                type="text"
+                class="filter-input"
+                placeholder="City"
+                formControlName="city"
+              />
+              <div class="range-input-row">
+                <input
+                  type="number"
+                  class="filter-input"
+                  placeholder="Latitude*"
+                  formControlName="landFrom"
+                  [(ngModel)]="filters.landFrom"
+                />
+                <input
+                  type="number"
+                  class="filter-input"
+                  placeholder="Longitude*"
+                  formControlName="landTo"
+                  [(ngModel)]="filters.landTo"
+                />
+               
               </div>
-  
-              <button
-                class="add-filter-button"
-                (click)="openChooseFiltersModal()"
-                matTooltip="Change filters"
-                [matTooltipPosition]="'after'"
-              >
-                <mat-icon>add</mat-icon>
-              </button>
-            </div> -->
-            <!-- <div class="result-div">
-              <ul>
-                <li
-                  *ngFor="
-                    let res of realEstates
-                      | paginate
-                        : {
-                            itemsPerPage: 3,
-                            currentPage: page,
-                            totalItems: totalLength
-                          }
-                  "
-                >
-                  <h3>
-                    <b>{{ res.city }} realestate information</b>
-                  </h3>
-                  <p><b>country:</b>{{ res.country }}</p>
-                  <p><b>city:</b>{{ res.city }}</p>
-                  <p><b>description:</b>{{ res.description }}</p>
-                  <hr />
-                </li>
-              </ul>
-              <pagination-controls
-                class="ngx-pagination"
-                (pageChange)="page = $event"
-                previousLabel=""
-                nextLabel=""
-              ></pagination-controls>
-            </div> -->
-  
-            <!-- <form [formGroup]="realEstateFilters" *ngIf="false">
-              <div class="filter-box">
-                <div class="filter-box-row">
-                  <span>Land</span>
-                </div>
-                <div class="filter-box-row">
-                  <div class="range-input-row">
-                    <input
-                      type="number"
-                      class="filter-input"
-                      placeholder="Land from (sqm)"
-                      formControlName="landFrom"
-                      [(ngModel)]="filters.landFrom"
-                    />
-                    <input
-                      type="number"
-                      class="filter-input"
-                      placeholder="Land to (sqm)"
-                      formControlName="landTo"
-                      [(ngModel)]="filters.landTo"
-                    />
-                  </div>
-                </div>
-              </div>
-  
-              <div class="filter-box">
-                <div class="filter-box-row">
-                  <span>Value</span>
-                </div>
-                <div class="filter-box-row">
-                  <div class="range-input-row">
-                    <input
-                      type="number"
-                      class="filter-input"
-                      placeholder="Value from (eur)"
-                      formControlName="valueFrom"
-                    />
-                    <input
-                      type="number"
-                      class="filter-input"
-                      placeholder="Value to (eur)"
-                      formControlName="valueTo"
-                    />
-                  </div>
-                </div>
-              </div>
-            </form> -->
-  
-            <!-- <form [formGroup]="realEstateFilters" *ngIf="true">
-              <div class="filters-holder">
+              <div class="range-input-row">
                 <mat-form-field>
-                  <mat-label>Filter by project</mat-label>
+                  <mat-label>Choose type</mat-label>
                   <mat-select formControlName="selectedProjectFilter">
                     <mat-option *ngFor="let proj of projects" [value]="proj">
                       {{ proj.project }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-  
-                <input
-                  type="text"
-                  class="filter-input"
-                  placeholder="City"
-                  formControlName="city"
-                />
-                <div class="range-input-row">
-                  <input
-                    type="number"
-                    class="filter-input"
-                    placeholder="Land from (sqm)"
-                    formControlName="landFrom"
-                    [(ngModel)]="filters.landFrom"
-                  />
-                  <input
-                    type="number"
-                    class="filter-input"
-                    placeholder="Land to (sqm)"
-                    formControlName="landTo"
-                    [(ngModel)]="filters.landTo"
-                  />
-                </div>
-                <div class="range-input-row">
-                  <input
-                    type="number"
-                    class="filter-input"
-                    placeholder="BuildSize to (sqm)"
-                    formControlName="buildingSizeFrom"
-                  />
-                  <input
-                    type="number"
-                    class="filter-input"
-                    placeholder="BuildSize from (sqm)"
-                    formControlName="buildingSizeTo"
-                  />
-                </div>
-                <div class="range-input-row">
-                  <input
-                    type="number"
-                    class="filter-input"
-                    placeholder="Value from (eur)"
-                    formControlName="valueFrom"
-                  />
-                  <input
-                    type="number"
-                    class="filter-input"
-                    placeholder="Value to (eur)"
-                    formControlName="valueTo"
-                  />
-                </div>
               </div>
-            </form> -->
-  
-            <!-- <div
-              style="
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                margin-top: 25px;
-              "
-              *ngIf="true"
+             
+              <div class="range-input-row" *ngIf="false">
+              
+                <input
+                  type="number"
+                  class="filter-input"
+                  placeholder="BuildSize to (sqm)"
+                  formControlName="buildingSizeFrom"
+                />
+                <input
+                  type="number"
+                  class="filter-input"
+                  placeholder="BuildSize from (sqm)"
+                  formControlName="buildingSizeTo"
+                />
+              </div>
+              <div class="range-input-row"  *ngIf="false">
+                <input
+                  type="number"
+                  class="filter-input"
+                  placeholder="Value from (eur)"
+                  formControlName="valueFrom"
+                />
+                <input
+                  type="number"
+                  class="filter-input"
+                  placeholder="Value to (eur)"
+                  formControlName="valueTo"
+                />
+              </div>
+            </div>
+          </form>
+
+          <div
+            style="
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              margin-top: 25px;
+            "
+            *ngIf="true"
+          >
+            <button class="global-button filter-btn" (click)="filterByValue()">
+              <mat-icon class="button-icon">search</mat-icon><span>Check profit</span>
+            </button>
+            <button
+              class="global-button-default filter-btn"
+              (click)="resetFilters()"
             >
-              <button class="global-button filter-btn" (click)="filterByValue()">
-                <mat-icon class="button-icon">search</mat-icon><span>Filter</span>
-              </button>
-              <button
-                class="global-button-default filter-btn"
-                (click)="resetFilters()"
-              >
-                <mat-icon class="button-icon">cancel</mat-icon><span>Reset</span>
-              </button>
-            </div> -->
+              <mat-icon class="button-icon">cancel</mat-icon><span>Reset</span>
+            </button>
+          </div>
+        
           </div>
   
           <div class="nav-menu-holder">
             <div class="nav-menu-profile" (click)="gotoUserSettings()">
-              <!-- <img src="assets/profile.png" alt="" /> -->
+               <img src="assets/user.png" alt="" /> 
             </div>
             <div class="nav-menu-settings">
               <button

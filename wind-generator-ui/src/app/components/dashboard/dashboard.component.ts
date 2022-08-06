@@ -11,6 +11,7 @@ import { WindGeneratorDeviceService } from 'src/app/services/wind-generator-devi
 import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
 import { MyAccountComponent } from '../my-account/my-account.component';
 import { RoleKeys, UserServiceService } from 'src/app/services/user.service';
+import { SelectLocationMapModalComponent } from '../select-location-map-modal/select-location-map-modal.component';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -151,6 +152,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.getAllGenerators();
   }
 
+  gotoMyInvestments(){
+
+  }
+
+  gotoUserSettings() {
+    this.router.navigate(['/user-settings']);
+  }
   getAllGenerators(){
     console.warn('getAllGenerators ');
 
@@ -426,9 +434,34 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  gotoUserSettings() {
-    //this.router.navigate(['/users']);
+  openSelectFromMap(){
+    const dialogRef = this.dialog.open(SelectLocationMapModalComponent, {
+      width: '800px',
+      data: {},
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // this.blockUI.start('');
+      if(result != null && result != undefined) {
+        if (result.latlon != null && result.latlon != undefined) {
+          this.realEstateFilters.patchValue({landFrom: result.latlon.lat, landTo: result.latlon.lng})
+          // console.log(this.windForm.value);
+
+          this.globalService.getAdressFromCoords(this.realEstateFilters.value.landFrom, this.realEstateFilters.value.landTo)
+          .subscribe(res => {
+            if(res != null && res != undefined) {
+              // console.log(res)
+              this.realEstateFilters.patchValue({city: res.address.city, country: res.address.country});
+            }
+          });
+        }
+      }
+    });
   }
+
+  // gotoUserSettings() {
+  //   //this.router.navigate(['/users']);
+  // }
   gotoLogout(){
     this.userService.Logout().subscribe(()=>{
 

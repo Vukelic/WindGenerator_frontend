@@ -9,7 +9,7 @@ import { DtoWindGeneratorDeviceResponse } from 'src/app/dto/DtoResponseObjectMod
 import { GlobalService } from 'src/app/services/global.service';
 import { MarkerService } from 'src/app/services/marker.service';
 import { WindGeneratorDeviceService } from 'src/app/services/wind-generator-device.service';
-import { SelectLocationMapModalComponent } from '../select-location-map-modal/select-location-map-modal.component';
+import { SelectLocationMapModalComponent } from '../../select-location-map-modal/select-location-map-modal.component';
 
 @Component({
   selector: 'app-wind-generator-config',

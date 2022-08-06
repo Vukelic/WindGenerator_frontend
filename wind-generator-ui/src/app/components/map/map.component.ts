@@ -128,7 +128,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       minZoom: 3,
     });
 
-    this.changeLayoutTo(this.mapViewList[0]);
+    this.changeLayoutTo(this.mapViewList[2]);
 
     this.markers = L.layerGroup().addTo(this.map);
 
@@ -450,6 +450,27 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   searchMap() {
+    this.globalService
+    .getMapViewFromSearchTerm(this.mapSearchTerm)
+    .subscribe((res) => {
+      if (res != null && res != undefined && res != []) {
+        let cityFromSearch;
+        for (let i = 0; i < 1; i++) {
+          cityFromSearch = res[0];
+        }
+        if (cityFromSearch != null && cityFromSearch != undefined) {
+          if (
+            cityFromSearch.lat != undefined &&
+            cityFromSearch.lon != undefined
+          ) {
+            this.map.setView(
+              [cityFromSearch.lat, cityFromSearch.lon],
+              12
+            );
+          }
+        }
+      }
+    });
     // if (this.mapSearchTerm == '') {
     //   this.resetView();
     // } else {
