@@ -1,0 +1,35 @@
+.invest-holder{
+    display: flex;
+    flex-direction: column;
+   
+    width: 100%;
+    height: 100%;
+}
+.invest-card-holder{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.invest-card {
+    border-radius: 10px;
+    width: 500px;
+    height: 500px;
+    margin-top: 20px;
+  
+    -webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  }
+
+.invest-title{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    padding: 20px 0px 10px 0px;
+  }

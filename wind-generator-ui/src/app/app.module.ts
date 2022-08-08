@@ -54,6 +54,9 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { UserSettingsComponent } from './components/account/user-settings/user-settings.component';
 import { MapForSelectionComponent } from './components/map-for-selection/map-for-selection.component';
 import { SelectLocationMapModalComponent } from './components/select-location-map-modal/select-location-map-modal.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { InvestComponent } from './components/invest/invest.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +72,10 @@ import { SelectLocationMapModalComponent } from './components/select-location-ma
     ChartItemsComponent,
     UserSettingsComponent,
     MapForSelectionComponent,
-    SelectLocationMapModalComponent
+    SelectLocationMapModalComponent,
+    NavBarComponent,
+    LandingComponent,
+    InvestComponent
   ],
   imports: [
     BrowserModule,

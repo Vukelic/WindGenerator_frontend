@@ -1,5 +1,5 @@
-<block-ui>
-    <ng-container>
+<block-ui *ngIf="true">
+    <ng-container >
       <mat-sidenav-container class="example-container">
         <!-- LEFT SIDENAV -->
         <mat-sidenav
@@ -44,7 +44,7 @@
                 <mat-icon style="margin-right: 5px">person</mat-icon> Users
               </button> -->
               <button class="sidenav-menu-button" (click)="gotoInvestigate()">
-              Invest
+              Investigate
               </button>
               <button class="sidenav-menu-button" (click)="gotoGlobalInvestments()">
               Global investments
@@ -55,9 +55,9 @@
               <!-- <button class="sidenav-menu-button" (click)="gotoClients()">
                 <mat-icon style="margin-right: 5px">person</mat-icon> Clients
               </button> -->
-              <button *ngIf="false && userService?.currentUser?.roleSettingsKey == RoleKeys.SuperAdmin_GlobalSettings_Key"  class="sidenav-menu-button" (click)="openWindGenerator(null)">
+              <!-- <button *ngIf="false && userService?.currentUser?.roleSettingsKey == RoleKeys.SuperAdmin_GlobalSettings_Key"  class="sidenav-menu-button" (click)="openWindGenerator(null)">
                 <mat-icon style="margin-right: 5px">add</mat-icon> Add new wind generator
-              </button>
+              </button> -->
   
               <!-- <button class='global-button-default add-re-btn' style="margin-left: 10px;" (click)='consoleTest()'>ConsoleTest</button> -->
             </div>
@@ -81,7 +81,7 @@
           </div>
         
 
-          <form [formGroup]="realEstateFilters" *ngIf="false">
+          <!-- <form [formGroup]="realEstateFilters" *ngIf="false">
             <div  class="filters-holder">           
               <button  style="margin-left: 15px; height: 44px;margin-top: 20px;" mat-raised-button (click)='openSelectFromMap()'><mat-icon>room</mat-icon> Choose location from map</button>
               <input
@@ -148,9 +148,9 @@
                 />
               </div>
             </div>
-          </form>
+          </form> -->
 
-          <div
+          <!-- <div
             style="
               display: flex;
               flex-direction: row;
@@ -168,7 +168,7 @@
             >
               <mat-icon class="button-icon">cancel</mat-icon><span>Reset</span>
             </button>
-          </div>
+          </div> -->
         
           </div>
   
@@ -227,40 +227,6 @@
           </button>
         </mat-sidenav>
   
-        <!-- RIGHT SIDENAV -->
-        <mat-sidenav
-          #sidenav
-          #right
-          position="end"
-          mode="side"
-          class="right-sidenav custom-scroll1"
-          [fixedInViewport]="options.value.fixed"
-          [fixedTopGap]="options.value.top"
-          [fixedBottomGap]="options.value.bottom"
-        >
-          <button
-            class="toggle-sidenav-button-right-inside global-button"
-            color="primary"
-            *ngIf="rightSidenavOpened"
-            (click)="toggleRightSidenav($event)"
-          >
-            <mat-icon>arrow_right</mat-icon>
-          </button>
-  
-          <div class="width-button">
-            <button
-              id="rightSidenavFullscreenToggleButton"
-              class="global-button fullscr-btn"
-            >
-              Toggle fullscreen
-            </button>
-          </div>
-  
-          <app-multisort-table
-            [realEstatesEvent]="emitRealEstates.asObservable()"
-          ></app-multisort-table>
-        </mat-sidenav>
-  
         <mat-sidenav-content [formGroup]="options">
           <button
             class="toggle-sidenav-button-left global-button"
@@ -270,39 +236,8 @@
           >
             <mat-icon>arrow_right</mat-icon>
           </button>
-          <!-- <button
-            class="toggle-sidenav-button-right global-button"
-            color="primary"
-            *ngIf="!rightSidenavOpened"
-            (click)="toggleRightSidenav($event)"
-          >
-            <mat-icon>arrow_left</mat-icon>
-          </button> -->
-  
-          <div class="main-contr"  >
-            <div class="main-content">
-              <div *ngIf="status == 'map'">
-                <app-map
-                [realEstatesEvent]="emitRealEstates.asObservable()"
-                [dashboardLeftSidebarWidthEvent]="emitLeftSidebarWidth"
-                [invalidateSizeMapEvent]="emitInvalidateSizeMap"
-                (addNewRealEstateFromContextMenu)="addNewWind($event)"
-                [centerMapZoomEvent]="emitCenterMarkers"
-              ></app-map>
-              <div class="marker-info-box">
-                <app-marker-info-box
-                  [showMarkerInfoBlockO]="eventSubjectInfoBox.asObservable()"
-                >
-                </app-marker-info-box>
-              </div>
-              </div>
-            <div *ngIf="status == 'invest'">
-              <app-invest></app-invest>
-            </div>
-            </div>
-          </div>
+
         </mat-sidenav-content>
       </mat-sidenav-container>
     </ng-container>
   </block-ui>
-  

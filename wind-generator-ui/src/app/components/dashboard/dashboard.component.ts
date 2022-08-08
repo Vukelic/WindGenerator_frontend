@@ -20,7 +20,7 @@ import { SelectLocationMapModalComponent } from '../select-location-map-modal/se
 export class DashboardComponent implements OnInit, AfterViewInit {
   title = 'wind-service-app';
   public RoleKeys = RoleKeys;
-
+  status = "";
   @ViewChild('left', { static: true }) leftSidenav:any;
   @ViewChild('right', { static: true }) rightSidenav:any;
   emitRealEstates: Subject<void> = new Subject<void>();
@@ -116,6 +116,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.status = "invest";
     this.realEstateFilters = this.formBuilder.group({
       city: [''],
       landFrom: [null, Validators.min(0)],
@@ -152,9 +153,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.getAllGenerators();
   }
 
-  gotoMyInvestments(){
-
-  }
+ 
 
   gotoUserSettings() {
     this.router.navigate(['/user-settings']);
@@ -467,6 +466,21 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     });
 
+  }
+  gotoInvestigate(){
+    this.status = "invest";
+  }
+  gotoGlobalInvestments(){
+    this.status = "map";
+    this.getAllGenerators();
+    //this.status = "map";
+   // this.router.navigate(['/map']);
+  }
+  gotoMyInvestments(){
+
+    this.status = "map";
+    this.getAllGenerators();
+    //this.router.navigate(['/map']);
   }
 
   gotoAccountSettings() {
