@@ -231,5 +231,41 @@ button:focus {
   transition: all 0.5s;
 }
 
+.us-list-button {
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: center;
+  // align-items: center;
+
+  // background-color: #e2e2e2;
+  // height: 28px;
+  // padding: 5px 10px;
+  // border: none;
+  // border-radius: 5px;
+
+  // transition: all 0.2s;
+  // cursor: pointer;
+
+  height: 38px;
+    border: none;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+    color: #fff;
+    font-weight: 500;
+    background-size: 200px 200px;
+    background-position: -100px -100px;
+    background-color: #999494;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  
+    box-shadow: 0px 3px 10px 0px rgb(255 71 43 / 0%);
+    cursor: pointer;
+    transition: all 0.5s
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

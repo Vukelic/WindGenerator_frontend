@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import L from 'leaflet';
 import { GlobalService } from 'src/app/services/global.service';
 import { MarkerService } from 'src/app/services/marker.service';
+
 
 @Component({
   selector: 'app-map-for-selection',
@@ -18,14 +20,21 @@ export class MapForSelectionComponent implements OnInit {
   private mapForSelection: any;
   mapSearchTerm: string;
   inputSearchField = document.getElementById('inputMapSelectionSearchTerm');
-
+lat: any = 45.2551338;
+long: any = 19.8451756;
   constructor(
     private markerService: MarkerService,
     private http: HttpClient,
-    private globalService: GlobalService
+    private globalService: GlobalService,
+    public selectFromMapModal: MatDialogRef<MapForSelectionComponent>, 
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit() {
+    if(this.data.object){
+      this.lat = this.data.object.lat;
+      this.long = this.data.object.long;
+    }
     this.loadMapForSelection();
     this.selectLatLon();
     this.inputSearchMap();
@@ -33,7 +42,7 @@ export class MapForSelectionComponent implements OnInit {
 
   loadMapForSelection() {
     this.mapForSelection = L.map('mapForSelection', {
-      center: [45.2551338, 19.8451756],
+      center: [this.lat, this.long],
       zoom: 8,
     });
 

@@ -12,6 +12,7 @@ import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevic
 import { MyAccountComponent } from '../my-account/my-account.component';
 import { RoleKeys, UserServiceService } from 'src/app/services/user.service';
 import { SelectLocationMapModalComponent } from '../select-location-map-modal/select-location-map-modal.component';
+import { UserSettingsComponent } from '../account/user-settings/user-settings.component';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -156,7 +157,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
  
 
   gotoUserSettings() {
-    this.router.navigate(['/user-settings']);
+    const dialogRef = this.dialog.open(UserSettingsComponent, {
+      width: '400px',
+     data: {},
+     autoFocus: false,
+   });
+   dialogRef.afterClosed().subscribe((result) => {
+
+   });
+    //this.router.navigate(['/user-settings']);
   }
   getAllGenerators(){
     console.warn('getAllGenerators ');
@@ -199,6 +208,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   openWindGenerator(e:any) {
+    this.status =  "map";
     console.warn('openWindGenerator');
     const dialogRef = this.dialog.open(WindGeneratorConfigComponent, {
       width: '1000px',
@@ -212,6 +222,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   addNewWind(e:any){
+    console.warn('eeee',e);
     const dialogRef = this.dialog.open(WindGeneratorConfigComponent, {
       width: '1000px',
       data: e,
@@ -467,6 +478,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
 
   }
+
+  gotoStatistic(){
+    this.status = "statistic";
+   // this.router.navigate(['/statistic']);
+  }
   gotoInvestigate(){
     this.status = "invest";
   }
@@ -476,21 +492,24 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     //this.status = "map";
    // this.router.navigate(['/map']);
   }
+
   gotoMyInvestments(){
 
-    this.status = "map";
-    this.getAllGenerators();
+    this.status = "personal_contributes";
+  //  this.getAllGenerators();
     //this.router.navigate(['/map']);
   }
 
   gotoAccountSettings() {
-      const dialogRef = this.dialog.open(MyAccountComponent, {
-       width: '400px',
+      const dialogRef = this.dialog.open(UserSettingsComponent, {
+       width: '600px',
       data: {},
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
-
+      if(result){
+        
+      }
     });
   }
 

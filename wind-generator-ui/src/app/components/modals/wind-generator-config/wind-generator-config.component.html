@@ -5,7 +5,7 @@
         <button  *ngIf="choiceFromMap" style="margin-left: 15px; height: 44px;" mat-raised-button (click)='openSelectFromMap()'><mat-icon>room</mat-icon> Choose location from map</button>
     </div>
     
-    <form [formGroup]='windForm' class='addre-holder' >
+    <div [formGroup]='windForm' class='addre-holder' >
         <div class="w100" style="display: flex; flex-direction: row; justify-content: space-between;">
             <mat-form-field class="example-form-field w100" style='flex: 1; margin-right: 15px;'>
                 <input matInput type="text" placeholder="Latitude" formControlName="lat">
@@ -79,24 +79,38 @@
                 </mat-form-field> -->
             </div>
 
-            <!-- <div class="are-form-row">
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
-                    <textarea matInput type="text" placeholder="Documents" formControlName="documents" rows="4"></textarea>
-                </mat-form-field>
+            <div class="are-form-col" *ngIf="!this.data || !this.data?.Id">
+                <div>
+                    <span style="font-size: 25px;">
+                        Your decision: Is a wind generator a good investment?
+                    </span>
+                </div>
+               
+                <div style="display: flex;
+                justify-content: center;">
+                    <button (click)="checkProfit()" style="width: 250px;
+                    display: flex;
+                    justify-content: center;
+                    text-align: center;
+                    margin-top: 20px;" class='global-button'>
+                        CHECK PROFIT
+                    </button>
+                </div>
+               
+            </div>
 
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
-                    <textarea matInput type="text" placeholder="Plans" formControlName="plans" rows="4"></textarea>
-                </mat-form-field>
-            </div> -->
         </div>
     <div class="footers-line">
         <button *ngIf="currentWindGenerator && currentWindGenerator.Id != 0" (click)="delete()" class='global-button' >Delete</button>
     
         <div class="footer-button">
-            <button style="margin-right: 10px;"  class='global-button'(click)="addWindGenerator()"  type="submit">Save</button>
-            <button  (click)="cancel()" class='global-button'>Cancel</button>
+                
+        </div>
+        <div class="footer-button">
+            <button  (click)="cancel()" class='us-list-button'>Cancel</button>
+            <button style="margin-left: 20px;"  class='global-button' (click)="addWindGenerator()"  type="submit">Save</button>
         </div>
     </div>
-    </form>
+    </div>
     
 </div>

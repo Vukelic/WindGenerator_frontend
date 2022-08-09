@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MapComponent } from './components/map/map.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { StatisticComponent } from './components/statistic/statistic.component';
 import { UsersComponent } from './components/users/users.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
@@ -37,16 +38,21 @@ const routes: Routes = [
   path: 'account',
   component: MyAccountComponent,
 },
-{
-  canActivate: [AuthGuard],
-  path: 'user-settings',
-  component: UserSettingsComponent,
-},
+// {
+//   canActivate: [AuthGuard],
+//   path: 'user-settings',
+//   component: UserSettingsComponent,
+// },
 
 {
   canActivate: [AuthGuard],
   path: 'invest',
   component: InvestComponent,
+},
+{
+  canActivate: [AuthGuard],
+  path: 'statistic',
+  component: StatisticComponent,
 },
 
 ]

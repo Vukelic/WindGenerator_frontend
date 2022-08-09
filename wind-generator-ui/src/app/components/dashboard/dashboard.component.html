@@ -43,14 +43,21 @@
               <button class="sidenav-menu-button" (click)="gotoClients()">
                 <mat-icon style="margin-right: 5px">person</mat-icon> Users
               </button> -->
+             
               <button class="sidenav-menu-button" (click)="gotoInvestigate()">
-              Invest
-              </button>
+                Introduction
+                </button>
               <button class="sidenav-menu-button" (click)="gotoGlobalInvestments()">
-              Global investments
+              <mat-icon style="margin-right: 5px">place</mat-icon>Energy network
               </button>
-              <button class="sidenav-menu-button" (click)="gotoMyInvestments()">
-              My investments
+              <button class="sidenav-menu-button" (click)="gotoStatistic()">
+                <mat-icon style="margin-right: 5px">area_chart</mat-icon> Statistics & Reports
+                </button>
+                <button class="sidenav-menu-button" (click)="openWindGenerator(null)" >
+                  <mat-icon style="margin-right: 5px">euro</mat-icon>Invest in new one
+                  </button>
+              <button  class="sidenav-menu-button" (click)="gotoMyInvestments()">
+                <mat-icon style="margin-right: 5px">savings</mat-icon>Personal contributes
               </button>
               <!-- <button class="sidenav-menu-button" (click)="gotoClients()">
                 <mat-icon style="margin-right: 5px">person</mat-icon> Clients
@@ -166,16 +173,16 @@
               class="global-button-default filter-btn"
               (click)="resetFilters()"
             >
-              <mat-icon class="button-icon">cancel</mat-icon><span>Reset</span>
+              <mat-icon class="us-list-button">cancel</mat-icon><span>Reset</span>
             </button>
           </div>
         
           </div>
   
           <div class="nav-menu-holder">
-            <div class="nav-menu-profile" (click)="gotoUserSettings()">
+            <!-- <div class="nav-menu-profile" (click)="gotoUserSettings()">
                <img src="assets/user.png" alt="" /> 
-            </div>
+            </div> -->
             <div class="nav-menu-settings">
               <button
                 class="global-button-icon"
@@ -298,6 +305,12 @@
               </div>
             <div *ngIf="status == 'invest'">
               <app-invest></app-invest>
+            </div>
+            <div *ngIf="status == 'statistic'">
+              <app-statistic></app-statistic>
+            </div>
+            <div *ngIf="status == 'personal_contributes'">
+             <app-personal-contributes></app-personal-contributes>
             </div>
             </div>
           </div>

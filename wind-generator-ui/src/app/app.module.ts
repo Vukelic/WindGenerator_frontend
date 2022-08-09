@@ -57,6 +57,9 @@ import { SelectLocationMapModalComponent } from './components/select-location-ma
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { InvestComponent } from './components/invest/invest.component';
+import { StatisticComponent } from './components/statistic/statistic.component';
+import { PersonalContributesComponent } from './components/personal-contributes/personal-contributes.component';
+import { ProfitComponent } from './components/profit/profit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +78,10 @@ import { InvestComponent } from './components/invest/invest.component';
     SelectLocationMapModalComponent,
     NavBarComponent,
     LandingComponent,
-    InvestComponent
+    InvestComponent,
+    StatisticComponent,
+    PersonalContributesComponent,
+    ProfitComponent
   ],
   imports: [
     BrowserModule,

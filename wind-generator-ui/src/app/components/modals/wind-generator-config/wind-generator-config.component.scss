@@ -22,18 +22,29 @@
     }
 }
 
+.are-form-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    mat-form-field {
+        flex: 1;
+    }
+}
+
 textarea {
     resize: none;
   }
+  
 .footers-line{
     display: flex;
-flex-direction: row;
+    flex-direction: row;
 
-justify-content: space-between;
-text-align: center;
+    justify-content: space-between;
+    text-align: center;
 
-margin-top: 15px; 
-border-radius: 0px
+    margin-top: 15px; 
+    border-radius: 0px
 }
 
 .footer-button{

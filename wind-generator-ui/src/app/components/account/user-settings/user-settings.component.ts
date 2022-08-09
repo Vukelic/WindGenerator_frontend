@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,17 +9,21 @@ import { Router } from '@angular/router';
 })
 export class UserSettingsComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,public dialog: MatDialogRef<UserSettingsComponent>, ) { }
 
   ngOnInit(): void {
   }
 
-  gotoDashboard() {
-    this.router.navigate(['/dashboard']);
+  cancel(){
+    this.dialog.close({userChoiceOk: false});
   }
 
-  logout() {
-    this.router.navigate(['/login']);
+  save() {
+    this.dialog.close({userChoiceOk: true});
+  }
+
+  logout(){
+    
   }
 
 }

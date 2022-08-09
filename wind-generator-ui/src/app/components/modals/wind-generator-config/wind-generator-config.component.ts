@@ -9,6 +9,7 @@ import { DtoWindGeneratorDeviceResponse } from 'src/app/dto/DtoResponseObjectMod
 import { GlobalService } from 'src/app/services/global.service';
 import { MarkerService } from 'src/app/services/marker.service';
 import { WindGeneratorDeviceService } from 'src/app/services/wind-generator-device.service';
+import { ProfitComponent } from '../../profit/profit.component';
 import { SelectLocationMapModalComponent } from '../../select-location-map-modal/select-location-map-modal.component';
 
 @Component({
@@ -235,4 +236,18 @@ export class WindGeneratorConfigComponent implements OnInit {
     });
   }
 
+  
+
+  checkProfit(){
+    console.warn('openWindGenerator');
+    const dialogRef = this.dialog.open(ProfitComponent, {
+      width: '500px',
+      data: null,
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(result => {
+     // this.markerService.refresh.next(true);
+      
+    });
+  }
 }
