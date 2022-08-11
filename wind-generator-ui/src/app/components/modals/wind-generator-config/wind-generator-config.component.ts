@@ -19,10 +19,10 @@ import { SelectLocationMapModalComponent } from '../../select-location-map-modal
 })
 export class WindGeneratorConfigComponent implements OnInit {
 
- 
+  checkProfitStatus: boolean = false;
 
   windForm: FormGroup;
-  choiceFromMap: boolean = true;
+  choiceFromMap: boolean = false;
 
   // filtersModal = {
   //   client: '',
@@ -239,15 +239,16 @@ export class WindGeneratorConfigComponent implements OnInit {
   
 
   checkProfit(){
+    this.checkProfitStatus = true;
     console.warn('openWindGenerator');
-    const dialogRef = this.dialog.open(ProfitComponent, {
-      width: '500px',
-      data: null,
-      autoFocus: false
-    });
-    dialogRef.afterClosed().subscribe(result => {
-     // this.markerService.refresh.next(true);
+    // const dialogRef = this.dialog.open(ProfitComponent, {
+    //   width: '500px',
+    //   data: null,
+    //   autoFocus: false
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //  // this.markerService.refresh.next(true);
       
-    });
+    // });
   }
 }

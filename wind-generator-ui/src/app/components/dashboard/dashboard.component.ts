@@ -158,7 +158,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   gotoUserSettings() {
     const dialogRef = this.dialog.open(UserSettingsComponent, {
-      width: '400px',
+      width: '600px',
      data: {},
      autoFocus: false,
    });
@@ -502,7 +502,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   gotoAccountSettings() {
       const dialogRef = this.dialog.open(UserSettingsComponent, {
-       width: '600px',
+       width: '800px',
       data: {},
       autoFocus: false,
     });

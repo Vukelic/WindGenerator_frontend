@@ -1,1 +1,75 @@
-<p>statistic works!</p>
+<div class="statistic-holder">
+    <div style="margin-top: 40px;">
+        <div class="statistic-table-holder">
+            <app-data-table [dataSource]="dataSource" [columnDefs]="columns" [dtoPaging]="dtoPaging"
+            [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters($event)"
+            (sortChangeEvent)="updateSorting($event)" (pagingChangeEvent)="updatePaging($event)"
+            (allFiltersChangeEvent)="updateAllFilters($event)">
+            
+        </app-data-table>
+        </div>
+    </div>
+  
+    <div style="margin-top: 40px; display: flex; flex-direction: row;">
+        <div class="statistic-chart-holder">
+           
+            <google-chart #chart  
+            [title]="title"  
+            [type]="type"  
+            [data]="data"  
+            [columnNames]="columnNames"  
+            [options]="options"  
+            [width]="width"  
+            [height]="height">  
+         </google-chart> 
+        </div>
+        <div class="statistic-chart-holder">
+            <google-chart #chart  
+            [title]="title"  
+            [type]="type2"  
+            [data]="data"  
+            [columnNames]="columnNames"  
+            [options]="options"  
+            [width]="width"  
+            [height]="height">  
+         </google-chart> 
+           
+        </div>
+        <div class="statistic-chart-holder">
+            <google-chart #chart  
+            [title]="title"  
+            [type]="type3"  
+            [data]="data"  
+            [columnNames]="columnNames"  
+            [options]="options"  
+            [width]="width"  
+            [height]="height">  
+         </google-chart> 
+           
+        </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <div class="statistic-table-holder">
+            <app-data-table [dataSource]="dataSource" [columnDefs]="columns" [dtoPaging]="dtoPaging"
+            [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters($event)"
+            (sortChangeEvent)="updateSorting($event)" (pagingChangeEvent)="updatePaging($event)"
+            (allFiltersChangeEvent)="updateAllFilters($event)">
+            
+        </app-data-table>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <div class="statistic-table-holder">
+            <app-data-table [dataSource]="dataSource" [columnDefs]="columns" [dtoPaging]="dtoPaging"
+            [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters($event)"
+            (sortChangeEvent)="updateSorting($event)" (pagingChangeEvent)="updatePaging($event)"
+            (allFiltersChangeEvent)="updateAllFilters($event)">
+            
+        </app-data-table>
+        </div>
+    </div>
+    
+ 
+</div>

@@ -3,6 +3,14 @@
     flex-direction: column;
 }
 
+.addre-holder-col{
+    display: flex;
+    flex-direction: column;
+}
+.addre-holder-row{
+    display: flex;
+    flex-direction: row;
+}
 // .are-form-element {
 //     width: 50%;
 //     justify-content: space-between;
@@ -25,11 +33,32 @@
 .are-form-col {
     display: flex;
     flex-direction: column;
+  //  justify-content: space-between;
+
+    mat-form-field {
+        flex: 1;
+    }
+}
+
+.are-form-col {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     text-align: center;
     mat-form-field {
         flex: 1;
     }
+}
+
+.are-col2{
+    display: flex;
+    flex-direction: column;
+    //justify-content: center;
+    text-align: center;
+    mat-form-field {
+        flex: 1;
+    }
+    margin-top: 50px;
 }
 
 textarea {
@@ -48,12 +77,23 @@ textarea {
 }
 
 .footer-button{
-display: flex;
-flex-direction: row;
+    display: flex;
+    flex-direction: row;
 
-justify-content: flex-end;
-text-align: center;
+    justify-content: flex-end;
+    text-align: center;
 
-//margin-top: 15px; 
-border-radius: 0px
+    //margin-top: 15px; 
+    border-radius: 0px
+}
+
+.block-show{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 200px;
+    margin-left: 20px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }

@@ -1,93 +1,71 @@
-<div class="addre-holder">
+<div [formGroup]='windForm'  class="addre-holder">
 
-    <div style='display: flex; flex-direction: row; justify-content: space-between; height: 44px'>
-        <mat-slide-toggle color="warn" [(ngModel)]="choiceFromMap">Geolocation</mat-slide-toggle>
-        <button  *ngIf="choiceFromMap" style="margin-left: 15px; height: 44px;" mat-raised-button (click)='openSelectFromMap()'><mat-icon>room</mat-icon> Choose location from map</button>
-    </div>
-    
-    <div [formGroup]='windForm' class='addre-holder' >
-        <div class="w100" style="display: flex; flex-direction: row; justify-content: space-between;">
-            <mat-form-field class="example-form-field w100" style='flex: 1; margin-right: 15px;'>
-                <input matInput type="text" placeholder="Latitude" formControlName="lat">
-            </mat-form-field>
+    <div class="addre-holder-row">
+
+        <div class="addre-holder-col" style="border-right: 2px solid  rgb(202, 193, 193);width: 800px;">
+            <div style='display: flex; flex-direction: row; justify-content: space-between; height: 44px; padding: 20px 0px;'>
+                <mat-slide-toggle color="warn" [ngModelOptions]="{standalone: true}" [(ngModel)]="choiceFromMap">Geolocation</mat-slide-toggle>
+                <button  *ngIf="choiceFromMap" style="margin-left: 15px; height: 44px;" mat-raised-button (click)='openSelectFromMap()'><mat-icon>room</mat-icon> Choose location from map</button>
+            </div>
             
-            <mat-form-field class="example-form-field w100" style='flex: 1; margin-left: 15px;'>
-                <input matInput type="text" placeholder="Longitude" formControlName="lon">
-            </mat-form-field>
-        </div>
-    
-        <div style="display: flex; flex-direction: column;">
-            <div class="are-form-row">
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
-                    <input matInput type="text" placeholder="Name" formControlName="name">
-                </mat-form-field>
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
-                    <input matInput type="text" placeholder="Country" formControlName="country">
-                </mat-form-field>
+            <div class='addre-holder' >
+                <div  style="display: flex; flex-direction: row; justify-content: space-between; ">
+                    <mat-form-field class="example-form-field " style='flex: 1; margin-right: 15px;'>
+                        <input matInput type="text" placeholder="Latitude" formControlName="lat">
+                    </mat-form-field>
+                    
+                    <mat-form-field class="example-form-field " style='flex: 1; margin-left: 15px;'>
+                        <input matInput type="text" placeholder="Longitude" formControlName="lon">
+                    </mat-form-field>
+                </div>
+            
+                <div style="display: flex; flex-direction: column;">
+                    <div class="are-form-col">
+                        <mat-form-field class="example-form-field  are-form-element" >
+                            <input matInput type="text" placeholder="Name" formControlName="name">
+                        </mat-form-field>
+                        <mat-form-field class="example-form-field  are-form-element" >
+                            <input matInput type="text" placeholder="Country" formControlName="country">
+                        </mat-form-field>
+                        
+                        <mat-form-field class="example-form-field  are-form-element">
+                            <input matInput type="text" placeholder="City" formControlName="city">
+                        </mat-form-field>
+                    </div>
                 
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
-                    <input matInput type="text" placeholder="City" formControlName="city">
-                </mat-form-field>
-            </div>
+                       
+                    <div class="are-form-row">
         
-            <!-- <div class="are-form-row">
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
-                    <input matInput type="text" placeholder="Client" formControlName="client">
-                </mat-form-field>
-            
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
-                    <input matInput type="text" placeholder="Short name" formControlName="shortName">
-                </mat-form-field>
-            </div> -->
         
-             <!-- <div class="are-form-row">
-                 <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
-                    <input matInput type="text" placeholder="Description" formControlName="description">
-                </mat-form-field> 
-
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
-                    <input matInput type="text" placeholder="Additional info" formControlName="additionalInfo">
-                </mat-form-field>
-            
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
-                    <input matInput type="text" placeholder="Land Size (sqm)" formControlName="land">
-                </mat-form-field>
-            </div> 
-         -->
+                        <mat-form-field class="example-form-field  are-form-element" style="margin-right: 15px;">
+                            <textarea matInput type="text" placeholder="Description" formControlName="description" rows="5"></textarea>
+                        </mat-form-field>
+        
+        
+                    </div>
+        
+                   
+        
+                </div>
            
-         <!-- <div class="are-form-row">
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
-                    <input matInput type="text" placeholder="Building size (sqm)" formControlName="buildingSize">
-                </mat-form-field>
-            
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
-                    <input matInput type="text" placeholder="Value (EUR)" formControlName="value">
-                </mat-form-field>
-            </div> -->
-
-            <div class="are-form-row">
-                <!-- <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
-                    <input matInput type="text" placeholder="Additional info" formControlName="additionalInfo">
-                </mat-form-field> -->
-
-                <mat-form-field class="example-form-field w100 are-form-element" style="margin-right: 15px;">
-                    <textarea matInput type="text" placeholder="Description" formControlName="description" rows="5"></textarea>
-                </mat-form-field>
-
-                <!-- <mat-form-field class="example-form-field w100 are-form-element" style="margin-left: 15px;">
-                    <textarea matInput type="text" placeholder="Images" formControlName="images" rows="5"></textarea>
-                </mat-form-field> -->
             </div>
-
-            <div class="are-form-col" *ngIf="!this.data || !this.data?.Id">
-                <div>
-                    <span style="font-size: 25px;">
-                        Your decision: Is a wind generator a good investment?
+        </div>
+     
+       
+            <div class="are-col2" *ngIf="!this.data || !this.data?.Id" >
+                <div style="display: flex;flex-direction:column;">
+                    <div style="font-size: 25px; border-bottom: 2px solid #e88653;margin-bottom: 20px;">
+                        <span >
+                            Your decision
+                        </span>
+                    </div>
+                    
+                    <span style="font-size: 20px;">
+                         Is a wind generator a good investment?
                     </span>
                 </div>
                
-                <div style="display: flex;
-                justify-content: center;">
+                <div style="display: flex;justify-content: center;">
                     <button (click)="checkProfit()" style="width: 250px;
                     display: flex;
                     justify-content: center;
@@ -96,21 +74,32 @@
                         CHECK PROFIT
                     </button>
                 </div>
-               
-            </div>
 
+                <div  *ngIf="checkProfitStatus"  class="block-show">
+                    <h1>Profitably: 51%</h1>
+                    <h1>Full price: 2M</h1>
+                </div>
+               
+      
         </div>
-    <div class="footers-line">
-        <button *ngIf="currentWindGenerator && currentWindGenerator.Id != 0" (click)="delete()" class='global-button' >Delete</button>
+       
+      
+    </div>
+
     
-        <div class="footer-button">
-                
+        <div class="footers-line">
+            <button *ngIf="currentWindGenerator && currentWindGenerator.Id != 0" (click)="delete()" class='global-button' >Delete</button>
+        
+            <div class="footer-button">
+                    
+            </div>
+            <div class="footer-button">
+                <button  (click)="cancel()" class='us-list-button'>Cancel</button>
+                <button style="margin-left: 20px;"  class='global-button' (click)="addWindGenerator()"  type="submit">Save</button>
+            </div>
         </div>
-        <div class="footer-button">
-            <button  (click)="cancel()" class='us-list-button'>Cancel</button>
-            <button style="margin-left: 20px;"  class='global-button' (click)="addWindGenerator()"  type="submit">Save</button>
-        </div>
-    </div>
-    </div>
+  
+
+  
     
 </div>

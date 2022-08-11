@@ -1,0 +1,114 @@
+<div class="table-container"
+  [ngStyle]="{'background-color': theme == 'dark' ? '#212121' : (theme == 'light' ? '#fff' : '#fff') }">
+
+  <div class="top-header">
+    <div style="display: flex;">
+      <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="dropColumns($event)" *ngIf="globalSettings.tableHasSorting">
+        <mat-chip  *ngFor="let c of columnsListCopy" style="display: flex; align-items: center;background-color: #e6543c ;" class="example-box"
+          cdkDrag [hidden]="!(c.sort != 2 && c.hasSorting)" (click)="sortData(c)" [removable]="removable"
+          (removed)="remove(c)">
+          <span >{{c.header }}</span>
+          <!-- <span>{{c.key}}</span> -->
+          <span style="display: flex; align-items: center;" *ngIf="c.sort === 1">
+            <mat-icon style="font-size: 15px; height: unset;">arrow_downward</mat-icon>
+          </span>
+          <span style="display: flex; align-items: center;" *ngIf="c.sort === 0">
+            <mat-icon style="font-size: 15px; height: unset;">arrow_upward</mat-icon>
+          </span>
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+    <ng-content select="[header]"></ng-content>
+    <button class="menu" mat-icon-button [matMenuTriggerFor]="colMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </div>
+  <mat-menu #colMenu="matMenu">
+    <div cdkDropList (cdkDropListDropped)="reorderCols($event)">
+      <div mat-menu-item cdkDrag *ngFor="let col of columns" (click)="$event.stopPropagation()">
+        <mat-checkbox color="warn" [ngModel]="col.isActive" (ngModelChange)="col.isActive = $event; updateColumns()">
+          {{ col.header }}
+        </mat-checkbox>
+      </div>
+    </div>
+
+
+  </mat-menu>
+
+  <!-- <input type="text" [(ngModel)]="typeFilter" placeholder="eq for equal and co for contains"/> -->
+
+  <div class="table-scroll-container">
+
+    <mat-table cdkDropList [dataSource]="dataSource" (cdkDropListDropped)="drop($event)" class="margorp-table">
+      <ng-container *ngFor="let column of columns">
+        <ng-container [matColumnDef]="column.key">
+
+          <ng-container *ngIf="!column.headerTemplate">
+            <mat-header-cell *matHeaderCellDef [class.with-filter]="true">
+              <div class="mt-header" (click)="sortData(column)">
+                <span style="color: #e6543c;" >{{ column.header }}</span>
+                <div *ngIf="column.hasSorting && globalSettings.tableHasSorting">
+                  <span style="color: #e6543c;display: flex; align-items: center; " *ngIf="column.sort === 1">
+                    <mat-icon style="font-size: 15px; height: unset;">arrow_downward</mat-icon>
+                  </span>
+                  <span style="color: #e6543c;display: flex; align-items: center;" *ngIf="column.sort === 0">
+                    <mat-icon style="font-size: 15px; height: unset;">arrow_upward</mat-icon>
+                  </span>
+                </div>
+              </div>
+
+              <!-- <ng-container *ngIf="!column.hasSorting" (click)="sortData(column)">{{ column.header }}</ng-container> -->
+              <input *ngIf="column.hasFiltering  && globalSettings.tableHasFiltering" [(ngModel)]="column.stringFilter"
+                (keyup)="filterChange(column)">
+            </mat-header-cell>
+          </ng-container>
+
+          <!-- <ng-container *ngIf="column.headerTemplate">
+            <mat-header-cell *matHeaderCellDef [class.with-filter]="column.hasFiltering">
+              <div>
+                <ng-template [ngTemplateOutletContext]="{ column: column, element: element, $implicit: element }"
+                  [ngTemplateOutlet]="column.headerTemplate">
+                </ng-template>
+              </div>
+              <ng-container>
+                <ng-template [ngTemplateOutletContext]="{ column: column, element: element, $implicit: element }"
+                  [ngTemplateOutlet]="column.headerTemplate">
+                </ng-template>
+              </ng-container>
+              <input *ngIf="column.hasFiltering" (keyup)="dataSource.filterColumn($event.target.value, column.key)">
+            </mat-header-cell>
+          </ng-container> -->
+
+          <ng-container *ngIf="!column.cellTemplate">
+            <mat-cell *matCellDef="let element">
+              {{ column.cell(element) }}
+            </mat-cell>
+          </ng-container>
+          <ng-container *ngIf="column.cellTemplate">
+            <mat-cell *matCellDef="let element">
+              <ng-template [ngTemplateOutletContext]="{ column: column, element: element, $implicit: element }"
+                [ngTemplateOutlet]="column.cellTemplate">
+              </ng-template>
+            </mat-cell>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="activeColumns; sticky: true"></mat-header-row>
+      <!-- <mat-row  *matRowDef="let row; columns: activeColumns" [class.selected]="selection.isSelected(row)"
+      (click)="selectionRow(row)"> -->
+
+      <!-- [ngStyle]="{'background-color': row?.isDisabledMilestone ? '#f2f2f2' : 'transparent'}" -->
+      <mat-row *matRowDef="let row; columns: activeColumns" [class.selected]="selection.isSelected(row)"
+        (click)="selectionRow(row)">
+        <div class="placeholder"></div>
+      </mat-row>
+
+    </mat-table>
+  </div>
+  <mat-paginator style="color: #e6543c;" *ngIf="globalSettings.tableHasPaging" [pageSizeOptions]="[10, 25, 50, 100]"
+    [length]="dtoPaging?.totalCount" showFirstLastButtons [pageSize]="dtoPaging?.countPerPage"
+    (page)="pagingChange($event)"></mat-paginator>
+</div>

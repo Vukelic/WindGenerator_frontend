@@ -60,6 +60,7 @@ import { InvestComponent } from './components/invest/invest.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { PersonalContributesComponent } from './components/personal-contributes/personal-contributes.component';
 import { ProfitComponent } from './components/profit/profit.component';
+import { DataTableComponent } from './components/custom-table/data-table/data-table.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,7 +82,8 @@ import { ProfitComponent } from './components/profit/profit.component';
     InvestComponent,
     StatisticComponent,
     PersonalContributesComponent,
-    ProfitComponent
+    ProfitComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,
