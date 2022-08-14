@@ -4,6 +4,8 @@ import { ColumnDef } from '../custom-table/data-table/column-def';
 import { DataSource } from '../custom-table/data-table/data-source';
 import { ESortEnum } from '../custom-table/data-table/ESortEnum.enum';
 import { Mockup, testData } from './Mockup';
+import { Mockup1, testData1 } from './Mockup1';
+import { Mockup2, testData2 } from './Mockup2';
 
 @Component({
   selector: 'app-statistic',
@@ -12,7 +14,11 @@ import { Mockup, testData } from './Mockup';
 })
 export class StatisticComponent implements OnInit {
   dataSource = new DataSource(testData); 
-  dtoPaging:DtoPaging = new DtoPaging();
+
+  dataSource1 = new DataSource(testData1); 
+
+  dataSource2 = new DataSource(testData2); 
+  dtoPaging: DtoPaging = new DtoPaging();
   columns: Partial<ColumnDef<Mockup>>[] = [
   //  { key: 'actions', header: 'Selected', sort: ESortEnum.none, hasSorting: false, hasFiltering: false },
     { key: 'date', header: 'date', cell: e => e.date, sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
@@ -21,6 +27,22 @@ export class StatisticComponent implements OnInit {
     { key: 'ceo', header: 'ceo', cell: e => e.ceo, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
   ];
 
+  columns1: Partial<ColumnDef<Mockup1>>[] = [
+    //  { key: 'actions', header: 'Selected', sort: ESortEnum.none, hasSorting: false, hasFiltering: false },
+      { key: 'year2019', header: '2019', cell: e => e.year2019, sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
+      { key: 'year2020', header: '2020', cell: e => e.year2020, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      { key: 'year2021', header: '2021', cell: e => e.year2021, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      { key: 'year2022', header: '2022', cell: e => e.year2022, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+    ];
+    
+    columns2: Partial<ColumnDef<Mockup2>>[] = [
+      //  { key: 'actions', header: 'Selected', sort: ESortEnum.none, hasSorting: false, hasFiltering: false },
+        { key: 'Jan', header: 'Jan', cell: e => e.Jan, sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
+        { key: 'Feb', header: 'Feb', cell: e => e.Feb, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+        { key: 'March', header: 'March', cell: e => e.March, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+        { key: 'Apr', header: 'Apr', cell: e => e.Apr, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      ];
+  
   globalSettingsObject = {
     tableHasFiltering: false,
     tableHasSorting: true,

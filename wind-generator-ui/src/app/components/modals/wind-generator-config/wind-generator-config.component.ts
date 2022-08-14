@@ -19,8 +19,16 @@ import { SelectLocationMapModalComponent } from '../../select-location-map-modal
 })
 export class WindGeneratorConfigComponent implements OnInit {
 
+  typeGenerator:any;
   checkProfitStatus: boolean = false;
 
+  allTypes: any = [
+    {Title: "WT1", Angular_FullUrl:"/assets/wt1.JPG",ActiveSelect:false, Price: '1300e'}, 
+    {Title:"WT2",Angular_FullUrl:"/assets/wt2.JPG",ActiveSelect:false,Price: '1600e'},
+    {Title: "WT3",Angular_FullUrl:"/assets/wt3.JPG",ActiveSelect:false,Price: '2400e'},
+    {Title: "WT4",Angular_FullUrl:"/assets/wt4.JPG",ActiveSelect:false,Price: '2600e'},
+  //  {Title:  "AC Asynchronous Generators",Angular_FullUrl:"/assets/turbine1.JPG",ActiveSelect:false,Price: '2600'}
+  ];
   windForm: FormGroup;
   choiceFromMap: boolean = false;
 
@@ -234,6 +242,10 @@ export class WindGeneratorConfigComponent implements OnInit {
         }
       }
     });
+  }
+
+  changeSelectedCustom(data:any){
+
   }
 
   

@@ -51,7 +51,7 @@
 
     <div style="margin-top: 40px;">
         <div class="statistic-table-holder">
-            <app-data-table [dataSource]="dataSource" [columnDefs]="columns" [dtoPaging]="dtoPaging"
+            <app-data-table [dataSource]="dataSource1" [columnDefs]="columns1" [dtoPaging]="dtoPaging"
             [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters($event)"
             (sortChangeEvent)="updateSorting($event)" (pagingChangeEvent)="updatePaging($event)"
             (allFiltersChangeEvent)="updateAllFilters($event)">
@@ -62,7 +62,7 @@
 
     <div style="margin-top: 40px;">
         <div class="statistic-table-holder">
-            <app-data-table [dataSource]="dataSource" [columnDefs]="columns" [dtoPaging]="dtoPaging"
+            <app-data-table [dataSource]="dataSource2" [columnDefs]="columns2" [dtoPaging]="dtoPaging"
             [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters($event)"
             (sortChangeEvent)="updateSorting($event)" (pagingChangeEvent)="updatePaging($event)"
             (allFiltersChangeEvent)="updateAllFilters($event)">

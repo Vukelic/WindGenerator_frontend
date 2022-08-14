@@ -47,6 +47,9 @@
               <button class="sidenav-menu-button" (click)="gotoInvestigate()">
                 Introduction
                 </button>
+                <button class="sidenav-menu-button" (click)="gotoWindTurbines()">
+                  Wind Turbines
+                  </button>
               <button class="sidenav-menu-button" (click)="gotoGlobalInvestments()">
               <mat-icon style="margin-right: 5px">place</mat-icon>Energy network
               </button>
@@ -63,7 +66,7 @@
                 <mat-icon style="margin-right: 5px">person</mat-icon> Clients
               </button> -->
               <button *ngIf="false && userService?.currentUser?.roleSettingsKey == RoleKeys.SuperAdmin_GlobalSettings_Key"  class="sidenav-menu-button" (click)="openWindGenerator(null)">
-                <mat-icon style="margin-right: 5px">add</mat-icon> Add new wind generator
+                <mat-icon style="margin-right: 5px">add</mat-icon> Build new one
               </button>
   
               <!-- <button class='global-button-default add-re-btn' style="margin-left: 10px;" (click)='consoleTest()'>ConsoleTest</button> -->
@@ -305,6 +308,9 @@
               </div>
             <div *ngIf="status == 'invest'">
               <app-invest></app-invest>
+            </div>
+            <div *ngIf="status == 'wind'">
+              <app-landing></app-landing>
             </div>
             <div *ngIf="status == 'statistic'">
               <app-statistic></app-statistic>

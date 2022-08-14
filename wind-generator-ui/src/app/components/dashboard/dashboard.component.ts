@@ -211,7 +211,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.status =  "map";
     console.warn('openWindGenerator');
     const dialogRef = this.dialog.open(WindGeneratorConfigComponent, {
-      width: '1000px',
+      width: '1200px',
       data: e,
       autoFocus: false
     });
@@ -221,10 +221,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
   }
 
+  
   addNewWind(e:any){
     console.warn('eeee',e);
     const dialogRef = this.dialog.open(WindGeneratorConfigComponent, {
-      width: '1000px',
+      width: '1200px',
       data: e,
       autoFocus: false
     });
@@ -491,6 +492,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.getAllGenerators();
     //this.status = "map";
    // this.router.navigate(['/map']);
+  }
+  gotoWindTurbines(){
+    this.status = "wind";
   }
 
   gotoMyInvestments(){

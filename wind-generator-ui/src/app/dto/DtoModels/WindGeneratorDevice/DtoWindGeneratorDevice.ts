@@ -18,7 +18,10 @@ export  class DtoWindGeneratorDevice extends ARepoBaseEntity{
     //COMPLEX PROPERTIES
     ListOfWindGeneratorDevice_History: DtoWindGeneratorDevice_History[];
 
-    /**
+    //local:
+    Title: any;
+    Angular_FullUrl: any;
+        /**
      *
      */
     constructor() {
@@ -35,6 +38,8 @@ export  class DtoWindGeneratorDevice extends ARepoBaseEntity{
         this.Country = "";
         this.City = "";
         this.ListOfWindGeneratorDevice_History = null;
+        this.Angular_FullUrl = "/assets/wt2.JPG";
+        this.Title = "WT1";
     }
   
    

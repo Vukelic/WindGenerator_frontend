@@ -97,3 +97,32 @@ textarea {
     0 8px 10px 1px rgba(0, 0, 0, 0.14),
     0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
+
+.ppe-settings-grid-layout-element {
+    width: 100%;
+    height: 100%;
+
+    border: 2px solid #b3b3b3;
+    cursor: pointer;
+    transition: 0.2s all ease-out;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    //background-color: #ffd633;
+    position: relative;
+    
+    margin-right: 10px;
+
+     
+}
+
+.ppe-settings-grid-layout-element-item
+{
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}

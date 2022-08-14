@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
+  path1:any = "/assets/pic1.JPG";
+  path2:any = "/assets/pic2.JPG";
   constructor() { }
 
   ngOnInit(): void {
