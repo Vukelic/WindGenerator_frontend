@@ -504,6 +504,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     //this.router.navigate(['/map']);
   }
 
+  gotoUsers(){
+    this.status = "users";
+  }
   gotoAccountSettings() {
       const dialogRef = this.dialog.open(UserSettingsComponent, {
        width: '800px',

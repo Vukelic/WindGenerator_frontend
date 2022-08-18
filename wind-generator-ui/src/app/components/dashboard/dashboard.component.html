@@ -48,8 +48,11 @@
                 Introduction
                 </button>
                 <button class="sidenav-menu-button" (click)="gotoWindTurbines()">
-                  Wind Turbines
+                  <mat-icon style="margin-right: 5px">brightness_high</mat-icon> Wind Turbines
                   </button>
+                <button class="sidenav-menu-button" (click)="gotoUsers()">
+                  <mat-icon style="margin-right: 5px">people</mat-icon> Users
+                </button>
               <button class="sidenav-menu-button" (click)="gotoGlobalInvestments()">
               <mat-icon style="margin-right: 5px">place</mat-icon>Energy network
               </button>
@@ -318,6 +321,9 @@
             <div *ngIf="status == 'personal_contributes'">
              <app-personal-contributes></app-personal-contributes>
             </div>
+            <div *ngIf="status == 'users'">
+              <app-all-users></app-all-users>
+             </div>
             </div>
           </div>
         </mat-sidenav-content>

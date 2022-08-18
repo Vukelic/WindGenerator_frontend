@@ -77,7 +77,7 @@
                   [ngTemplateOutlet]="column.headerTemplate">
                 </ng-template>
               </ng-container>
-              <input *ngIf="column.hasFiltering" (keyup)="dataSource.filterColumn($event.target.value, column.key)">
+              <input *ngIf="column.hasFiltering" (keyup)="dataSource.filterColumn($event.target?.value, column.key)">
             </mat-header-cell>
           </ng-container> -->
 

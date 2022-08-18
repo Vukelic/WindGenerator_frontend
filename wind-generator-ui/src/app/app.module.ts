@@ -62,6 +62,7 @@ import { PersonalContributesComponent } from './components/personal-contributes/
 import { ProfitComponent } from './components/profit/profit.component';
 import { DataTableComponent } from './components/custom-table/data-table/data-table.component';
 import { DeviceTypeModalComponent } from './components/modals/device-type-modal/device-type-modal.component';
+import { AllUsersComponent } from './components/all-users/all-users.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +86,8 @@ import { DeviceTypeModalComponent } from './components/modals/device-type-modal/
     PersonalContributesComponent,
     ProfitComponent,
     DataTableComponent,
-    DeviceTypeModalComponent
+    DeviceTypeModalComponent,
+    AllUsersComponent
   ],
   imports: [
     BrowserModule,

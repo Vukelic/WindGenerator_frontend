@@ -3,6 +3,7 @@ import { DtoRole } from "../Role/DtoRole";
 
 export  class DtoUser extends ARepoBaseEntity{
 
+    actions: any;
     UserName: string;
     Surname: string;
     Name: string;
