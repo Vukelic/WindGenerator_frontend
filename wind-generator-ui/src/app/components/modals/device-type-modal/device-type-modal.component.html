@@ -1,0 +1,84 @@
+<div class="device-type-holder">
+    <h1>Wind device type</h1>
+
+    <div class="device-type-form" [formGroup]='typeForm' >
+        <div class="type-input">
+            <mat-form-field class="example-full-width">
+                <mat-label>Name </mat-label>
+                <input matInput type="text"  formControlName="Name">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Type of turbine </mat-label>
+                <input matInput type="text" formControlName="Turbines">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Power of turbine </mat-label>
+                <input matInput type="text" formControlName="PowerOfTurbines">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Height of Wing</mat-label>
+                <input matInput type="text" formControlName="HeightOfWing">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Width Of Wing</mat-label>
+                <input matInput type="text" formControlName="WidthOfWing">
+            </mat-form-field>
+          
+            <mat-form-field class="example-full-width">
+                <mat-label>Weight</mat-label>
+                <input matInput type="text"  formControlName="Weight">
+            </mat-form-field>
+          
+            <mat-form-field class="example-full-width">
+                <mat-label>Max Power Turbine</mat-label>
+                <input matInput type="text"  formControlName="MaxPowerTurbine">
+            </mat-form-field>
+          
+            <mat-form-field class="example-full-width">
+                <mat-label>Max Speed Turbine</mat-label>
+                <input matInput type="text"  formControlName="MaxSpeedTurbine">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Generator Power</mat-label>
+                <input matInput type="text"  formControlName="GeneratorPower">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Guarantee</mat-label>
+                <input matInput type="text"  formControlName="Guarantee">
+            </mat-form-field>
+          
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: row; align-items: flex-start;">
+
+            <div style="display: flex; align-items: center;">
+                <button type="button" mat-raised-button (click)="selectFile.click()">Choose File</button>
+                <input  #selectFile type="file" accept="image/*" class="form-control" id="file" hidden
+                    (change)="onImageChange($event)" mat-raised-button>
+                <input type="hidden" name="fileHidden" formControlName="ImageInput" />
+                <span class="file-name">{{selectedFileTitle}}</span>
+            </div>
+
+
+            <img style="max-width: 300px; max-height: 150px;margin-left: 70px;border-radius: 10px;
+          
+            box-shadow: 0px 4px 8px 0px rgb(0 0 0 / 25%);" id="image-preview"
+                [src]="currentType && currentType?.Angular_FullUrl || '' ">
+        </div>
+    </div>
+
+
+    <div class="footers-line">
+        <button *ngIf="currentType && currentType?.Id != 0" (click)="delete()" class='global-button' >Delete</button>
+    
+        <div class="footer-button">
+                
+        </div>
+        <div class="footer-button">
+            <button  (click)="cancel()" class='us-list-button'>Cancel</button>
+            <button style="margin-left: 20px;"  class='global-button' (click)="save()"  type="submit">Save</button>
+        </div>
+    </div>
+</div>

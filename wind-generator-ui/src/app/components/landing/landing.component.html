@@ -5,10 +5,17 @@
 
 <mat-drawer-container class="example-container" autosize>
     <div class="lp-main-content">
-        <div class="lp-main-content-title">
+        <div style="align-items: center;" class="lp-main-content-title">
          
             <span>Wind turbines</span>
-           
+            <button style="margin-left: 10px;margin-left: 10px;
+            height: unset;
+            width: unset;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: unset;" (click)="addNew(null)" class='global-button'>
+                Add new
+            </button>
         </div>
         <div class="lp-landing-list">
             <div class="lp-landing-list-item" *ngFor="let type of listOfDeviceType">
@@ -22,7 +29,7 @@
                         <span style="font-size: 20px;">{{type.Name}}</span>
                     </div>
                     <div>
-                        <button (click)="edit()" class='global-button'>
+                        <button (click)="edit(type)" class='global-button'>
                             Edit
                         </button>
                     </div>
@@ -41,7 +48,7 @@
                          {{type.HeightOfWing}}</span>
                     </div>   
                     <div class="inv-row">
-                        <span>Width Of fWing:</span>
+                        <span>Width Of Wing:</span>
                         <span>
                          {{type.WidthOfWing}}</span>
                     </div>             

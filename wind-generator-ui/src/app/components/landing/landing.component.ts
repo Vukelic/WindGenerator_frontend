@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DeviceTypeModalComponent } from '../modals/device-type-modal/device-type-modal.component';
 
 @Component({
   selector: 'app-landing',
@@ -11,14 +13,34 @@ export class LandingComponent implements OnInit {
   path2:any = "/assets/pic2.JPG";
 
   listOfDeviceType: any = [];
-  constructor() { }
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.getTypes();
   }
 
-  edit(){
+  edit(type: any){
+    const dialogRef = this.dialog.open(DeviceTypeModalComponent, {
+      width: '600px',
+      data: {type},
+      //autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      
+    });
+  }
 
+  addNew(type: any){
+      const dialogRef = this.dialog.open(DeviceTypeModalComponent, {
+      width: '600px',
+      data: type,
+      //autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+
+    });
   }
 
   
