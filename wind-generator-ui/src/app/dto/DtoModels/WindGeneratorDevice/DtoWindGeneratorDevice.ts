@@ -1,5 +1,7 @@
 import { ARepoBaseEntity } from "../Common/ARepoBaseEntity";
+import { DtoUser } from "../User/DtoUser";
 import { DtoWindGeneratorDevice_History } from "../WindGeneratorDevice_History/DtoWindGeneratorDevice_History";
+import { DtoWindGeneratorType } from "../WindGeneratorType/DtoWindGeneratorType";
 
 export  class DtoWindGeneratorDevice extends ARepoBaseEntity{
 
@@ -17,7 +19,10 @@ export  class DtoWindGeneratorDevice extends ARepoBaseEntity{
   
     //COMPLEX PROPERTIES
     ListOfWindGeneratorDevice_History: DtoWindGeneratorDevice_History[];
-
+    ParentWindGeneratorType: DtoWindGeneratorType;
+    ParentWindGeneratorTypeId: number;
+    ParentUser: DtoUser;
+    ParentUserId: number;
     //local:
     Title: any;
     Angular_FullUrl: any;

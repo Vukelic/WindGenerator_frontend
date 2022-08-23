@@ -1,5 +1,6 @@
 import { ARepoBaseEntity } from "../Common/ARepoBaseEntity";
 import { DtoRole } from "../Role/DtoRole";
+import { DtoWindGeneratorDevice } from "../WindGeneratorDevice/DtoWindGeneratorDevice";
 
 export  class DtoUser extends ARepoBaseEntity{
 
@@ -23,6 +24,7 @@ export  class DtoUser extends ARepoBaseEntity{
     //COMPLEX PROPERTIES
     AssignRole: DtoRole;
     AssignRoleId?: number;
+    ListOfWindGeneratorDevice: DtoWindGeneratorDevice[];
 
     //angular
     currentRoleName: string;
