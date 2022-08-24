@@ -4,7 +4,7 @@
 
         <div class="addre-holder-col" style="border-right: 2px solid  rgb(202, 193, 193);width: 1000px;">
             <div style='display: flex; flex-direction: row; justify-content: space-between; height: 44px; padding: 20px 0px;'>
-                <mat-slide-toggle color="warn" [ngModelOptions]="{standalone: true}" [(ngModel)]="choiceFromMap">Geolocation</mat-slide-toggle>
+                <mat-slide-toggle color="warn" [ngModelOptions]="{standalone: true}" ngDefaultControl  [(ngModel)]="choiceFromMap">Geolocation</mat-slide-toggle>
                 <button  *ngIf="choiceFromMap" style="margin-left: 15px; height: 44px;" mat-raised-button (click)='openSelectFromMap()'><mat-icon>room</mat-icon> Choose location from map</button>
             </div>
             
@@ -49,7 +49,7 @@
                                 <img style="width: 100px; height: 100px;" [src]="gridEl.Angular_FullUrl" alt='image'>
                             </div>
                             <div class="ppe-settings-grid-layout-element-item">
-                                <mat-radio-button color="warn" style="display: flex; flex-direction:column;" [(ngModel)]="gridEl.ActiveSelect" (change)="changeSelectedCustom(gridEl)">
+                                <mat-radio-button color="warn" style="display: flex; flex-direction:column;" ngDefaultControl  [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedType"  (change)="changeSelectedCustom(gridEl)">
                                     {{gridEl.Title}}</mat-radio-button>
                             </div>
                          </div>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="currentWindGenerator && currentWindGenerator.Id != 0" style="display: flex; flex-direction: column;justify-content: center;">
+                <div *ngIf="currentWindGenerator && currentWindGenerator.Id != 0 && selectedType" style="display: flex; flex-direction: column;justify-content: center;">
 
                     <div style="display: flex; flex-direction: row;width: 300px;height: 200px; ">
                         
@@ -66,10 +66,10 @@
                                 <label>Base Price: {{gridEl.Price}}</label>
                             </div> -->
                             <div class="ppe-settings-grid-layout-element-item" style="margin-top: 30px">
-                                <img style="width: 100px; height: 100px;" [src]="currentWindGenerator.Angular_FullUrl" alt='image'>
+                                <img style="width: 100px; height: 100px;" [src]="selectedType?.Angular_FullUrl" alt='image'>
                             </div>
                             <div  class="ppe-settings-grid-layout-element-item">
-                                <label> {{currentWindGenerator.Title}}</label>
+                                <label> {{selectedType?.Title}}</label>
                             </div>
                            
                          </div>
@@ -121,14 +121,14 @@
 
     
         <div class="footers-line">
-            <button *ngIf="currentWindGenerator && currentWindGenerator.Id != 0" (click)="delete()" class='global-button' >Delete</button>
+            <button *ngIf="currentWindGenerator && currentWindGenerator.Id != 0 && currentWindGenerator.ParentUserId == userService.currentUser.Id" (click)="delete()" class='global-button' >Delete</button>
         
             <div class="footer-button">
                     
             </div>
             <div class="footer-button">
                 <button  (click)="cancel()" class='us-list-button'>Cancel</button>
-                <button style="margin-left: 20px;"  class='global-button' (click)="addWindGenerator()"  type="submit">Save</button>
+                <button [disabled]="!selectedType" style="margin-left: 20px;"  class='global-button' (click)="addWindGenerator()"  type="submit">Save</button>
             </div>
         </div>
   

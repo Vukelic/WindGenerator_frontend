@@ -84,6 +84,10 @@ export class UserServiceService {
           localStorage.setItem('token', resp.Value.UserToken);  
           this.decodeJwtToken();
           this.router.navigateByUrl("/dashboard");
+
+          this.Get(this.currentUser.Id).subscribe((resp: any)=>{
+            this.currentUser = resp.Value;
+          })
         }
         else if (!resp.Success) {
           // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'UserService, Post');

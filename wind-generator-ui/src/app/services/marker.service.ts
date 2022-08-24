@@ -51,6 +51,8 @@ export class MarkerService {
         coordinates: [lat, lon],
          lat: lat,
          lon: lon,
+         ParentUserId: v.ParentUserId,
+         ParentWindGeneratorTypeId: v.ParentWindGeneratorTypeId
      //   images: v.images,
      //   documents: v.documents,
      //   plans: v.plans,

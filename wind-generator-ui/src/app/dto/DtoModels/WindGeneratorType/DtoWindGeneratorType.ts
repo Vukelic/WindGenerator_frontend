@@ -5,8 +5,8 @@ export class DtoWindGeneratorType extends ARepoBaseEntity{
 
     Name: string;
     Description: string;
-    Turbines: number;
-    Guarantee: number;
+    Turbines: string;
+    Guarantee: string;
     HeightOfWing: string;
     ImageUrl: String;
     MaxPowerTurbine: string;
@@ -14,8 +14,33 @@ export class DtoWindGeneratorType extends ARepoBaseEntity{
     PowerOfTurbines: string;
     Weight: string;
     WidthOfWing: string;
+    GeneratorPower: string;
 
     //COMPLEX PROPERTIES
-   ListOfGenerators: DtoWindGeneratorDevice[];
+   ListOfGenerators?: DtoWindGeneratorDevice[];
+
+   //local
+   File?: any;
+   Angular_FullUrl?: any;
+
+   /**
+    *
+    */
+   constructor() {
+    super();
+     
+    this.Name = "";
+    this.Description = "";
+    this.Turbines = "";
+    this.Guarantee = "";
+    this.HeightOfWing = "";
+    this.ImageUrl = "";
+    this.MaxPowerTurbine = "";
+    this.MaxSpeedTurbine = "";
+    this.PowerOfTurbines = "";
+    this.Weight = "";
+    this.WidthOfWing = "";
+    this.GeneratorPower = "";
+   }
 
 }

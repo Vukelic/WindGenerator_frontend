@@ -11,7 +11,10 @@ import { MarkerService } from 'src/app/services/marker.service';
 import { WindGeneratorDeviceService } from 'src/app/services/wind-generator-device.service';
 import { ProfitComponent } from '../../profit/profit.component';
 import { SelectLocationMapModalComponent } from '../../select-location-map-modal/select-location-map-modal.component';
-
+import { UserServiceService } from 'src/app/services/user.service';
+import { getLocaleExtraDayPeriods } from '@angular/common';
+import { WindGeneratorTypeService } from 'src/app/services/wind-generator-type.service';
+import { DtoWindGeneratorType } from 'src/app/dto/DtoModels/WindGeneratorType/DtoWindGeneratorType';
 @Component({
   selector: 'app-wind-generator-config',
   templateUrl: './wind-generator-config.component.html',
@@ -22,11 +25,11 @@ export class WindGeneratorConfigComponent implements OnInit {
   typeGenerator:any;
   checkProfitStatus: boolean = false;
 
-  allTypes: any = [
-    {Title: "WT1", Angular_FullUrl:"/assets/wt1.JPG",ActiveSelect:false, Price: '1300e'}, 
-    {Title:"WT2",Angular_FullUrl:"/assets/wt2.JPG",ActiveSelect:false,Price: '1600e'},
-    {Title: "WT3",Angular_FullUrl:"/assets/wt3.JPG",ActiveSelect:false,Price: '2400e'},
-    {Title: "WT4",Angular_FullUrl:"/assets/wt4.JPG",ActiveSelect:false,Price: '2600e'},
+  allTypes: any[] = [
+    // {Title: "WT1", Angular_FullUrl:"/assets/wt1.JPG",ActiveSelect:false, Price: '1300e'}, 
+    // {Title:"WT2",Angular_FullUrl:"/assets/wt2.JPG",ActiveSelect:false,Price: '1600e'},
+    // {Title: "WT3",Angular_FullUrl:"/assets/wt3.JPG",ActiveSelect:false,Price: '2400e'},
+    // {Title: "WT4",Angular_FullUrl:"/assets/wt4.JPG",ActiveSelect:false,Price: '2600e'},
   //  {Title:  "AC Asynchronous Generators",Angular_FullUrl:"/assets/turbine1.JPG",ActiveSelect:false,Price: '2600'}
   ];
   windForm: FormGroup;
@@ -56,6 +59,7 @@ export class WindGeneratorConfigComponent implements OnInit {
   optionsF: string[] = ['Novi Sad', 'Beograd', 'Kragujevac', 'Subotica', 'Nis'];
   filteredOptions: Observable<string[]>;
 
+  selectedType: any;
   currentWindGenerator: DtoWindGeneratorDevice = new DtoWindGeneratorDevice();
   constructor(
     public addRE: MatDialogRef<WindGeneratorConfigComponent>, 
@@ -64,9 +68,12 @@ export class WindGeneratorConfigComponent implements OnInit {
     private globalService: GlobalService,  
     private formBuilder: FormBuilder,
     private windGeneratorService: WindGeneratorDeviceService,
-    private markerService: MarkerService) { }
+    private markerService: MarkerService,
+    public userService: UserServiceService,
+    private windTypeService: WindGeneratorTypeService) { }
 
   ngOnInit() {
+    this.getAllTypes();
     this.windForm = this.formBuilder.group({
       country: [],
       city: [],
@@ -74,30 +81,34 @@ export class WindGeneratorConfigComponent implements OnInit {
       description: [],
       lat: [this.data && this.data.lat ? this.data.lat : null, Validators.required],
       lon: [this.data && this.data.lng ? this.data.lng : null, Validators.required],
+    //  typeId: [Validators.required]
      // images: [`assets/gallery/gallery_image1.jpg\nassets/gallery/gallery_image2.jpg\nassets/gallery/gallery_image3.jpg\nassets/gallery/gallery_image4.jpg\nassets/gallery/gallery_image5.jpg\nassets/gallery/gallery_image6.jpg\nassets/gallery/gallery_image7.jpg\nassets/gallery/gallery_image8.jpg`],
     })
-
+    console.warn('data', this.data);
     if(this.data != null && this.data != undefined){
       if(this.data.Id) {
         this.currentWindGenerator = this.data;
-        this.updatePropertiesFromObjectSetToFormGroup(this.windForm, this.data);
-        console.warn('data', this.data);
+        this.updatePropertiesFromObjectSetToFormGroup(this.windForm, this.currentWindGenerator);
+      
+        console.warn('this.currentWindGenerator', this.currentWindGenerator);
       }else{
-        if(this.data.lat != null && this.data.lat != undefined && this.data.lng != null && this.data.lng != undefined)
-            this.globalService.getAdressFromCoords(this.data.lat, this.data.lng)
-                .subscribe(res => {
-                  if(res != null && res != undefined) {
-                    if(res.address) {
-                      if(res.address.city) {
-                        this.windForm.patchValue({city: res.address.city});  
-                      }
-                      if(res.address.country) {
-                        this.windForm.patchValue({country: res.address.country});
-                      }
-                    }
-                  }
-              });
+       
       }
+
+      if(this.data.lat != null && this.data.lat != undefined && this.data.lng != null && this.data.lng != undefined)
+      this.globalService.getAdressFromCoords(this.data.lat, this.data.lng)
+          .subscribe(res => {
+            if(res != null && res != undefined) {
+              if(res.address) {
+                if(res.address.city) {
+                  this.windForm.patchValue({city: res.address.city});  
+                }
+                if(res.address.country) {
+                  this.windForm.patchValue({country: res.address.country});
+                }
+              }
+            }
+        });
 
     this.filteredOptions = this.filterAuto.valueChanges
     .pipe(
@@ -107,11 +118,20 @@ export class WindGeneratorConfigComponent implements OnInit {
 
   }
 
-    
+
+
+
       //ngOnInit(); 
   this.objSetConfigFormSubscription();
   //sa servera
   // this.updatePropertiesFromObjectSetToFormGroup(this.objSetConfigurationForm, this.objSet);
+  }
+
+  getAllTypes(){
+    this.windTypeService.GetList(null).subscribe((resp:any)=>{
+      this.allTypes = resp.Value;
+      this.setType(this.currentWindGenerator.ParentWindGeneratorTypeId);
+    })
   }
 
   private _filter(value: string): string[] {
@@ -154,6 +174,7 @@ export class WindGeneratorConfigComponent implements OnInit {
         object.City = formGroup.getRawValue().city;
         object.GeographicalLatitude = Number(formGroup.getRawValue().lat);
         object.GeographicalLongitude = Number(formGroup.getRawValue().lon);
+      //  object.ParentWindGeneratorTypeId = formGroup.getRawValue().typeId;
       }
     }
   
@@ -166,6 +187,7 @@ export class WindGeneratorConfigComponent implements OnInit {
           city: object.City || '',
           lat: object.GeographicalLatitude || 0,
           lon: object.GeographicalLongitude || 0,
+       //   typeId : object?.ParentWindGeneratorTypeId || 0,
         });
       }
     }
@@ -184,8 +206,12 @@ export class WindGeneratorConfigComponent implements OnInit {
     if (this.windForm.invalid) {
       return;
     }
-    console.warn('currentWindGenerator', this.currentWindGenerator);
   
+    this.currentWindGenerator.ParentUserId = Number(this.userService.currentUser.Id);
+   // this.currentWindGenerator.ParentUser = this.userService.currentUser;
+
+   
+    console.warn('currentWindGenerator', this.currentWindGenerator);
     if(this.currentWindGenerator && this.currentWindGenerator.Id != 0){
       //update
       this.windGeneratorService.Put(this.currentWindGenerator.Id, this.currentWindGenerator).subscribe((res: DtoWindGeneratorDeviceResponse) => {
@@ -245,7 +271,13 @@ export class WindGeneratorConfigComponent implements OnInit {
   }
 
   changeSelectedCustom(data:any){
+  //  this.currentWindGenerator.ParentWindGeneratorType = data;
+    this.currentWindGenerator.ParentWindGeneratorTypeId = data.Id;
+  }
 
+  setType(id:any){
+    this.selectedType = this.allTypes.find( (v: DtoWindGeneratorType)=>v.Id == id);
+    this.windTypeService.PreprocessObjectFromServer(this.selectedType);
   }
 
   

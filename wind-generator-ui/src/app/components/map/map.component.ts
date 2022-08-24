@@ -12,10 +12,22 @@ import { DtoWindGeneratorDeviceListResponse } from 'src/app/dto/DtoResponseObjec
 const iconRetinaUrl = '/assets/marker-icon-2x.png';
 const iconUrl = '/assets/marker-icon.png';
 const iconSelectedUrl = '/assets/marker-icon-selected.png';
+const personalconUrl = '/assets/personalIcon.png'
 const shadowUrl = '/assets/marker-shadow.png';
 const iconDefault = L.icon({
   iconRetinaUrl,
   iconUrl,
+  shadowUrl,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41],
+});
+
+const personalconUrlDefault = L.icon({
+  iconRetinaUrl,
+  iconUrl: personalconUrl,
   shadowUrl,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -114,6 +126,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.eventsSubscription = this.centerMapZoomEvent.subscribe((res) => {
       // this.resetView();
     });
+
+
   }
 
   ngAfterViewInit(): void {}
@@ -289,43 +303,81 @@ export class MapComponent implements OnInit, AfterViewInit {
       var realEstateMapList = response.Value;
       if (realEstateMapList && realEstateMapList.length > 0) {
         realEstateMapList.forEach((re:any, i:any, arr:any) => {
+
+          
           console.warn('reeee', re);
           const lat = re.GeographicalLatitude;
           const lon = re.GeographicalLongitude;
           const val = re.ValueDec;
           //const marker = L.marker([lat, lon], { setForceZIndex: 1 }).addTo(
            const marker = L.marker([lat, lon], { }).addTo( this.markers);
+          if(re.ParentUserId == this.userService.currentUser.Id){
+           marker.setIcon(personalconUrlDefault)
+           }
          // this.map.invalidateSize();
           // When marker is clicked, icon is changed to iconSelected, and it's placed on top of all markers to be visible at all zoom levels
-          marker.on('click', () => {
-            // CLICK NA MARKER
-            this.markers.eachLayer(function (layer:any) {
-              layer.setZIndexOffset(1);
-              layer.setIcon(iconDefault);
-              // this.map.invalidateSize();
+          if(re.ParentUserId == this.userService.currentUser.Id){            
+            marker.on('click', () => {
+              // CLICK NA MARKER
+              this.markers.eachLayer(function (layer:any) {
+                layer.setZIndexOffset(1);
+                layer.setIcon(personalconUrlDefault);
+                // this.map.invalidateSize();
+              });
+              marker.setIcon(iconSelected);
+              marker.setZIndexOffset(1000);
+              map.panTo(marker.getLatLng());
+    
+              this.map.invalidateSize();
+   
             });
-            marker.setIcon(iconSelected);
-            marker.setZIndexOffset(1000);
-            map.panTo(marker.getLatLng());
-  
-            this.map.invalidateSize();
- 
-          });
+          }else{
+            marker.on('click', () => {
+              // CLICK NA MARKER
+              this.markers.eachLayer(function (layer:any) {
+                layer.setZIndexOffset(1);
+                layer.setIcon(iconDefault);
+                // this.map.invalidateSize();
+              });
+              marker.setIcon(iconSelected);
+              marker.setZIndexOffset(1000);
+              map.panTo(marker.getLatLng());
+    
+              this.map.invalidateSize();
+   
+            });
+          }
+        
   
           // When clicked on map outside of marker, icon is set back to default
-          map.on('click', () => {
-            this.markers.eachLayer(function (layer:any) {
-              marker.setZIndexOffset(1);
-              layer.setIcon(iconDefault);
-              // this.map.invalidateSize();
+          if(re.ParentUserId != this.userService.currentUser.Id){
+            map.on('click', () => {
+              this.markers.eachLayer(function (layer:any) {
+                marker.setZIndexOffset(1);
+                layer.setIcon(iconDefault);
+                // this.map.invalidateSize();
+              });
+              marker.setIcon(iconDefault);
+    
+              this.map.invalidateSize();
             });
-            marker.setIcon(iconDefault);
-  
-            this.map.invalidateSize();
-          });
+           }else{
+            map.on('click', () => {
+              this.markers.eachLayer(function (layer:any) {
+                marker.setZIndexOffset(1);
+                layer.setIcon(personalconUrlDefault);
+                // this.map.invalidateSize();
+              });
+              marker.setIcon(personalconUrlDefault);
+    
+              this.map.invalidateSize();
+            });
+           }
+          
         
           this.markerService.updateMarkerInfo(re, i, marker, lat, lon);
         });
+        
       }
     }
     });

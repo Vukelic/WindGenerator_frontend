@@ -56,6 +56,8 @@ export class MarkerInfoBoxComponent implements OnInit {
     objectToSend.City = markerInfo.city;
     objectToSend.GeographicalLatitude = markerInfo.lat;
     objectToSend.GeographicalLongitude = markerInfo.lon;
+    objectToSend.ParentUserId = markerInfo.ParentUserId;
+    objectToSend.ParentWindGeneratorTypeId = markerInfo.ParentWindGeneratorTypeId;
    // objectToSend.ValueDec = markerInfo.value;
     console.warn('markerInfo', markerInfo);
     const dialogRef = this.dialog.open(WindGeneratorConfigComponent, {

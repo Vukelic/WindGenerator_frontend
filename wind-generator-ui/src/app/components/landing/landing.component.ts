@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { DtoWindGeneratorType } from 'src/app/dto/DtoModels/WindGeneratorType/DtoWindGeneratorType';
+import { WindGeneratorTypeService } from 'src/app/services/wind-generator-type.service';
 import { DeviceTypeModalComponent } from '../modals/device-type-modal/device-type-modal.component';
 
 @Component({
@@ -12,94 +14,111 @@ export class LandingComponent implements OnInit {
   path1:any = "/assets/pic1.JPG";
   path2:any = "/assets/pic2.JPG";
 
-  listOfDeviceType: any = [];
+  listOfDeviceType:  DtoWindGeneratorType[] = [];
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public windGeneratorTypeService: WindGeneratorTypeService
   ) { }
 
   ngOnInit(): void {
     this.getTypes();
   }
 
-  edit(type: any){
+  edit(newType: DtoWindGeneratorType){
     const dialogRef = this.dialog.open(DeviceTypeModalComponent, {
-      width: '600px',
-      data: {type},
+      width: '800px',
+      data: { type: newType },
       //autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      
+      if(result && result.userClickOk){
+        this.windGeneratorTypeService.Put(result.currentType.Id, result.currentType).subscribe((resp: any)=>{
+          this.getTypes();
+        })
+      }
     });
+    this.getTypes();
   }
 
-  addNew(type: any){
+  delete(type: any){
+    this.windGeneratorTypeService.Delete(type.Id).subscribe((resp: any)=>{
+      this.getTypes();
+    })
+  }
+
+  addNew(type: DtoWindGeneratorType){
       const dialogRef = this.dialog.open(DeviceTypeModalComponent, {
-      width: '600px',
-      data: type,
+      width: '800px',
+      data: {type: type},
       //autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
-
+      if(result && result.userClickOk){
+        this.windGeneratorTypeService.Post(result.currentType).subscribe((resp: any)=>{
+          this.getTypes();
+        })
+      }
     });
+    this.getTypes();
   }
 
   
 
   getTypes() {
-    this.listOfDeviceType = [   
-      {
-       Name: "Type 1", 
-       Turbines: "Radial",
-       PowerOfTurbines: "3kW",
-       HeightOfWing: "3.2M",
-       WidthOfWing: '1.8M',
-       Weight: "300kg",
-       MaxPowerTurbine: "14m/s",
-       MaxSpeedTurbine: "50m/s",
-       GeneratorPower:"1KW",
-       Guarantee:"5 Years",   
-       ImageUrl: "/assets/wt1.JPG"    
-      },
-      {
-        Name: "Type 2", 
-        Turbines: "Radial",
-        PowerOfTurbines: "3kW",
-        HeightOfWing: "3.2M",
-        WidthOfWing: '1.8M',
-        Weight: "300kg",
-        MaxPowerTurbine: "14m/s",
-        MaxSpeedTurbine: "50m/s",
-        GeneratorPower:"1KW",
-        Guarantee:"5 Years",   
-        ImageUrl: "/assets/wt2.JPG"   
-       },   
-      {
-        Name: "Type 3", 
-        Turbines: "Radial",
-        PowerOfTurbines: "3kW",
-        HeightOfWing: "3.2M",
-        WidthOfWing: '1.8M',
-        Weight: "300kg",
-        MaxPowerTurbine: "14m/s",
-        MaxSpeedTurbine: "50m/s",
-        GeneratorPower:"1KW",
-        Guarantee:"5 Years",  
-        ImageUrl: "/assets/wt3.JPG"       
-       },
-       {
-        Name: "Type 4", 
-        Turbines: "Radial",
-        PowerOfTurbines: "3kW",
-        HeightOfWing: "3.2M",
-        WidthOfWing: '1.8M',
-        Weight: "300kg",
-        MaxPowerTurbine: "14m/s",
-        MaxSpeedTurbine: "50m/s",
-        GeneratorPower:"1KW",
-        Guarantee:"5 Years",  
-        ImageUrl: "/assets/wt4.JPG"       
-       },
-  ]
+    // this.listOfDeviceType = [   
+      // {
+      //  Name: "Type 1", 
+      //  Turbines: "Radial",
+      //  PowerOfTurbines: "3kW",
+      //  HeightOfWing: "3.2M",
+      //  WidthOfWing: '1.8M',
+      //  Weight: "300kg",
+      //  MaxPowerTurbine: "14m/s",
+      //  MaxSpeedTurbine: "50m/s",
+      //  GeneratorPower:"1KW",
+      //  Guarantee:"5 Years",   
+      //  ImageUrl: "/assets/wt1.JPG"    
+      // },
+      // {
+      //   Name: "Type 2", 
+      //   Turbines: "Radial",
+      //   PowerOfTurbines: "3kW",
+      //   HeightOfWing: "3.2M",
+      //   WidthOfWing: '1.8M',
+      //   Weight: "300kg",
+      //   MaxPowerTurbine: "14m/s",
+      //   MaxSpeedTurbine: "50m/s",
+      //   GeneratorPower:"1KW",
+      //   Guarantee:"5 Years",   
+      //   ImageUrl: "/assets/wt2.JPG"   
+      //  },   
+      // {
+      //   Name: "Type 3", 
+      //   Turbines: "Radial",
+      //   PowerOfTurbines: "3kW",
+      //   HeightOfWing: "3.2M",
+      //   WidthOfWing: '1.8M',
+      //   Weight: "300kg",
+      //   MaxPowerTurbine: "14m/s",
+      //   MaxSpeedTurbine: "50m/s",
+      //   GeneratorPower:"1KW",
+      //   Guarantee:"5 Years",  
+      //   ImageUrl: "/assets/wt3.JPG"       
+      //  },
+      //  {
+      //   Name: "Type 4", 
+      //   Turbines: "Radial",
+      //   PowerOfTurbines: "3kW",
+      //   HeightOfWing: "3.2M",
+      //   WidthOfWing: '1.8M',
+      //   Weight: "300kg",
+      //   MaxPowerTurbine: "14m/s",
+      //   MaxSpeedTurbine: "50m/s",
+      //   GeneratorPower:"1KW",
+      //   Guarantee:"5 Years",  
+      //   ImageUrl: "/assets/wt4.JPG"       
+      //  },
+ // ]
     // var dtoEntityIds = new DtoEntityIds();
     // dtoEntityIds.Ids = this.auth.userPermitions.DashboardLive.View.EntityIds;
     // console.warn(this.auth.userPermitions);
@@ -123,6 +142,11 @@ export class LandingComponent implements OnInit {
 
     //   this.listOfDashboards = dashboardResp.Value;
     // });
+
+
+    this.windGeneratorTypeService.GetList(null).subscribe((resp: any)=>{
+        this.listOfDeviceType = resp.Value;
+    })
   }
 
 }

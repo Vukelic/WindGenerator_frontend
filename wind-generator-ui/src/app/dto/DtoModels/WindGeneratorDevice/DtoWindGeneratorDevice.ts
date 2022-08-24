@@ -24,8 +24,8 @@ export  class DtoWindGeneratorDevice extends ARepoBaseEntity{
     ParentUser: DtoUser;
     ParentUserId: number;
     //local:
-    Title: any;
-    Angular_FullUrl: any;
+    Title?: any;
+    Angular_FullUrl?: any;
         /**
      *
      */

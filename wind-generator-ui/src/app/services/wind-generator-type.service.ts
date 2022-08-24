@@ -14,6 +14,17 @@ import { DtoWindGeneratorTypeResponse } from '../dto/DtoResponseObjectModels/Win
 export class WindGeneratorTypeService {
   constructor(private http: HttpClient, private errService: ErrorHandlingService) { }
 
+  PreProcessingDtoObject(url: string): string {
+    var toRet = environment.ImageUrl + url;
+    return toRet;
+  }
+
+  PreprocessObjectFromServer(objectToProcess: any) {
+    if (objectToProcess) {
+      objectToProcess.Angular_FullUrl = this.PreProcessingDtoObject(objectToProcess.ImageUrl);
+    }
+  }
+
   Post(WindGeneratorType: DtoWindGeneratorType) {
     return this.http.post(environment.BaseAPIUrl + 'WindGeneratorType/' + 'Post', WindGeneratorType).pipe(
       map((resp: any) => {
@@ -42,6 +53,13 @@ export class WindGeneratorTypeService {
         if (!resp.Success) {
           // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'WindGeneratorTypeService, GetList');
           this.errService.displayDescriptiveErrorMessage("WindGeneratorType", "Can't get WindGeneratorTypes", resp, 5, 'popup-error');
+      
+        }
+
+        if (resp != null){
+          resp.Value.forEach((v, i, a) => {
+            this.PreprocessObjectFromServer(v);
+          })
         }
         return resp;
       }),
@@ -96,6 +114,10 @@ export class WindGeneratorTypeService {
   Get(id: number) {
     return this.http.get<DtoWindGeneratorTypeResponse>(environment.BaseAPIUrl + 'WindGeneratorType/' + 'Get/' + id).pipe(
       map((resp: DtoWindGeneratorTypeResponse) => {
+        if (resp != null) {
+          this.PreprocessObjectFromServer(resp.Value);
+          return resp;
+        }
         if (!resp.Success) {
           // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'WindGeneratorTypeService, Get');
           this.errService.displayDescriptiveErrorMessage("WindGeneratorType", "Can't get WindGeneratorType", resp, 5, 'popup-error');

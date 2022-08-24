@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
+import { DtoWindGeneratorType } from 'src/app/dto/DtoModels/WindGeneratorType/DtoWindGeneratorType';
+import { WindGeneratorTypeService } from 'src/app/services/wind-generator-type.service';
 
 @Component({
   selector: 'app-device-type-modal',
@@ -9,7 +12,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class DeviceTypeModalComponent implements OnInit {
 
-  typeForm = new FormGroup({
+  typeForm:FormGroup = new FormGroup({
     Name: new FormControl('',[Validators.required]),
     Turbines: new FormControl('',[Validators.required]),
     PowerOfTurbines: new FormControl('',[Validators.required]),
@@ -24,16 +27,22 @@ export class DeviceTypeModalComponent implements OnInit {
   });
 
   selectedFileTitle: string = 'No file selected.';
-  currentType: any;
+  currentType: DtoWindGeneratorType;
   constructor(  public deviceTypeModalComponent: MatDialogRef<DeviceTypeModalComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: any, ) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    public windGeneratorTypeService: WindGeneratorTypeService) { }
 
   ngOnInit(): void {
+  
     console.warn('data',this.data);
-      this.currentType = this.data?.type;
-      this.updatePropertiesFromObjectSetToFormGroup(this.typeForm, this.currentType);
-    
-       this.objSetConfigFormSubscription();
+    if(this.data){
+      this.currentType = this.data?.type;  
+    }else{
+      this.currentType = new DtoWindGeneratorType();
+    }
+    this.updatePropertiesFromObjectSetToFormGroup(this.typeForm, this.currentType);
+    this.objSetConfigFormSubscription();
+   
   }
 
    //#region  forms
@@ -59,7 +68,8 @@ export class DeviceTypeModalComponent implements OnInit {
         object.MaxSpeedTurbine = formGroup.getRawValue().MaxSpeedTurbine;
         object.GeneratorPower = formGroup.getRawValue().GeneratorPower;
         object.Guarantee = formGroup.getRawValue().Guarantee;
-        object.ImageInput = formGroup.getRawValue().ImageInput;
+        object.ImageUrl =   formGroup.getRawValue().ImageInput || object.ImageUrl;
+        object.Angular_FullUrl =  ('/assets/' + formGroup.getRawValue().ImageInput);
       }
     }
   
@@ -76,24 +86,20 @@ export class DeviceTypeModalComponent implements OnInit {
           MaxSpeedTurbine: object?.MaxSpeedTurbine,
           GeneratorPower: object?.GeneratorPower,
           Guarantee: object?.Guarantee,
-          ImageInput: object?.ImageInput || '',
+          ImageInput: object?.ImageUrl || '',
         });
       }
     }
   //#endregion
 
   save(){
-    this.deviceTypeModalComponent.close({ userClickOk: false });
+    console.warn('currentType', this.currentType);
+    this.deviceTypeModalComponent.close({ userClickOk: true, currentType: this.currentType });
   }
 
   cancel(){
     this.deviceTypeModalComponent.close({ userClickOk: false });
   }
-
-  delete(){
-    this.deviceTypeModalComponent.close({ userClickOk: false });
-  }
-
 
 
 onImageChange(event: any): any {

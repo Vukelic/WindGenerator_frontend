@@ -208,11 +208,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   openWindGenerator(e:any) {
+    console.warn('eeee',e);
     this.status =  "map";
     console.warn('openWindGenerator');
     const dialogRef = this.dialog.open(WindGeneratorConfigComponent, {
       width: '1200px',
-      data: e,
+      data: {e},
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {
