@@ -59,7 +59,7 @@ export class WindGeneratorConfigComponent implements OnInit {
   optionsF: string[] = ['Novi Sad', 'Beograd', 'Kragujevac', 'Subotica', 'Nis'];
   filteredOptions: Observable<string[]>;
 
-  selectedType: any;
+  selectedType: any = null;
   currentWindGenerator: DtoWindGeneratorDevice = new DtoWindGeneratorDevice();
   constructor(
     public addRE: MatDialogRef<WindGeneratorConfigComponent>, 
@@ -115,6 +115,8 @@ export class WindGeneratorConfigComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value))
     );
+
+    console.warn('selectedType', this.selectedType);
 
   }
 

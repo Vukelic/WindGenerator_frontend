@@ -13,7 +13,7 @@
             width: unset;
             justify-content: center;
             align-items: center;
-            margin-bottom: unset;" (click)="addNew(null)" class='global-button'>
+            margin-bottom: unset;width: 100px;" (click)="addNew(null)" class='global-button'>
                 Add new
             </button>
         </div>
@@ -29,10 +29,10 @@
                         <span style="font-size: 20px;">{{type.Name}}</span>
                     </div>
                     <div>
-                        <button (click)="edit(type)" class='global-button'>
+                        <button style="width: 100px;" (click)="edit(type)" class='global-button'>
                             Edit
                         </button>
-                        <button  (click)="delete(type)" class='global-button'>
+                        <button style="width: 100px;"   (click)="delete(type)" class='global-button'>
                             Delete</button>
                     </div>
                                

@@ -4,7 +4,30 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import L from 'leaflet';
 import { GlobalService } from 'src/app/services/global.service';
 import { MarkerService } from 'src/app/services/marker.service';
+import { UserServiceService } from 'src/app/services/user.service';
 
+const iconRetinaUrl = '/assets/personalIcon.png';
+const personalconUrl = '/assets/personalIcon.png';
+const shadowUrl = '/assets/marker-shadow.png';
+const iconSelectedUrl = '/assets/marker-icon-selected.png';
+const personalconUrlDefault = L.icon({
+  iconRetinaUrl,
+  iconUrl: personalconUrl,
+  shadowUrl,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41],
+});
+const iconSelected = L.icon({
+  iconUrl: iconSelectedUrl,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41],
+});
 
 @Component({
   selector: 'app-map-for-selection',
@@ -20,26 +43,66 @@ export class MapForSelectionComponent implements OnInit {
   private mapForSelection: any;
   mapSearchTerm: string;
   inputSearchField = document.getElementById('inputMapSelectionSearchTerm');
-lat: any = 45.2551338;
-long: any = 19.8451756;
+  lat: any = 45.2551338;
+  long: any = 19.8451756;
+  markers: any;
+  PersonalStatus: boolean = false;
+
   constructor(
     private markerService: MarkerService,
     private http: HttpClient,
     private globalService: GlobalService,
     public selectFromMapModal: MatDialogRef<MapForSelectionComponent>, 
+    private userService: UserServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit() {
+    console.warn('**data',this.data)
     if(this.data.object){
-      this.lat = this.data.object.lat;
-      this.long = this.data.object.long;
+      this.lat = this.data.object.GeographicalLatitude;
+      this.long = this.data.object.GeographicalLongitude;
+      this.PersonalStatus = true;
     }
     this.loadMapForSelection();
     this.selectLatLon();
     this.inputSearchMap();
+    this.addMarker();
   }
 
+  addMarker(){
+    this.markers = L.layerGroup().addTo(this.mapForSelection);
+    const marker = L.marker([this.lat, this.long], { }).addTo( this.markers);
+    if(this.data.object.ParentUserId == this.userService.currentUser.Id){            
+      marker.on('click', () => {
+        // CLICK NA MARKER
+        this.markers.eachLayer(function (layer:any) {
+          layer.setZIndexOffset(1);
+          layer.setIcon(personalconUrlDefault);
+          // this.map.invalidateSize();
+        });
+        marker.setIcon(iconSelected);
+        marker.setZIndexOffset(1000);
+        this.mapForSelection.panTo(marker.getLatLng());
+
+        this.mapForSelection.invalidateSize();
+
+      });
+
+      this.mapForSelection.on('click', () => {
+        this.markers.eachLayer(function (layer:any) {
+          marker.setZIndexOffset(1);
+          layer.setIcon(personalconUrlDefault);
+          // this.map.invalidateSize();
+        });
+        marker.setIcon(personalconUrlDefault);
+
+        this.mapForSelection.invalidateSize();
+      });
+     
+      this.markerService.updateMarkerInfo(this.data.object, 0, marker, this.lat, this.long);
+    }
+  }
   loadMapForSelection() {
     this.mapForSelection = L.map('mapForSelection', {
       center: [this.lat, this.long],
@@ -87,11 +150,13 @@ long: any = 19.8451756;
   }
 
   selectLatLon() {
+    if(!this.PersonalStatus){
     this.mapForSelection.on('contextmenu', (event: any) => {
       this.lonlatToEmit = event.latlng;
 
       this.passDataToParent();
     });
+  }
   }
 
   inputSearchMap() {

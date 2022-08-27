@@ -10,12 +10,12 @@
                 (click)='goToLiveDashboard(dashboard)' title="{{dashboard.Name}}">
                 <div  class="inv-row"  style="justify-content: space-between !important;">
                     <div>
-                        <button (click)="gotoMap()" class='global-button'>
+                        <button (click)="gotoMap(dashboard)" class='global-button'>
                             View on map
                         </button>
                     </div>
                     <div>
-                        <span style="font-size: 20px;">{{dashboard.Name}}</span>
+                        <span style="font-size: 20px;">{{dashboard?.Name}}</span>
                     </div>
                     <div>
                         <button (click)="getHistory()" class='global-button'>
@@ -28,32 +28,32 @@
                 <div style="margin-top: 15px;" class="lp-live-db-list-item-title">                 
                     <div class="inv-icon">
                         <mat-icon>place</mat-icon><span style="display: flex;
-                        justify-content: center;">{{dashboard.City}}, {{dashboard.Country}}</span>
+                        justify-content: center;">{{dashboard?.City}}, {{dashboard?.Country}}</span>
                     </div>
                     <div class="inv-row">
                         <span>Wind power:</span>
                         <span>
-                         {{dashboard.WindPower}}</span>
+                         {{dashboard?.WindPower}}</span>
                     </div>             
                     <div class="inv-row">
                         <span style="font-size: 25px;">Profitably:</span>
-                        <span class="inv-border"> {{dashboard.Profit}}</span>
+                        <span class="inv-border"> {{dashboard?.Profit}}</span>
                     </div>
                     <div class="inv-row">
                     <span style="font-size: 25px;">Full Price:</span>
-                    <span style="font-size: 35px">{{dashboard.FullPrice}} </span>
+                    <span style="font-size: 35px">{{dashboard?.FullPrice}} </span>
                     </div>
                     <div class="inv-row">
                         <span  style="font-size: 25px;">Paid: </span>
-                        <span>{{dashboard.Paid}} </span>
+                        <span>{{dashboard?.Paid}} </span>
                     </div>
                     <div class="inv-row">
                         <span>Start Year:</span>
-                        <span style="border-bottom: 2px solid rgb(117, 112, 112);"> {{dashboard.StartYear}} </span>
+                        <span style="border-bottom: 2px solid rgb(117, 112, 112);"> {{dashboard?.StartYear}} </span>
                         </div>
                     <div class="inv-row">
                     <span>End Year:</span>
-                    <span style="border-bottom: 2px solid #e6543c;"> {{dashboard.PaymentYear}} </span>
+                    <span style="border-bottom: 2px solid #e6543c;"> {{dashboard?.PaymentYear}} </span>
                     </div>
                 </div>
             </div>

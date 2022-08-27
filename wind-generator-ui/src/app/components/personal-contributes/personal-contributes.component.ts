@@ -1,6 +1,12 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
+import { DtoPaging } from 'src/app/dto/DtoRequestObjectModels/DtoPaging';
+import { UserServiceService } from 'src/app/services/user.service';
+import { WindGeneratorDeviceService } from 'src/app/services/wind-generator-device.service';
+import { WindGeneratorTypeService } from 'src/app/services/wind-generator-type.service';
 import { MapForSelectionComponent } from '../map-for-selection/map-for-selection.component';
 import { HistoriesComponent } from '../modals/histories/histories.component';
 import { SelectLocationMapModalComponent } from '../select-location-map-modal/select-location-map-modal.component';
@@ -14,70 +20,87 @@ export class PersonalContributesComponent implements OnInit {
 
   showFiller = false;
   listOfPages: any = [];
-  listOfDashboards: any[] = [];
+  listOfDashboards: DtoWindGeneratorDevice[] = [];
   user: any;
+  dtoPagging: DtoPaging;
 
-
-  constructor(private router: Router, private dialog: MatDialog) {
+  constructor(private router: Router, private dialog: MatDialog, private windProviderDeviceService: WindGeneratorDeviceService,
+    private userService: UserServiceService)
+ {
    
   }
 
   ngOnInit(): void {
-    this.getDashboards();
+    this.initialDtoPagging();
+    this.getInvestments();
   }
 
+  initialDtoPagging(){
+  this.dtoPagging = new DtoPaging();
+    this.dtoPagging.filters = [];
+    this.dtoPagging.filtersType = [];
+  }
+
+  getInvestments(){
+    this.dtoPagging.filters['ParentUserId'] = this.userService.currentUser.Id;
+    this.dtoPagging.filtersType['ParentUserId'] = "eq";
+
+    this.windProviderDeviceService.GetList( this.dtoPagging).subscribe((resp:any)=>{
+      this.listOfDashboards = resp.Value;
+    })
+  }
 
   getDashboards() {
-    this.listOfDashboards = [   
-      {
-       Name: "Investment 1", 
-       Country: "Serbia",
-       City: "Belgrade",
-       TimeCreated: "12.2.2022",
-       WindPower: '3052 kW',
-       Profit: "35%",
-       FullPrice: "2M",
-       Paid:"1M",
-       PaymentYear:"2025",
-       StartYear:"2015",
-      },
-      {
-        Name: "Investment 2", 
-        Country: "Serbia",
-        City: "Belgrade",
-        TimeCreated: "12.2.2022",
-        WindPower: '3052 kW',
-        Profit: "35%",
-        FullPrice: "2M",
-        Paid:"1M",
-        PaymentYear:"2025",
-        StartYear:"2015",
-      },
-      {
-        Name: "Investment 3", 
-        Country: "Serbia",
-        City: "Belgrade",
-        TimeCreated: "12.2.2022",
-        WindPower: '3052 kW',
-        Profit: "35%",
-        FullPrice: "2M",
-        Paid:"1M",
-        PaymentYear:"2025",
-        StartYear:"2015",
-    },
-    {
-      Name: "Investment 4", 
-      Country: "Serbia",
-      City: "Belgrade",
-      TimeCreated: "12.2.2022",
-      WindPower: '3052 kW',
-      Profit: "35%",
-      FullPrice: "2M",
-      Paid:"1M",
-      PaymentYear:"2025",
-      StartYear:"2015",
-  },
-  ]
+  //   this.listOfDashboards = [   
+  //     {
+  //      Name: "Investment 1", 
+  //      Country: "Serbia",
+  //      City: "Belgrade",
+  //      TimeCreated: "12.2.2022",
+  //      WindPower: '3052 kW',
+  //      Profit: "35%",
+  //      FullPrice: "2M",
+  //      Paid:"1M",
+  //      PaymentYear:"2025",
+  //      StartYear:"2015",
+  //     },
+  //     {
+  //       Name: "Investment 2", 
+  //       Country: "Serbia",
+  //       City: "Belgrade",
+  //       TimeCreated: "12.2.2022",
+  //       WindPower: '3052 kW',
+  //       Profit: "35%",
+  //       FullPrice: "2M",
+  //       Paid:"1M",
+  //       PaymentYear:"2025",
+  //       StartYear:"2015",
+  //     },
+  //     {
+  //       Name: "Investment 3", 
+  //       Country: "Serbia",
+  //       City: "Belgrade",
+  //       TimeCreated: "12.2.2022",
+  //       WindPower: '3052 kW',
+  //       Profit: "35%",
+  //       FullPrice: "2M",
+  //       Paid:"1M",
+  //       PaymentYear:"2025",
+  //       StartYear:"2015",
+  //   },
+  //   {
+  //     Name: "Investment 4", 
+  //     Country: "Serbia",
+  //     City: "Belgrade",
+  //     TimeCreated: "12.2.2022",
+  //     WindPower: '3052 kW',
+  //     Profit: "35%",
+  //     FullPrice: "2M",
+  //     Paid:"1M",
+  //     PaymentYear:"2025",
+  //     StartYear:"2015",
+  // },
+  // ]
     // var dtoEntityIds = new DtoEntityIds();
     // dtoEntityIds.Ids = this.auth.userPermitions.DashboardLive.View.EntityIds;
     // console.warn(this.auth.userPermitions);
@@ -116,10 +139,10 @@ export class PersonalContributesComponent implements OnInit {
     });
   }
 
-  gotoMap(){
+  gotoMap(dashboard:any){
     const dialogRef = this.dialog.open(SelectLocationMapModalComponent, {
       width: '800px',
-      data: {},
+      data: {object: dashboard},
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {

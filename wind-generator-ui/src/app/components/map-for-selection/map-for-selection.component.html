@@ -1,12 +1,12 @@
 <div style="position: absolute; bottom: 10px; left: 5px; display: flex; flex-direction: row; z-index: 999999;">
-    <div class="info-box">
+    <div class="info-box" *ngIf="!PersonalStatus">
         <span>Right-click on map to select location</span>
     </div>
 </div>
 
 
 
-<div style="position: absolute; top: 10px; right: 5px; display: flex; flex-direction: row; z-index: 999999;">
+<div *ngIf="!PersonalStatus" style="position: absolute; top: 10px; right: 5px; display: flex; flex-direction: row; z-index: 999999;">
     <input type="text" [(ngModel)]='mapSearchTerm' class='map-search-input' id='inputMapSelectionSearchTerm' (keyup.enter)="searchMap()">
     <button (click)='searchMap()' class="map-search-button" id='searchMapSelectionButton'>
         <mat-icon>search</mat-icon>

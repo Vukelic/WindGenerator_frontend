@@ -26,6 +26,12 @@ export  class DtoWindGeneratorDevice extends ARepoBaseEntity{
     //local:
     Title?: any;
     Angular_FullUrl?: any;
+    PaymentYear?: any;
+    FullPrice?: any;
+    StartYear?: any;
+    Paid?:any;
+    WindPower?:any;
+    Profit?:any;
         /**
      *
      */
