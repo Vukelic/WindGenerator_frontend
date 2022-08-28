@@ -8,6 +8,7 @@ import { ColumnDef } from '../custom-table/data-table/column-def';
 import { DataSource } from '../custom-table/data-table/data-source';
 
 import { ESortEnum } from '../custom-table/data-table/ESortEnum.enum';
+import { RegistrationComponent } from '../registration/registration.component';
 import { UsersComponent } from '../users/users.component';
 
 @Component({
@@ -74,13 +75,15 @@ export class AllUsersComponent implements OnInit {
     this.getAllUsers();
   }
   addNew(){
-    const dialogRef = this.dialog.open(UsersComponent, {
+    const dialogRef = this.dialog.open(RegistrationComponent, {
       width: '400px',
-      data: {user: null},
+      data: {isNewUser: true},
       //autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      
+      if(result.userClickOk){
+        this.getAllUsers();
+      }
     });
   }
 
@@ -93,7 +96,14 @@ export class AllUsersComponent implements OnInit {
       //autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      
+      if(result.userClickOk){
+        if(result.currentUser){
+          this.userService.Put(result.currentUser.Id,result.currentUser).subscribe(res => {
+            this.getAllUsers();
+          });
+         
+        }
+      }
     });
   }
 

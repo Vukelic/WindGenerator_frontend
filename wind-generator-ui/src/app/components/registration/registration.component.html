@@ -31,7 +31,8 @@
         </div>
 
         <div style="margin-top: 30px;" class="registration-buttons">
-            <button mat-raised-button [disabled]="!registerForm.valid" (click)='onRegistration()'>Register</button>
+            <button *ngIf="!isNewUser" mat-raised-button [disabled]="!registerForm.valid" (click)='onRegistration()'>Register</button>
+            <button *ngIf="isNewUser" mat-raised-button [disabled]="!registerForm.valid" (click)='onRegistration()'>Add new user</button>
         </div>
     </form> 
     </div>

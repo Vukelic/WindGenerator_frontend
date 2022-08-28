@@ -91,7 +91,7 @@ export class UserServiceService {
         }
         else if (!resp.Success) {
           // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'UserService, Post');
-          this.errService.displayDescriptiveErrorMessage("User", "Can't login user", resp, 5, 'popup-error');
+          this.errService.displayDescriptiveErrorMessage("User", resp.Message, resp, 5, 'popup-error');
         }
        
         return resp;

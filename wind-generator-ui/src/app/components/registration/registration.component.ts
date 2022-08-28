@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { data } from 'jquery';
 import { DtoUser } from 'src/app/dto/DtoModels/User/DtoUser';
 import { GlobalService } from 'src/app/services/global.service';
 import { UserServiceService } from 'src/app/services/user.service';
@@ -19,15 +20,19 @@ export class RegistrationComponent implements OnInit {
     password: new FormControl('',[Validators.required]),
   });
 
+  isNewUser: boolean = false;
   currentUser: DtoUser = new DtoUser();
   constructor(public dialog: MatDialog, 
     private globalService: GlobalService,  
     private formBuilder: FormBuilder,
     public diag: MatDialogRef<RegistrationComponent>, 
-    private userService: UserServiceService) { }
+    private userService: UserServiceService,
+    @Inject(MAT_DIALOG_DATA) public data: any, ) { }
 
   ngOnInit(): void {
-   
+   if(this.data.isNewUser){
+    this.isNewUser = this.data.isNewUser;
+   }
     this.objSetConfigFormSubscription();
   }
 
@@ -70,8 +75,10 @@ export class RegistrationComponent implements OnInit {
     //SEND REQ TO SERVICE
 
     this.userService.Register(this.currentUser).subscribe(res => {
-      this.diag.close({userClickedOk: true, user: this.currentUser});
+      this.diag.close({userClickOk: true, user: this.currentUser});
     });
 
   }
+
+
 }
