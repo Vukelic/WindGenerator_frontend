@@ -78,7 +78,7 @@
         </div>
         <div class="footer-button">
             <button  (click)="cancel()" class='us-list-button'>Cancel</button>
-            <button style="margin-left: 20px;"  class='global-button' (click)="save()"  type="submit">Save</button>
+            <button [disabled]="typeForm.invalid" style="margin-left: 20px;"  mat-raised-button  color="warn" class='global-button' (click)="save()"  type="submit">Save</button>
         </div>
     </div>
 </div>

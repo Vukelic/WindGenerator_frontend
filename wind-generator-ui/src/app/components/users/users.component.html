@@ -1,1 +1,49 @@
-<p>users works!</p>
+<div class="user-holder">
+    <h1>Wind device type</h1>
+
+    <div class="user-form" [formGroup]='userForm' >
+        <div class="type-input">
+            <mat-form-field class="example-full-width">
+                <mat-label>Name </mat-label>
+                <input matInput type="text"  formControlName="Name">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>UserName </mat-label>
+                <input matInput type="text" formControlName="UserName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Surname
+                </mat-label>
+                <input matInput type="text" formControlName="Surname">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Phone</mat-label>
+                <input matInput type="text" formControlName="Phone">
+            </mat-form-field>
+         
+            <mat-form-field  class="example-full-width" appearance="fill">
+                <mat-label>Suspend</mat-label>
+                <mat-select  formControlName="Susspend" name="food">
+                  <mat-option *ngFor="let type of typeOfSuspend" [value]="type.Value">
+                    {{type.Title}}
+                  </mat-option>
+                 
+                </mat-select>
+              </mat-form-field>
+          
+        </div>
+    </div>
+
+
+    <div class="footers-line">
+      
+    
+        <div class="footer-button">
+                
+        </div>
+        <div class="footer-button">
+            <button  (click)="cancel()" class='us-list-button'>Cancel</button>
+            <button [disabled]="userForm.invalid" style="margin-left: 20px;"  mat-raised-button  color="warn" class='global-button' (click)="save()"  type="submit">Save</button>
+        </div>
+    </div>
+</div>

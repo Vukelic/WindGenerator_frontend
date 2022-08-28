@@ -42,7 +42,7 @@ export class DataTableComponent<T> implements OnInit {
   @Input() isSelectedEnabled: boolean = false;
 
   @Input() changedDataSourceEmitter: EventEmitter<any>;
-  columnsListCopy: any = [];
+  columnsListCopy:any = [];
   sortColumns: ColumnDef<T>[] = [];
   columns: ColumnDef<T>[] = [];
 
@@ -55,11 +55,13 @@ export class DataTableComponent<T> implements OnInit {
   }
 
 
-  selectionRow(row: any) {
+  selectionRow(row:any) {
     if (this.isSelectedEnabled) {
-      this.selection.toggle(row); // objekat u selection: Set(1)
-
-      this.selectedChangeEvent.emit(this.selection?._selection);
+     this.selection.toggle(row); // objekat u selection: Set(1)
+      console.warn('selection',this.selection);
+  
+      this.selectedChangeEvent.emit(row);
+     
     }
 
   }
@@ -117,7 +119,7 @@ export class DataTableComponent<T> implements OnInit {
     this.dtoPaging.filtersType = {};
   }
 
-  pagingChange(event: any) {
+  pagingChange(event:any) {
     // if(event.pageSize != this.localTablePaging.countPerPage){
     //   this.paginator.pageIndex = 0;
     //   this.localTablePaging.page = 1;
@@ -145,7 +147,7 @@ export class DataTableComponent<T> implements OnInit {
     this.regenerateColumnCopyList();
   }
 
-  sortData(column: any) {
+  sortData(column:any) {
     if (column.hasSorting) {
       if (column.sort == ESortEnum.none || column.sort == ESortEnum.Descending) {
         column.sort = ESortEnum.Ascending
@@ -193,7 +195,7 @@ export class DataTableComponent<T> implements OnInit {
   @ContentChildren(ColumnCellDirective)
   set cellTemplates(defs: QueryList<ColumnCellDirective>) {
     defs.forEach(def => {
-      const col = this.columns.find(x => x.key === def.columnCell) || { cellTemplate: <any>null, key: <any>null, };
+      const col = this.columns.find(x => x.key === def.columnCell) || <any>{ cellTemplate: null, key: null, };
       col.cellTemplate = def.template;
       if (!col.key) {
         col.key = def.columnCell;
@@ -208,7 +210,7 @@ export class DataTableComponent<T> implements OnInit {
   @ContentChildren(ColumnHeaderDirective)
   set headerTemplates(defs: QueryList<ColumnHeaderDirective>) {
     defs.forEach(def => {
-      const col = this.columns.find(x => x.key === def.columnHeader) || { headerTemplate: <any>null, field: <any>null, key: <any>null };
+      const col = this.columns.find(x => x.key === def.columnHeader) || <any>{ headerTemplate: null, field: null, key: null };
       col.headerTemplate = def.template;
 
       if (!col.key) {
@@ -224,4 +226,6 @@ export class DataTableComponent<T> implements OnInit {
     });
   }
 }
+
+
 

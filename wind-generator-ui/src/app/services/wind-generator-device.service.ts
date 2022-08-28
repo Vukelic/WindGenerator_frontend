@@ -37,8 +37,8 @@ export class WindGeneratorDeviceService {
 
   GetList(paging: DtoPaging) {
     console.warn('get list');
-    var objAsJson = JSON.stringify(paging);
-    return this.http.get<DtoWindGeneratorDeviceListResponse>(environment.BaseAPIUrl + 'WindGeneratorDevice/' + 'Get' + '?inPaggingJson=' + objAsJson).pipe(
+    var inPaggingJson = JSON.stringify(paging);
+    return this.http.get<DtoWindGeneratorDeviceListResponse>(environment.BaseAPIUrl + 'WindGeneratorDevice/' + 'Get' + '?inPaggingJson=' + inPaggingJson).pipe(
       map((resp: DtoWindGeneratorDeviceListResponse) => {
         if (!resp.Success) {
           // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'WindGeneratorDeviceService, GetList');

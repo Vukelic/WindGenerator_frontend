@@ -35,7 +35,7 @@ export class DeviceTypeModalComponent implements OnInit {
   ngOnInit(): void {
   
     console.warn('data',this.data);
-    if(this.data){
+    if(this.data?.type){
       this.currentType = this.data?.type;  
     }else{
       this.currentType = new DtoWindGeneratorType();
@@ -121,7 +121,9 @@ onImageChange(event: any): any {
       };
       reader.readAsDataURL(file);
   
+      if(this.currentType){
       this.currentType.File = file;
+      }
   }
 
 }

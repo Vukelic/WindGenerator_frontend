@@ -36,16 +36,19 @@ export class PersonalContributesComponent implements OnInit {
   }
 
   initialDtoPagging(){
-  this.dtoPagging = new DtoPaging();
-    this.dtoPagging.filters = [];
-    this.dtoPagging.filtersType = [];
+    this.dtoPagging = new DtoPaging();
+    this.dtoPagging.filters = {};
+    this.dtoPagging.filtersType = {};
+    this.dtoPagging.page= 1;
+    this.dtoPagging.totalPages= 10;
   }
 
   getInvestments(){
-    this.dtoPagging.filters['ParentUserId'] = this.userService.currentUser.Id;
-    this.dtoPagging.filtersType['ParentUserId'] = "eq";
-
-    this.windProviderDeviceService.GetList( this.dtoPagging).subscribe((resp:any)=>{
+    this.dtoPagging.filters["ParentUserId"] = this.userService.currentUser.Id;
+    this.dtoPagging.filtersType["ParentUserId"] = "eq";
+    console.warn('dtoPagging',this.dtoPagging);
+    this.windProviderDeviceService.GetList(this.dtoPagging).subscribe((resp:any)=>{
+      console.warn('resp',resp);
       this.listOfDashboards = resp.Value;
     })
   }

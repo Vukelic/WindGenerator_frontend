@@ -11,7 +11,7 @@
             <div class='addre-holder' >
                 <div  style="display: flex; flex-direction: row; justify-content: space-between; ">
                     <mat-form-field class="example-form-field " >
-                        <input matInput type="text" placeholder="Latitude" formControlName="lat">
+                        <input  matInput type="text" placeholder="Latitude" formControlName="lat">
                     </mat-form-field>
                     
                     <mat-form-field class="example-form-field " >
@@ -128,7 +128,7 @@
             </div>
             <div class="footer-button">
                 <button  (click)="cancel()" class='us-list-button'>Cancel</button>
-                <button [disabled]="true" style="margin-left: 20px;"  class='global-button' (click)="addWindGenerator()">Save</button>
+                    <button [disabled]="!selectedType || windForm.invalid " style="margin-left: 20px;"  mat-raised-button  color="warn"  class='global-button' (click)="addWindGenerator()">Save</button>
             </div>
         </div>
   

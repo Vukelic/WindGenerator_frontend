@@ -43,7 +43,8 @@ export class AllUsersComponent implements OnInit {
   }
 
   updateSelect(data:any) {
-  //  this.router.navigate(["/app/details-examination/" + data?.Id]);
+    console.warn('***data',data);
+   this.openUserConfigurationDialog(data);
   }
 
   updateSorting(data:any) {
@@ -65,23 +66,38 @@ export class AllUsersComponent implements OnInit {
     this.userService.GetList(this.dtoPaging).subscribe((resp: any)=>{
       console.warn('**',resp)
       this.dataSource = new DataSource(resp.Value);
+      this.dtoPaging = resp.PagingObject;
     })
   }
 
   ngOnInit(): void {
     this.getAllUsers();
   }
-
-  openUserConfigurationDialog(user: any){
+  addNew(){
     const dialogRef = this.dialog.open(UsersComponent, {
-      width: '600px',
-      data: user,
+      width: '400px',
+      data: {user: null},
       //autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
       
     });
   }
+
+  openUserConfigurationDialog(user: any){
+    console.warn('user', user);
+    if(user != null){
+    const dialogRef = this.dialog.open(UsersComponent, {
+      width: '400px',
+      data: {user: user},
+      //autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      
+    });
+  }
+
+}
   removeUser(user:any){
 
   }
