@@ -24,6 +24,9 @@ export class UserServiceService {
 
   constructor(private http: HttpClient, private errService: ErrorHandlingService,private router: Router) { }
 
+  getUser(){
+    this.currentUser = JSON.parse (localStorage.getItem('currentUser'));  
+  }
   doesJwtTokenExists(): boolean {
     var jwtTokenValue = localStorage.getItem('token');
     if (jwtTokenValue) {
@@ -86,7 +89,9 @@ export class UserServiceService {
           this.router.navigateByUrl("/dashboard");
 
           this.Get(this.currentUser.Id).subscribe((resp: any)=>{
+            
             this.currentUser = resp.Value;
+            localStorage.setItem('currentUser', JSON.stringify(this.currentUser)); 
           })
         }
         else if (!resp.Success) {

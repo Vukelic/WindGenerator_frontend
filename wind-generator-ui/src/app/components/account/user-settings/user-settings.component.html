@@ -7,13 +7,13 @@
     <div class="us-box">
         <div class="us-top">
             <div class="us-profile">
-                <img src="assets/profile.png" alt="">
+                <img src="assets/user.png" alt="">
             </div>
             <div class="us-row-label">
-                <span>Marko Markovic</span>
+                <span>{{userService.currentUser.Name}} {{userService.currentUser.Surname}}</span>
             </div>
             <div class="us-row-label-sm">
-                <span>markovicm@gmail.com</span>
+                <span>{{userService.currentUser.UserName}}</span>
             </div>
             <div class="us-row-buttons">
                 <button class="us-profile-button" (click)='logout()'>Log out</button>
@@ -27,7 +27,7 @@
             <div class="us-column-group">
                 <div class="us-row-group-field">
                     <span>Change password</span>
-                    <button class="us-list-button">Change</button>
+                    <button (click)="changePassword()" class="us-list-button">Change</button>
                     <!-- <input type="text" style="width: 200px;"> -->
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <span>Profile</span>
             </div>
             <div class="us-column-group">
-                <div class="us-row-group-field">
+                <div class="us-row-group-field" *ngIf="false">
                     <span>Change profile picture</span>
                     <button class="us-list-button">Upload</button>
                     <!-- <input type="text" style="width: 200px;"> -->
@@ -46,15 +46,15 @@
                 <div class="us-row-group-field">
                     <span>Full name</span>
                     <!-- <button class="us-list-button">Upload</button> -->
-                    <input type="text" placeholder="Marko Markovic" class="us-input">
+                    <input readonly value="{{currentUsername}}" type="text"  class="us-input">
                 </div>
             </div>
 
             <div class="us-box-footer">
                 <button class="us-list-button" (click)='cancel()' style="padding: 5px 10px 5px 5px;">
-                    Cancel
+                    Close
                 </button>
-                <button class="global-button" (click)='save()' style="margin-left: 10px;">Save</button>
+                <!-- <button class="global-button" (click)='save()' style="margin-left: 10px;">Save</button> -->
             </div>
         </div>
     </div>
