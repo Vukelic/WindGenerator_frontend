@@ -74,6 +74,7 @@ export class UserServiceService {
 
   clearToken(){
     localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
     this.jwtTokenValue = null;
     this.tokenValue = null;
     this.decodedTokenValue = null;

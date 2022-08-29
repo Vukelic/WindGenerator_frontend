@@ -22,38 +22,11 @@ const routes: Routes = [
   component: LoginComponent
 },
 {
-  path: 'registration',
-  component: RegistrationComponent,
-},
-{
   canActivate: [AuthGuard],
   path: 'dashboard',
   component: DashboardComponent,
 },
-{ canActivate: [AuthGuard],
-  path: 'users',
-  component: UsersComponent,
-},
-{ canActivate: [AuthGuard],
-  path: 'account',
-  component: MyAccountComponent,
-},
-// {
-//   canActivate: [AuthGuard],
-//   path: 'user-settings',
-//   component: UserSettingsComponent,
-// },
 
-{
-  canActivate: [AuthGuard],
-  path: 'invest',
-  component: InvestComponent,
-},
-{
-  canActivate: [AuthGuard],
-  path: 'statistic',
-  component: StatisticComponent,
-},
 
 ]
 
