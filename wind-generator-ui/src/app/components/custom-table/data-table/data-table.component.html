@@ -108,7 +108,7 @@
 
     </mat-table>
   </div>
-  <mat-paginator style="color: #e6543c;" *ngIf="globalSettings.tableHasPaging" [pageSizeOptions]="[10, 25, 50, 100]"
+  <mat-paginator style="color: #e6543c;" *ngIf="globalSettings.tableHasPaging" [pageSizeOptions]="[5, 10, 25, 50, 100]"
     [length]="dtoPaging?.totalCount" showFirstLastButtons [pageSize]="dtoPaging?.countPerPage"
     (page)="pagingChange($event)"></mat-paginator>
 </div>

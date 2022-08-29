@@ -163,6 +163,26 @@ export class UserServiceService {
     );
   }
 
+  RegisterAdmin(user: DtoUser) {
+    return this.http.post(environment.BaseAPIUrl + 'User/' + 'RegisterAdmin', user).pipe(
+      map((resp: any) => {
+        if (!resp.Success) {
+          // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'UserService, Post');
+          this.errService.displayDescriptiveErrorMessage("User", "Can't create administrator", resp, 5, 'popup-error');
+        }
+        else if (resp.Success) {
+          this.errService.displayDescriptiveMessage("User", "Administrator created successfully!", resp, 5, 'popup-success');
+        }
+        return resp;
+      }),
+      catchError(error => {
+        // Errors 500, 403, already resolved in interceptor
+        // return throwError(this.errService.getErrorMessage(error));
+        return error;
+      })
+    );
+  }
+
   RegenerateToken() {
     return this.http.get<DtoUserResponse>(environment.BaseAPIUrl + 'AcUsercount/' + 'RegenerateToken').pipe(map((response: DtoUserResponse) => {
       if (response.Success && response.Value != null) {

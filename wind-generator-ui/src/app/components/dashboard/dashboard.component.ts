@@ -117,6 +117,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.userService.getUser();
     this.status = "invest";
     this.realEstateFilters = this.formBuilder.group({
       city: [''],

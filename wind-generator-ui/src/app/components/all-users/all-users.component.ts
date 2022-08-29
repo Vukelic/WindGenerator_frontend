@@ -96,14 +96,18 @@ export class AllUsersComponent implements OnInit {
       //autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      if(result.userClickOk){
-        if(result.currentUser){
-          this.userService.Put(result.currentUser.Id,result.currentUser).subscribe(res => {
-            this.getAllUsers();
-          });
-         
-        }
+      if(result){
+        if(result.userClickOk){
+          if(result.currentUser){
+            this.userService.Put(result.currentUser.Id,result.currentUser).subscribe(res => {
+              this.getAllUsers();
+            });
+          
+          }
       }
+      this.getAllUsers();
+    }
+    
     });
   }
 

@@ -9,12 +9,12 @@
             justify-content: center;
             align-items: center;
             margin-bottom: unset;" (click)="addNew()" class='global-button'>
-                Add new user
+                Add new administrator
             </button>
         </div>
-        <div class="lp-users-list"  style="width: 100%;">
-            <div style="margin-top: 40px;width: 100%;" >
-                <div class="user-table-holder" style="width: 100%;">
+        <div class="lp-users-list"  style="width: 100%;height: 100%;">
+            <div style="margin-top: 40px;width: 100%;;height: 100%;" >
+                <div class="user-table-holder" style="width: 100%;;height: 100%;">
                     <app-data-table [dataSource]="dataSource" [columnDefs]="columns" [dtoPaging]="dtoPaging"
                     [globalSettings]="globalSettingsObject" [isSelectedEnabled]="true" (filterChangeEvent)="updateFilters($event)"
                     (selectedChangeEvent)="updateSelect($event)" (sortChangeEvent)="updateSorting($event)" (pagingChangeEvent)="updatePaging($event)"

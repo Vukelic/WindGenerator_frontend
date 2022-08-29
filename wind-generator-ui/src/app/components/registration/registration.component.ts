@@ -20,7 +20,7 @@ export class RegistrationComponent implements OnInit {
     password: new FormControl('',[Validators.required]),
   });
 
-  isNewUser: boolean = false;
+  isAdminUser: boolean = false;
   currentUser: DtoUser = new DtoUser();
   constructor(public dialog: MatDialog, 
     private globalService: GlobalService,  
@@ -31,7 +31,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
    if(this.data.isNewUser){
-    this.isNewUser = this.data.isNewUser;
+    this.isAdminUser = this.data.isNewUser;
    }
     this.objSetConfigFormSubscription();
   }
@@ -74,11 +74,20 @@ export class RegistrationComponent implements OnInit {
     console.warn('current user:', this.currentUser);
     //SEND REQ TO SERVICE
 
-    this.userService.Register(this.currentUser).subscribe(res => {
-      this.diag.close({userClickOk: true, user: this.currentUser});
-    });
+    if(this.isAdminUser){
+      this.userService.RegisterAdmin(this.currentUser).subscribe(res => {
+        this.diag.close({userClickOk: true, user: this.currentUser});
+      });
+    }else{
+      this.userService.Register(this.currentUser).subscribe(res => {
+        this.diag.close({userClickOk: true, user: this.currentUser});
+      });
+    }
+   
 
   }
+
+
 
 
 }

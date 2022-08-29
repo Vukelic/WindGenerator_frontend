@@ -50,7 +50,7 @@
                 <button class="sidenav-menu-button" (click)="gotoWindTurbines()">
                   <mat-icon style="margin-right: 5px">brightness_high</mat-icon> Wind Turbines
                   </button>
-                <button class="sidenav-menu-button" (click)="gotoUsers()">
+                <button *ngIf="userService.currentUser?.AssignRoleId == 1" class="sidenav-menu-button" (click)="gotoUsers()">
                   <mat-icon style="margin-right: 5px">people</mat-icon> Users
                 </button>
               <button class="sidenav-menu-button" (click)="gotoGlobalInvestments()">

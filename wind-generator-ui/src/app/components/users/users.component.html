@@ -1,5 +1,5 @@
 <div class="user-holder">
-    <h1>Wind device type</h1>
+    <h1>User</h1>
 
     <div class="user-form" [formGroup]='userForm' >
         <div class="type-input">
@@ -37,7 +37,11 @@
 
     <div class="footers-line">
       
-    
+
+            <div class="footer-button">
+                <button *ngIf="currentUser && currentUser.Id != 0"  mat-raised-button  color="warn" class='global-button'  (click)='ondelete()'>Delete</button>
+            </div>
+
         <div class="footer-button">
                 
         </div>

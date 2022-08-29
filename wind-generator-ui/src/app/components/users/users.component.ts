@@ -80,5 +80,11 @@ export class UsersComponent implements OnInit {
     this.userModalComponent.close({ userClickOk: false });
   }
 
+  ondelete(){
+    this.userService.Delete(this.currentUser.Id).subscribe(res => {
+      this.userModalComponent.close({userClickOk: false});
+    });
+  }
+
 
 }
