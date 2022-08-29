@@ -10,6 +10,7 @@ import { DtoPaging } from '../dto/DtoRequestObjectModels/DtoPaging';
 import { DtoUserListResponse } from '../dto/DtoResponseObjectModels/User/DtoUserListResponse';
 import { DtoUserResponse } from '../dto/DtoResponseObjectModels/User/DtoUserResponse';
 import { Router } from '@angular/router';
+import { DtoChangePassword } from '../dto/DtoModels/ChangePassword/DtoChangePassword';
 
 @Injectable({
   providedIn: 'root'
@@ -143,12 +144,32 @@ export class UserServiceService {
     );
   }
 
+  ChangePassword(user: DtoChangePassword) {
+    return this.http.post(environment.BaseAPIUrl + 'User/' + 'ChangePassword', user).pipe(
+      map((resp: any) => {
+        if (!resp.Success) {
+          // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'UserService, Post');
+          this.errService.displayDescriptiveErrorMessage("User", resp.Message, resp, 5, 'popup-error');
+        }
+        else if (resp.Success) {
+          this.errService.displayDescriptiveMessage("User", "Change password successfully!", resp, 5, 'popup-success');
+        }
+        return resp;
+      }),
+      catchError(error => {
+        // Errors 500, 403, already resolved in interceptor
+        // return throwError(this.errService.getErrorMessage(error));
+        return error;
+      })
+    );
+  }
+
   Register(user: DtoUser) {
     return this.http.post(environment.BaseAPIUrl + 'User/' + 'Register', user).pipe(
       map((resp: any) => {
         if (!resp.Success) {
           // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'UserService, Post');
-          this.errService.displayDescriptiveErrorMessage("User", "Can't create user", resp, 5, 'popup-error');
+          this.errService.displayDescriptiveErrorMessage("User", resp.Message, resp, 5, 'popup-error');
         }
         else if (resp.Success) {
           this.errService.displayDescriptiveMessage("User", "User created successfully!", resp, 5, 'popup-success');

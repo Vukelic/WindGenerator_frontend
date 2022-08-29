@@ -52,16 +52,16 @@ $orange-color: #f09030;
 }
 .account-buttons {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  //  width: 100%;
 
     button {
-        width: 100%;
-        background-color: $orange-color;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
+       // width: 100%;
+        //background-color: $orange-color;
+      //  color: #fff;
+     //   border: none;
+       // padding: 10px 20px;
 
         //cursor: pointer;
     }

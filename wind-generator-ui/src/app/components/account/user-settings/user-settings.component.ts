@@ -36,13 +36,16 @@ export class UserSettingsComponent implements OnInit {
   }
 
   changePassword(){
+    this.userSettingsComponent.close({userChoiceOk: false});
     const dialogRef = this.dialog.open(MyAccountComponent, {
       width: '400px',
      data: {},
      autoFocus: false,
    });
    dialogRef.afterClosed().subscribe((result) => {
-
+    // if(result?.userClickOk){
+    //   this.userSettingsComponent.close({userChoiceOk: false});
+    // }
    });
   }
 

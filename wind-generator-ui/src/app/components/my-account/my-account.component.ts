@@ -22,11 +22,11 @@ export class MyAccountComponent implements OnInit {
   constructor(public dialog: MatDialog, 
     private globalService: GlobalService,  
     private formBuilder: FormBuilder,
-    public diag: MatDialogRef<MyAccountComponent>, 
+    public myAccountComponent: MatDialogRef<MyAccountComponent>, 
     private userService: UserServiceService) { }
 
   ngOnInit(): void {
-   
+    this.userService.getUser();
     this.objSetConfigFormSubscription();
   }
 
@@ -43,14 +43,26 @@ export class MyAccountComponent implements OnInit {
     updatePropertiesFromFormGroupToObject(formGroup:any, object:DtoChangePassword) {
       console.warn('updatePropertiesFromFormGroupToObject');
       if (object) {
-        object.NewPassword = formGroup.getRawValue().email;
-        object.OldPassword = formGroup.getRawValue().password;
+        object.NewPassword = formGroup.getRawValue().newPassword;
+        object.OldPassword = formGroup.getRawValue().oldPassword;
       }
     }
   
    
   //#endregion
   changePassword(){
+    this.current.UserId = this.userService.currentUser.Id;
+    this.userService.ChangePassword(this.current).subscribe((resp:any)=>{
+      if(resp.Success){
+      this.userService.Logout().subscribe(resp=>{
 
+        this.myAccountComponent.close({userClickOk: true});
+      });
+    }
+    })
+  }
+
+  cancel(){
+    this.myAccountComponent.close();
   }
 }

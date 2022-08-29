@@ -15,7 +15,15 @@
         </div>
 
         <div style="margin-top: 30px;" class="account-buttons">
-            <button [disabled]="!accountForm.valid" (click)='changePassword()'>Change password</button>
+            <div>
+                <button  mat-raised-button  (click)='cancel()'>Cancel</button>
+            </div>
+       
+            <div>
+                <button  mat-raised-button  color="warn"  class='global-button'  [disabled]="!accountForm.valid" (click)='changePassword()'>Change password</button>
+            </div>
+          
+        
         </div>
     </form> 
     </div>
