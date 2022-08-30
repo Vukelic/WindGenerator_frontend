@@ -36,7 +36,18 @@ constructor(public dialog: MatDialogRef<HistoriesComponent>,
 }
   displayedColumns: string[] = ['Name', 'ValueDec', 'TimeCreated'];
   dataSource: MatTableDataSource<DtoWindGeneratorDevice_History>;
+  selectedInterval:any;
+  listOfIntervals:any[] = [
+    {Title: "One hour ago", Value: "Hour"},
+    {Title: "One day ago", Value: "Day"},
+    {Title: "One week ago", Value: "Week"},
+    {Title: "A month ago", Value: "Month"},
+    {Title: "A year ago", Value: "Year"},
+    {Title: "Custom interval", Value: "Custom"},
+  ]
 
+  startDate:any;
+  endDate:any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
@@ -45,10 +56,14 @@ constructor(public dialog: MatDialogRef<HistoriesComponent>,
     if(this.data){
       this.parentGenerator = this.data;
     }
-    this.getAllHistories();
+   // this.getAllHistories();
   }
   cancel(){
     this.dialog.close();
+  }
+
+  selectedEvent(value:any){
+    console.warn('value',value);
   }
 
 
@@ -56,8 +71,60 @@ constructor(public dialog: MatDialogRef<HistoriesComponent>,
     this.dialog.close();
   }
 
+  view(){
+    var utcStr = new Date().toUTCString();
+    var now = new Date(utcStr);
 
-  getAllHistories(){
+    var startTime = new Date(
+      now.getFullYear() || null,
+      now.getMonth() || null,
+      now.getDate() || null,
+      now.getHours() || null,
+      now.getMinutes() || null,
+      now.getSeconds() || null,
+    );
+
+    var endTime = new Date(
+      now.getFullYear() || null,
+      now.getMonth() || null,
+      now.getDate() || null,
+      now.getHours() || null,
+      now.getMinutes() || null,
+      now.getSeconds() || null,
+    );
+
+    if(this.selectedInterval == "Hour"){
+      startTime.setHours(startTime.getHours() - 1);
+    }
+    else if(this.selectedInterval == "Day"){
+      startTime.setDate(startTime.getDate() - 1);
+      startTime.setHours(0);
+      endTime.setHours(23);
+    }
+    else if(this.selectedInterval == "Week"){
+      startTime.setDate(startTime.getDate() - 7);
+      startTime.setHours(0);
+      endTime.setHours(23);
+    }
+    else if(this.selectedInterval == "Month"){
+      startTime.setMonth(startTime.getMonth() - 1);
+      // startTime.setDate(1);
+      // endTime.setMonth(endTime.getMonth() - 1);
+      // endTime.setDate(30);
+    }
+    else if(this.selectedInterval == "Year"){
+      startTime.setFullYear(startTime.getFullYear() - 1);
+    }
+    else if(this.selectedInterval == "Custom"){
+      startTime = new Date(this.startDate.toUTCString());
+      endTime = new Date(this.endDate.toUTCString());
+    }
+    console.warn('startTime',startTime);
+    console.warn('endTime',endTime);
+    this.getAllHistories(startTime,endTime);
+  }
+
+  getAllHistories(startTime:any, endTime:any){
     this.historyItems = [];
     if(this.parentGenerator && this.parentGenerator.Id != 0){
 
@@ -67,10 +134,14 @@ constructor(public dialog: MatDialogRef<HistoriesComponent>,
       if(resp && resp.Success){
         console.warn('resp',resp);
         this.selectedItems = resp.Value;
-  
+        if(this.selectedItems.Name == ""){this.selectedItems.Name = "generator";}
         this.AddColumnName(this.selectedItems.Name);
         this.dtoPaging.filters["ParentWindGeneratorDeviceId"] = this.parentGenerator.Id;
         this.dtoPaging.filtersType["ParentWindGeneratorDeviceId"] = "eq";
+        this.dtoPaging.filters["TimeCreated::-->>1"] = startTime;
+        this.dtoPaging.filtersType["TimeCreated::-->>1"] = "gtoe";
+        this.dtoPaging.filters["TimeCreated::-->>2"] = endTime;
+        this.dtoPaging.filtersType["TimeCreated::-->>2"] = "ltoe";
         this.historyService.GetList(this.dtoPaging).subscribe((resp: any) => {
           console.warn('historyService',resp);
         if(resp && resp.Success){
@@ -86,17 +157,6 @@ constructor(public dialog: MatDialogRef<HistoriesComponent>,
   
   }
 
-  pageChanged(event: any) {
-    try {
-      this.pageSize = event.pageSize;
-      this.page = event.pageIndex + 1;
-      this.dtoPaging.countPerPage = this.pageSize;
-      this.dtoPaging.page = this.page;
-      this.getAllHistories();
-    } catch (ex) {
-
-    }
-  }
 
   AddColumn(historyItem: any) {
     this.historyItems = [];
@@ -117,7 +177,7 @@ constructor(public dialog: MatDialogRef<HistoriesComponent>,
               //ulazim u svaki history koji je dosao sa servera
               var elementHistory = historyItem.Value[i];
               //if (itemId == elementHistory.Id) {
-                if (moment(elementHistory.TimeCreated, 'HH:mm:ss').minute() == moment(clockHistory, 'HH:mm:ss').minute()) {
+                if (moment(elementHistory.TimeCreated, 'DD-MM/YY HH:mm:ss').minute() == moment(clockHistory, 'DD-MM/YY HH:mm:ss').minute()) {
                   if (elementHistory.ValueStr) {
                     valueToPush = Math.trunc(Number(elementHistory.ValueStr));
                     break;
@@ -142,12 +202,12 @@ constructor(public dialog: MatDialogRef<HistoriesComponent>,
     if (historyItem && historyItem.Value.length > 0) {
       historyItem.Value.forEach((element: any, index: any) => {
         var isExists = this.historyItems.findIndex((p: any) => {
-          return moment(p, 'HH:mm:ss').minute() == moment(element.TimeCreated, 'HH:mm:ss').minute();
+          return moment(p, 'DD-MM/YY HH:mm:ss').minute() == moment(element.TimeCreated, 'DD-MM/YY HH:mm:ss').minute();
         }
         );
 
         if (isExists < 0) {
-          var clock = moment(element.TimeCreated).format("HH:mm:ss").toString();
+          var clock = moment(element.TimeCreated).format("DD-MM/YY HH:mm:ss").toString();
           this.historyItems.push([clock]);
         }
       });
@@ -157,6 +217,7 @@ constructor(public dialog: MatDialogRef<HistoriesComponent>,
 
   AddColumnName(name: string) {
     var toAdd = false;
+    if(name == ""){name="generator"}
 
     var isExistsColumnIndex = this.displayedColumnsItemChart.findIndex(k => k == name);
     if (isExistsColumnIndex < 0) {

@@ -130,10 +130,10 @@ export class PersonalContributesComponent implements OnInit {
   }
 
 
-  getHistory(){
+  getHistory(data:any){
     const dialogRef = this.dialog.open(HistoriesComponent, {
       width: '800px',
-      data: null,
+      data: data,
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(result => {

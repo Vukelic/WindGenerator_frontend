@@ -63,6 +63,8 @@ import { ProfitComponent } from './components/profit/profit.component';
 import { DataTableComponent } from './components/custom-table/data-table/data-table.component';
 import { DeviceTypeModalComponent } from './components/modals/device-type-modal/device-type-modal.component';
 import { AllUsersComponent } from './components/all-users/all-users.component';
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,6 +96,7 @@ import { AllUsersComponent } from './components/all-users/all-users.component';
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
+    MatNativeDateModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,

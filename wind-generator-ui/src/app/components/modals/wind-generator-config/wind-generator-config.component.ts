@@ -77,7 +77,7 @@ export class WindGeneratorConfigComponent implements OnInit {
     this.windForm = this.formBuilder.group({
       country: [],
       city: [],
-      name: [],
+      name: ['',Validators.required],
       description: [],
       lat: [this.data && this.data.lat ? this.data.lat : null, Validators.required],
       lon: [this.data && this.data.lng ? this.data.lng : null, Validators.required],
