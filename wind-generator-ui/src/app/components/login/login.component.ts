@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router,  public dialog: MatDialog,private userService:UserServiceService) { }
 
   ngOnInit(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
     this.objSetConfigFormSubscription();
   }
 

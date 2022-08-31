@@ -279,6 +279,7 @@ export class WindGeneratorConfigComponent implements OnInit {
 currentType:any;
   changeSelectedCustom(data:any){
   //  this.currentWindGenerator.ParentWindGeneratorType = data;
+  this.checkProfitStatus = false;
   this.currentType = data;
     this.currentWindGenerator.ParentWindGeneratorTypeId = data.Id;
   }

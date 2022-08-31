@@ -19,15 +19,15 @@ export class DeviceTypeModalComponent implements OnInit {
     HeightOfWing: new FormControl(''),
     WidthOfWing: new FormControl(''),
     Weight: new FormControl(''),
-    BasePrice: new FormControl('',[Validators.required]),
-    InstallationCosts: new FormControl('',[Validators.required]),
+    BasePrice: new FormControl(0),
+    InstallationCosts: new FormControl(0),
     GeneratorPower: new FormControl('',[Validators.required]),
     Guarantee: new FormControl(''),
     ImageInput: new FormControl('',[Validators.required]),
   });
 
   selectedFileTitle: string = 'No file selected.';
-  currentType: DtoWindGeneratorType;
+  currentType: DtoWindGeneratorType = new DtoWindGeneratorType();;
   constructor(  public deviceTypeModalComponent: MatDialogRef<DeviceTypeModalComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any, 
     public windGeneratorTypeService: WindGeneratorTypeService) { }
@@ -37,8 +37,6 @@ export class DeviceTypeModalComponent implements OnInit {
     console.warn('data',this.data);
     if(this.data?.type){
       this.currentType = this.data?.type;  
-    }else{
-      this.currentType = new DtoWindGeneratorType();
     }
     this.updatePropertiesFromObjectSetToFormGroup(this.typeForm, this.currentType);
     this.objSetConfigFormSubscription();
@@ -64,8 +62,13 @@ export class DeviceTypeModalComponent implements OnInit {
         object.HeightOfWing = formGroup.getRawValue().HeightOfWing;
         object.WidthOfWing = formGroup.getRawValue().WidthOfWing;
         object.Weight = formGroup.getRawValue().Weight;
-        object.BasePrice = Number(formGroup.getRawValue().BasePrice);
-        object.InstallationCosts = Number(formGroup.getRawValue().InstallationCosts);
+        if(formGroup.getRawValue().BasePrice){
+          object.BasePrice = Number(formGroup.getRawValue().BasePrice);
+        }else{
+          object.BasePrice = 0;
+        }
+     
+        object.InstallationCosts = Number(formGroup.getRawValue().InstallationCosts) | 0;
         object.GeneratorPower = formGroup.getRawValue().GeneratorPower;
         object.Guarantee = formGroup.getRawValue().Guarantee;
         object.ImageUrl =   formGroup.getRawValue().ImageInput || object.ImageUrl;

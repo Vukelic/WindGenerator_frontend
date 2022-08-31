@@ -10,7 +10,7 @@
         </div>
     </div>
   
-    <div style="margin-top: 40px; display: flex; flex-direction: row;">
+    <div *ngIf="false" style="margin-top: 40px; display: flex; flex-direction: row;">
         <div class="statistic-chart-holder">
            
             <google-chart #chart  
@@ -49,18 +49,18 @@
         </div>
     </div>
 
-    <div style="margin-top: 40px;">
+    <div  style="margin-top: 40px;">
         <div class="statistic-table-holder">
-            <app-data-table [dataSource]="dataSource1" [columnDefs]="columns1" [dtoPaging]="dtoPaging"
-            [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters($event)"
-            (sortChangeEvent)="updateSorting($event)" (pagingChangeEvent)="updatePaging($event)"
-            (allFiltersChangeEvent)="updateAllFilters($event)">
+            <app-data-table [dataSource]="dataSource1" [columnDefs]="columns1" [dtoPaging]="dtoPaging1"
+            [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters1($event)"
+            (sortChangeEvent)="updateSorting1($event)" (pagingChangeEvent)="updatePaging1($event)"
+            (allFiltersChangeEvent)="updateAllFilters1($event)">
             
         </app-data-table>
         </div>
     </div>
 
-    <div style="margin-top: 40px;">
+    <div *ngIf="false" style="margin-top: 40px;">
         <div class="statistic-table-holder">
             <app-data-table [dataSource]="dataSource2" [columnDefs]="columns2" [dtoPaging]="dtoPaging"
             [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters($event)"

@@ -34,6 +34,8 @@ export  class DtoWindGeneratorDevice extends ARepoBaseEntity{
     Paid?:any;
     WindPower?:any;
     Profit?:any;
+    TimeCreated2?:any;
+    EndTime?:any;
         /**
      *
      */

@@ -50,6 +50,19 @@ export class PersonalContributesComponent implements OnInit {
     this.windProviderDeviceService.GetList(this.dtoPagging).subscribe((resp:any)=>{
       console.warn('resp',resp);
       this.listOfDashboards = resp.Value;
+
+      if(this.listOfDashboards){
+        this.listOfDashboards.forEach(element => {
+          var startTime = new Date(element.TimeCreated);
+          var startYear = startTime.getFullYear() + 1;
+          element.EndTime= startYear;
+          element.TimeCreated2 = startTime.toISOString().replace(/([^T]+)T([^\.]+).*/g, '$1 $2');
+          element.ValueStr = Number(element.ValueStr).toFixed(2) + "";
+          if(element.ParentWindGeneratorType){
+          element.ParentWindGeneratorType.FullPrice = element.ParentWindGeneratorType.BasePrice + element.ParentWindGeneratorType.InstallationCosts;
+          }
+        });
+      }
     })
   }
 

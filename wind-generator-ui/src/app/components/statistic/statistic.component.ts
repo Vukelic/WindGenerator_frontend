@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
 import { DtoWindGeneratorDevice_History } from 'src/app/dto/DtoModels/WindGeneratorDevice_History/DtoWindGeneratorDevice_History';
 import { DtoPaging } from 'src/app/dto/DtoRequestObjectModels/DtoPaging';
 import { WindGeneratorDeviceHistoryService } from 'src/app/services/wind-generator-device-history.service';
+import { WindGeneratorDeviceService } from 'src/app/services/wind-generator-device.service';
 import { ColumnDef } from '../custom-table/data-table/column-def';
 import { DataSource } from '../custom-table/data-table/data-source';
 import { ESortEnum } from '../custom-table/data-table/ESortEnum.enum';
@@ -16,24 +18,25 @@ import { Mockup2, testData2 } from './Mockup2';
 })
 export class StatisticComponent implements OnInit {
   dataSource:any;
-  dataSource1 = new DataSource(testData1); 
+  dataSource1:any; 
 
   dataSource2 = new DataSource(testData2); 
   dtoPaging: DtoPaging = new DtoPaging();
+  dtoPaging1: DtoPaging = new DtoPaging();
   columns: Partial<ColumnDef<DtoWindGeneratorDevice_History>>[] = [
   //  { key: 'actions', header: 'Selected', sort: ESortEnum.none, hasSorting: false, hasFiltering: false },
-    { key: 'TimeCreated', header: 'date', cell: e => new Date(e.TimeCreated).toDateString(), sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
+    { key: 'TimeCreated', header: 'date', cell: e => new Date(e.TimeCreated).toISOString().replace(/([^T]+)T([^\.]+).*/g, '$1 $2'), sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
     { key: 'ValueStr', header: 'power', cell: e => Number(e.ValueStr).toFixed(2), sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
     { key: 'Name', header: 'name', cell: e => e.ParentWindGeneratorDevice?.Name, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
     // { key: 'ceo', header: 'ceo', cell: e => e.ceo, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
   ];
 
-  columns1: Partial<ColumnDef<Mockup1>>[] = [
+  columns1: Partial<ColumnDef<DtoWindGeneratorDevice>>[] = [
     //  { key: 'actions', header: 'Selected', sort: ESortEnum.none, hasSorting: false, hasFiltering: false },
-      { key: 'year2019', header: '2019', cell: e => e.year2019, sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
-      { key: 'year2020', header: '2020', cell: e => e.year2020, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
-      { key: 'year2021', header: '2021', cell: e => e.year2021, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
-      { key: 'year2022', header: '2022', cell: e => e.year2022, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      { key: 'Name', header: 'name', cell: e => e.Name, sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
+      { key: 'TimeCreated', header: 'date', cell: e => new Date(e.TimeCreated).toISOString().replace(/([^T]+)T([^\.]+).*/g, '$1 $2'), sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
+      { key: 'Country', header: 'country', cell: e => e.Country, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      { key: 'City', header: 'city', cell: e => e.City, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
     ];
     
     columns2: Partial<ColumnDef<Mockup2>>[] = [
@@ -45,7 +48,7 @@ export class StatisticComponent implements OnInit {
       ];
   
   globalSettingsObject = {
-    tableHasFiltering: false,
+    tableHasFiltering: true,
     tableHasSorting: true,
     tableHasPaging: true
   }
@@ -66,14 +69,17 @@ export class StatisticComponent implements OnInit {
   };  
   width = 500;  
   height = 300;  
-  constructor(private historyService: WindGeneratorDeviceHistoryService) { }
+  constructor(private historyService: WindGeneratorDeviceHistoryService,
+    private generatorService: WindGeneratorDeviceService) { }
 
   ngOnInit(): void {
-    this.getHourAllData()
+    this.getHourAllData();
+    this.getAllGenerators();
   }
 
   updateFilters(data:any) {
     this.dtoPaging = data;
+    this.getHourAllData();
    // this.getAllAppointments();
   }
 
@@ -83,23 +89,53 @@ export class StatisticComponent implements OnInit {
 
   updateSorting(data:any) {
     this.dtoPaging = data;
+    this.getHourAllData();
    // this.getAllAppointments();
   }
 
   updatePaging(data:any) {
     this.dtoPaging = data;
+    this.getHourAllData();
     //this.getAllAppointments();
   }
 
   updateAllFilters(data:any) {
     this.dtoPaging = data;
+    this.getHourAllData();
    // this.getAllAppointments();
   }
 
+  updateFilters1(data:any) {
+    this.dtoPaging1 = data;
+    this.getAllGenerators();
+   // this.getAllAppointments();
+  }
+
+  updateSelect1(data:any) {
+  //  this.router.navigate(["/app/details-examination/" + data?.Id]);
+  }
+
+  updateSorting1(data:any) {
+    this.dtoPaging1 = data;
+    this.getAllGenerators();
+   // this.getAllAppointments();
+  }
+
+  updatePaging1(data:any) {
+    this.dtoPaging1 = data;
+    this.getAllGenerators();
+    //this.getAllAppointments();
+  }
+
+  updateAllFilters1(data:any) {
+    this.dtoPaging1 = data;
+    this.getAllGenerators();
+   // this.getAllAppointments();
+  }
 
 getHourAllData(){
   var startTime = new Date();
-  startTime.setHours(startTime.getHours() - 1);
+  startTime.setHours(startTime.getHours() - 5);
   this.dtoPaging.filters["TimeCreated::-->>1"] = startTime;
   this.dtoPaging.filtersType["TimeCreated::-->>1"] = "gtoe";
   this.dtoPaging.filters["TimeCreated::-->>2"] = new Date;
@@ -108,9 +144,17 @@ getHourAllData(){
         console.warn('historyService',resp);
       if(resp && resp.Success){
         this.dataSource = new DataSource(resp.Value);
-        this.dtoPaging = resp.DtoPaging;
+        this.dtoPaging = resp.PagingObject;
       }
     });
   }
-
+  getAllGenerators(){
+    this.generatorService.GetList(this.dtoPaging1).subscribe((resp: any) => {
+      console.warn('generatorService',resp);
+      if(resp && resp.Success){
+        this.dataSource1 = new DataSource(resp.Value);
+        this.dtoPaging1 = resp.PagingObject;
+      }
+    });
+  }
 }

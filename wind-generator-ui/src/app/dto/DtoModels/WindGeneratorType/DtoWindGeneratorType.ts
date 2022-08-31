@@ -19,7 +19,7 @@ export class DtoWindGeneratorType extends ARepoBaseEntity{
     BasePrice: number;
     //COMPLEX PROPERTIES
    ListOfGenerators?: DtoWindGeneratorDevice[];
-
+   FullPrice?: any;
    //local
    File?: any;
    Angular_FullUrl?: any;
@@ -42,6 +42,8 @@ export class DtoWindGeneratorType extends ARepoBaseEntity{
     this.Weight = "";
     this.WidthOfWing = "";
     this.GeneratorPower = "";
+    this.BasePrice = 0;
+    this.InstallationCosts = 0;
    }
 
 }
