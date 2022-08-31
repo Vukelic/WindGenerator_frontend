@@ -132,6 +132,11 @@ export class WindGeneratorConfigComponent implements OnInit {
   getAllTypes(){
     this.windTypeService.GetList(null).subscribe((resp:any)=>{
       this.allTypes = resp.Value;
+      if(this.allTypes){
+        this.allTypes.forEach(element => {
+          element.FullPrice = element.BasePrice + element.InstallationCosts;
+        });
+      }
       this.setType(this.currentWindGenerator.ParentWindGeneratorTypeId);
     })
   }
@@ -271,9 +276,10 @@ export class WindGeneratorConfigComponent implements OnInit {
       }
     });
   }
-
+currentType:any;
   changeSelectedCustom(data:any){
   //  this.currentWindGenerator.ParentWindGeneratorType = data;
+  this.currentType = data;
     this.currentWindGenerator.ParentWindGeneratorTypeId = data.Id;
   }
 
@@ -283,10 +289,17 @@ export class WindGeneratorConfigComponent implements OnInit {
   }
 
   
-
+ profit: any;
+ index:any;
   checkProfit(){
-    this.checkProfitStatus = true;
-    console.warn('openWindGenerator');
+   
+    console.warn('selectedType',this.selectedType);
+    this.windGeneratorService.CalculateProfit(this.currentWindGenerator).subscribe(resp=>{
+      this.checkProfitStatus = true;
+      this.profit = Number(resp.Profit).toFixed(0);
+      this.index = Number(resp.ProfitabillityIndex).toFixed(0);
+      console.warn('************resp',resp);
+    })
     // const dialogRef = this.dialog.open(ProfitComponent, {
     //   width: '500px',
     //   data: null,

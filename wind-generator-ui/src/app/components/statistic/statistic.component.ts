@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DtoWindGeneratorDevice_History } from 'src/app/dto/DtoModels/WindGeneratorDevice_History/DtoWindGeneratorDevice_History';
 import { DtoPaging } from 'src/app/dto/DtoRequestObjectModels/DtoPaging';
+import { WindGeneratorDeviceHistoryService } from 'src/app/services/wind-generator-device-history.service';
 import { ColumnDef } from '../custom-table/data-table/column-def';
 import { DataSource } from '../custom-table/data-table/data-source';
 import { ESortEnum } from '../custom-table/data-table/ESortEnum.enum';
@@ -13,18 +15,17 @@ import { Mockup2, testData2 } from './Mockup2';
   styleUrls: ['./statistic.component.scss']
 })
 export class StatisticComponent implements OnInit {
-  dataSource = new DataSource(testData); 
-
+  dataSource:any;
   dataSource1 = new DataSource(testData1); 
 
   dataSource2 = new DataSource(testData2); 
   dtoPaging: DtoPaging = new DtoPaging();
-  columns: Partial<ColumnDef<Mockup>>[] = [
+  columns: Partial<ColumnDef<DtoWindGeneratorDevice_History>>[] = [
   //  { key: 'actions', header: 'Selected', sort: ESortEnum.none, hasSorting: false, hasFiltering: false },
-    { key: 'date', header: 'date', cell: e => e.date, sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
-    { key: 'investment', header: 'investment', cell: e => e.investment, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
-    { key: 'profit', header: 'profit', cell: e => e.profit, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
-    { key: 'ceo', header: 'ceo', cell: e => e.ceo, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+    { key: 'TimeCreated', header: 'date', cell: e => new Date(e.TimeCreated).toDateString(), sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
+    { key: 'ValueStr', header: 'power', cell: e => Number(e.ValueStr).toFixed(2), sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+    { key: 'Name', header: 'name', cell: e => e.ParentWindGeneratorDevice?.Name, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+    // { key: 'ceo', header: 'ceo', cell: e => e.ceo, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
   ];
 
   columns1: Partial<ColumnDef<Mockup1>>[] = [
@@ -65,9 +66,10 @@ export class StatisticComponent implements OnInit {
   };  
   width = 500;  
   height = 300;  
-  constructor() { }
+  constructor(private historyService: WindGeneratorDeviceHistoryService) { }
 
   ngOnInit(): void {
+    this.getHourAllData()
   }
 
   updateFilters(data:any) {
@@ -92,6 +94,23 @@ export class StatisticComponent implements OnInit {
   updateAllFilters(data:any) {
     this.dtoPaging = data;
    // this.getAllAppointments();
+  }
+
+
+getHourAllData(){
+  var startTime = new Date();
+  startTime.setHours(startTime.getHours() - 1);
+  this.dtoPaging.filters["TimeCreated::-->>1"] = startTime;
+  this.dtoPaging.filtersType["TimeCreated::-->>1"] = "gtoe";
+  this.dtoPaging.filters["TimeCreated::-->>2"] = new Date;
+  this.dtoPaging.filtersType["TimeCreated::-->>2"] = "ltoe";
+  this.historyService.GetList(this.dtoPaging).subscribe((resp: any) => {
+        console.warn('historyService',resp);
+      if(resp && resp.Success){
+        this.dataSource = new DataSource(resp.Value);
+        this.dtoPaging = resp.DtoPaging;
+      }
+    });
   }
 
 }

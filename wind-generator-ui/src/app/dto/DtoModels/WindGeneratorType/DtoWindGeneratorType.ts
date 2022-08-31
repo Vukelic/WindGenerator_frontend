@@ -15,7 +15,8 @@ export class DtoWindGeneratorType extends ARepoBaseEntity{
     Weight: string;
     WidthOfWing: string;
     GeneratorPower: string;
-
+    InstallationCosts: number;
+    BasePrice: number;
     //COMPLEX PROPERTIES
    ListOfGenerators?: DtoWindGeneratorDevice[];
 

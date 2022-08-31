@@ -5,15 +5,15 @@
         <div class="type-input">
             <mat-form-field class="example-full-width">
                 <mat-label>Name </mat-label>
-                <input matInput type="text"  formControlName="Name">
+                <input required matInput type="text"  formControlName="Name">
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>Type of turbine </mat-label>
                 <input matInput type="text" formControlName="Turbines">
             </mat-form-field>
             <mat-form-field class="example-full-width">
-                <mat-label>Power of turbine </mat-label>
-                <input matInput type="text" formControlName="PowerOfTurbines">
+                <mat-label>Power of turbine (MW)</mat-label>
+                <input required matInput type="text" formControlName="PowerOfTurbines">
             </mat-form-field>
             <mat-form-field class="example-full-width">
                 <mat-label>Height of Wing</mat-label>
@@ -30,18 +30,18 @@
             </mat-form-field>
           
             <mat-form-field class="example-full-width">
-                <mat-label>Max Power Turbine</mat-label>
-                <input matInput type="text"  formControlName="MaxPowerTurbine">
+                <mat-label>Base price ($)</mat-label>
+                <input matInput type="text"  formControlName="BasePrice">
             </mat-form-field>
           
             <mat-form-field class="example-full-width">
-                <mat-label>Max Speed Turbine</mat-label>
-                <input matInput type="text"  formControlName="MaxSpeedTurbine">
+                <mat-label>Installation Costs ($)</mat-label>
+                <input matInput type="text"  formControlName="InstallationCosts">
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
-                <mat-label>Generator Power</mat-label>
-                <input matInput type="text"  formControlName="GeneratorPower">
+                <mat-label>Wind hours per a day</mat-label>
+                <input required matInput type="text"  formControlName="GeneratorPower">
             </mat-form-field>
 
             <mat-form-field class="example-full-width">

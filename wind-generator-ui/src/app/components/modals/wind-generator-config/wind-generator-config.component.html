@@ -43,7 +43,7 @@
                         
                         <div class="ppe-settings-grid-layout-element" *ngFor='let gridEl of allTypes; let i = index'>
                             <div  class="ppe-settings-grid-layout-element-item">
-                                <label>Base Price: {{gridEl.Price}}</label>
+                                <label>Full Price: {{gridEl.FullPrice }} $  </label>
                             </div>
                             <div class="ppe-settings-grid-layout-element-item">
                                 <img style="width: 100px; height: 100px;" [src]="gridEl.Angular_FullUrl" alt='image'>
@@ -97,20 +97,21 @@
                 </div>
                
                 <div style="display: flex;justify-content: center;">
-                    <button (click)="checkProfit()" style="width: 250px;
+                    <button [disabled]="!currentWindGenerator.GeographicalLatitude || !currentWindGenerator.GeographicalLongitude || !selectedType  " (click)="checkProfit()" style="width: 250px;
                     display: flex;
                     justify-content: center;
                     text-align: center;
-                    margin-top: 20px;" class='global-button'>
+                    margin-top: 20px;" class='global-button'
+                     mat-raised-button  color="warn"  class='global-button'>
                         CHECK PROFIT
                     </button>
                 </div>
 
-                <div  *ngIf="checkProfitStatus"  class="block-show">
-                    <h1>Profitably: 51%</h1>
-                    <h2>Base price: 1600e</h2>
-                    <h3>Construction Costs: 500e</h3>
-                    <h1>Full price: 2100e</h1>
+                <div  *ngIf="checkProfitStatus" style="margin-top: 10px;" class="block-show">
+                    <h1>Saved money for 20 years: {{profit}} $</h1>
+                    <h2>Full price: {{currentType.FullPrice}} $</h2>
+                    <h3>Base Price: {{currentType.BasePrice}}</h3>
+                    <h1>Saved money per month: {{index}} $</h1>
                 </div>
                
       

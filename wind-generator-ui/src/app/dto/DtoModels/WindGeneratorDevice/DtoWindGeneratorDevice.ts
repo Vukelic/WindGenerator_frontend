@@ -16,6 +16,8 @@ export  class DtoWindGeneratorDevice extends ARepoBaseEntity{
 
     Country: string;
     City: string;
+
+    
   
     //COMPLEX PROPERTIES
     ListOfWindGeneratorDevice_History: DtoWindGeneratorDevice_History[];

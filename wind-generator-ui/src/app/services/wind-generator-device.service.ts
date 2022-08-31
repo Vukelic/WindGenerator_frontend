@@ -110,4 +110,24 @@ export class WindGeneratorDeviceService {
       })
     );
   }
+
+  CalculateProfit(WindGeneratorDevice: DtoWindGeneratorDevice) {
+    return this.http.post(environment.BaseAPIUrl + 'WindGeneratorDevice/' + 'CalculateProfit', WindGeneratorDevice).pipe(
+      map((resp: any) => {
+        if (!resp.Success) {
+          // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'WindGeneratorDeviceService, Post');
+          this.errService.displayDescriptiveErrorMessage("WindGeneratorDevice", "", resp, 5, 'popup-error');
+        }
+        else if (resp.Success) {
+          this.errService.displayDescriptiveMessage("WindGeneratorDevice", "", resp, 5, 'popup-success');
+        }
+        return resp;
+      }),
+      catchError(error => {
+        // Errors 500, 403, already resolved in interceptor
+        // return throwError(this.errService.getErrorMessage(error));
+        return error;
+      })
+    );
+  }
 }

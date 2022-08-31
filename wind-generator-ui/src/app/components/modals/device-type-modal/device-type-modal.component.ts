@@ -14,15 +14,15 @@ export class DeviceTypeModalComponent implements OnInit {
 
   typeForm:FormGroup = new FormGroup({
     Name: new FormControl('',[Validators.required]),
-    Turbines: new FormControl('',[Validators.required]),
+    Turbines: new FormControl(''),
     PowerOfTurbines: new FormControl('',[Validators.required]),
-    HeightOfWing: new FormControl('',[Validators.required]),
-    WidthOfWing: new FormControl('',[Validators.required]),
-    Weight: new FormControl('',[Validators.required]),
-    MaxPowerTurbine: new FormControl('',[Validators.required]),
-    MaxSpeedTurbine: new FormControl('',[Validators.required]),
+    HeightOfWing: new FormControl(''),
+    WidthOfWing: new FormControl(''),
+    Weight: new FormControl(''),
+    BasePrice: new FormControl('',[Validators.required]),
+    InstallationCosts: new FormControl('',[Validators.required]),
     GeneratorPower: new FormControl('',[Validators.required]),
-    Guarantee: new FormControl('',[Validators.required]),
+    Guarantee: new FormControl(''),
     ImageInput: new FormControl('',[Validators.required]),
   });
 
@@ -55,7 +55,7 @@ export class DeviceTypeModalComponent implements OnInit {
     });
   }
 
-    updatePropertiesFromFormGroupToObject(formGroup:any, object:any) {
+    updatePropertiesFromFormGroupToObject(formGroup:any, object:DtoWindGeneratorType) {
       console.warn('updatePropertiesFromFormGroupToObject');
       if (object) {
         object.Name = formGroup.getRawValue().Name;
@@ -64,8 +64,8 @@ export class DeviceTypeModalComponent implements OnInit {
         object.HeightOfWing = formGroup.getRawValue().HeightOfWing;
         object.WidthOfWing = formGroup.getRawValue().WidthOfWing;
         object.Weight = formGroup.getRawValue().Weight;
-        object.MaxPowerTurbine = formGroup.getRawValue().MaxPowerTurbine;
-        object.MaxSpeedTurbine = formGroup.getRawValue().MaxSpeedTurbine;
+        object.BasePrice = Number(formGroup.getRawValue().BasePrice);
+        object.InstallationCosts = Number(formGroup.getRawValue().InstallationCosts);
         object.GeneratorPower = formGroup.getRawValue().GeneratorPower;
         object.Guarantee = formGroup.getRawValue().Guarantee;
         object.ImageUrl =   formGroup.getRawValue().ImageInput || object.ImageUrl;
@@ -82,8 +82,8 @@ export class DeviceTypeModalComponent implements OnInit {
           HeightOfWing: object?.HeightOfWing,
           WidthOfWing: object?.WidthOfWing,
           Weight: object?.Weight,
-          MaxPowerTurbine: object?.MaxPowerTurbine,
-          MaxSpeedTurbine: object?.MaxSpeedTurbine,
+          BasePrice: object?.BasePrice,
+          InstallationCosts: object?.InstallationCosts,
           GeneratorPower: object?.GeneratorPower,
           Guarantee: object?.Guarantee,
           ImageInput: object?.ImageUrl || '',
