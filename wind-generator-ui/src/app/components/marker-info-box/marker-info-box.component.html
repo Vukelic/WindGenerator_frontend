@@ -3,7 +3,7 @@
       Info
       <div>
         <!-- TODO: Only for admin -->
-        <button *ngIf="userService?.currentUser?.AssignRoleId == 1" style="margin-right: 10px;" (click)="openDetails(markerInfo)" class="details-button">
+        <button *ngIf="userService?.currentUser?.Id == markerInfo.ParentUserId" style="margin-right: 10px;" (click)="openDetails(markerInfo)" class="details-button">
           Details
         </button>
         <button (click)="openHistory(markerInfo)" class="details-button">

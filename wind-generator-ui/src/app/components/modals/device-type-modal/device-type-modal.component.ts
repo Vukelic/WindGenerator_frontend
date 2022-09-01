@@ -21,7 +21,7 @@ export class DeviceTypeModalComponent implements OnInit {
     Weight: new FormControl(''),
     BasePrice: new FormControl(0),
     InstallationCosts: new FormControl(0),
-    GeneratorPower: new FormControl('',[Validators.required]),
+   // GeneratorPower: new FormControl('',[Validators.required]),
     Guarantee: new FormControl(''),
     ImageInput: new FormControl('',[Validators.required]),
   });
@@ -69,7 +69,7 @@ export class DeviceTypeModalComponent implements OnInit {
         }
      
         object.InstallationCosts = Number(formGroup.getRawValue().InstallationCosts) | 0;
-        object.GeneratorPower = formGroup.getRawValue().GeneratorPower;
+       // object.GeneratorPower = formGroup.getRawValue().GeneratorPower;
         object.Guarantee = formGroup.getRawValue().Guarantee;
         object.ImageUrl =   formGroup.getRawValue().ImageInput || object.ImageUrl;
         object.Angular_FullUrl =  ('/assets/' + formGroup.getRawValue().ImageInput);
@@ -87,7 +87,7 @@ export class DeviceTypeModalComponent implements OnInit {
           Weight: object?.Weight,
           BasePrice: object?.BasePrice,
           InstallationCosts: object?.InstallationCosts,
-          GeneratorPower: object?.GeneratorPower,
+         // GeneratorPower: object?.GeneratorPower,
           Guarantee: object?.Guarantee,
           ImageInput: object?.ImageUrl || '',
         });

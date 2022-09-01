@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DtoWindGeneratorType } from 'src/app/dto/DtoModels/WindGeneratorType/DtoWindGeneratorType';
+import { UserServiceService } from 'src/app/services/user.service';
 import { WindGeneratorTypeService } from 'src/app/services/wind-generator-type.service';
 import { DeviceTypeModalComponent } from '../modals/device-type-modal/device-type-modal.component';
 
@@ -17,7 +18,8 @@ export class LandingComponent implements OnInit {
   listOfDeviceType:  DtoWindGeneratorType[] = [];
   constructor(
     public dialog: MatDialog,
-    public windGeneratorTypeService: WindGeneratorTypeService
+    public windGeneratorTypeService: WindGeneratorTypeService,
+    public userService: UserServiceService
   ) { }
 
   ngOnInit(): void {

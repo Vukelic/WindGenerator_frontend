@@ -8,7 +8,7 @@
         <div style="align-items: center;" class="lp-main-content-title">
          
             <span>Wind turbines</span>
-            <button style="margin-left: 10px;margin-left: 10px;
+            <button *ngIf="userService?.currentUser?.AssignRoleId == 1" style="margin-left: 10px;margin-left: 10px;
          
             width: unset;
             justify-content: center;
@@ -29,10 +29,10 @@
                         <span style="font-size: 20px;">{{type.Name}}</span>
                     </div>
                     <div>
-                        <button style="width: 100px;" (click)="edit(type)" class='global-button'>
+                        <button *ngIf="userService?.currentUser?.AssignRoleId == 1" style="width: 100px;" (click)="edit(type)" class='global-button'>
                             Edit
                         </button>
-                        <button style="width: 100px;"   (click)="delete(type)" class='global-button'>
+                        <button *ngIf="userService?.currentUser?.AssignRoleId == 1" style="width: 100px;"   (click)="delete(type)" class='global-button'>
                             Delete</button>
                     </div>
                                
@@ -55,7 +55,7 @@
                          {{type.WidthOfWing}}</span>
                     </div>             
                     <div class="inv-row">
-                        <span style="font-size: 23px;">Power(kW):</span>
+                        <span style="font-size: 23px;">MAX Power(kW):</span>
                         <span class="inv-border"> {{type.PowerOfTurbines}}</span>
                     </div>
                     <div class="inv-row">
@@ -71,10 +71,10 @@
                         <span style="font-size: 23px;">InstallationCosts:</span>
                         <span class="inv-border"> {{type.InstallationCosts}}</span>
                     </div>
-                    <div class="inv-row">
+                    <!-- <div class="inv-row">
                         <span>Wind hours per a day:</span>
                         <span style="border-bottom: 2px solid #e6543c;"> {{type.GeneratorPower}} </span>
-                    </div>
+                    </div> -->
                     <div class="inv-row">
                         <span  style="font-size: 25px;">Guarantee: </span>
                         <span>{{type.Guarantee}} </span>

@@ -1,5 +1,7 @@
+<h1> History</h1>
+<h3> View all history in system</h3>
 <div class="statistic-holder">
-    <div style="margin-top: 40px;">
+    <div >
         <div class="statistic-table-holder">
             <app-data-table [dataSource]="dataSource" [columnDefs]="columns" [dtoPaging]="dtoPaging"
             [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters($event)"
@@ -49,7 +51,9 @@
         </div>
     </div>
 
-    <div  style="margin-top: 40px;">
+    <h1 style="margin-top: 10px;">Investments</h1>
+    <h3> View all investments in system</h3>
+    <div  >
         <div class="statistic-table-holder">
             <app-data-table [dataSource]="dataSource1" [columnDefs]="columns1" [dtoPaging]="dtoPaging1"
             [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters1($event)"

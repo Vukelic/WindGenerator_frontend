@@ -1,6 +1,9 @@
 
 <div class="ws-holder">
     <h1>History data of {{parentGenerator?.Name}} generator</h1>
+    <div style="display: flex;flex-direction: column; justify-content: flex-start; align-items: flex-start;">
+
+   
       <div style="display: flex; justify-content: flex-start; align-items: center;">
         <mat-form-field style="width: 200px;">
           <mat-label>Choose interval</mat-label>
@@ -11,7 +14,8 @@
           </mat-select>
         </mat-form-field>
 
-        <div  style="margin-left: 20px;" *ngIf="selectedInterval == 'Custom'">
+       
+      <div  style="margin-left: 20px;" *ngIf="selectedInterval == 'Custom'">
           <mat-form-field appearance="fill">
             <mat-label>Start date</mat-label>
             <input matInput [(ngModel)]="startDate" [matDatepicker]="picker">
@@ -28,12 +32,27 @@
           </mat-form-field>
       </div>
 
+       
+      </div>
+
+      <div style="display: flex; justify-content: flex-start; align-items: center;">
+        <mat-form-field style="width: 200px;">
+          <mat-label>Choose type</mat-label>
+          <mat-select (selectionChange)="selectedTypeEvent($event.value)" [(ngModel)]="selectedType">
+            <mat-option *ngFor="let type of allTypes" [value]="type.Value">
+              {{ type.Name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div style="display: flex; justify-content: flex-start; align-items: center;">
         <button style="margin-left: 20px;width: 100px;"  class='global-button' (click)="view()"  type="submit">View</button>
       </div>
-    
+    </div>
       
       <app-chart-items style="width: 100%;margin-top: 20px;" *ngIf="isReadyPreviewChart"
-      [selectedItems]="historyItems" [displayedColumnsItem]="displayedColumnsItemChart"></app-chart-items>
+      [selectedItems]="historyItems" [type]="selectedType" [displayedColumnsItem]="displayedColumnsItemChart"></app-chart-items>
       <div class="footer-button" style="margin-top: 10px;" >
         <button style="margin-right: 10px;"  class='global-button'(click)="ok()"  type="submit">Ok</button>
         <button  (click)="cancel()" class='us-list-button'>Cancel</button>

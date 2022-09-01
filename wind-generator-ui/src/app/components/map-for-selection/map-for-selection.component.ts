@@ -73,12 +73,13 @@ export class MapForSelectionComponent implements OnInit {
   addMarker(){
     this.markers = L.layerGroup().addTo(this.mapForSelection);
     const marker = L.marker([this.lat, this.long], { }).addTo( this.markers);
-    if(this.data.object.ParentUserId == this.userService.currentUser.Id){            
+    if(this.data.object.ParentUserId == this.userService.currentUser.Id)
+    {            
       marker.on('click', () => {
         // CLICK NA MARKER
         this.markers.eachLayer(function (layer:any) {
           layer.setZIndexOffset(1);
-          layer.setIcon(personalconUrlDefault);
+          layer.setIcon(iconSelected);
           // this.map.invalidateSize();
         });
         marker.setIcon(iconSelected);
@@ -92,10 +93,10 @@ export class MapForSelectionComponent implements OnInit {
       this.mapForSelection.on('click', () => {
         this.markers.eachLayer(function (layer:any) {
           marker.setZIndexOffset(1);
-          layer.setIcon(personalconUrlDefault);
+          layer.setIcon(iconSelected);
           // this.map.invalidateSize();
         });
-        marker.setIcon(personalconUrlDefault);
+        marker.setIcon(iconSelected);
 
         this.mapForSelection.invalidateSize();
       });

@@ -293,6 +293,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           this.globalService.createRealEstate(newRealEstate);
          // this.getRealEstates(null);
          this.getAllGenerators();
+         this.userService.getUser();
         }
       }
     });

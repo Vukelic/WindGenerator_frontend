@@ -321,10 +321,10 @@ export class MapComponent implements OnInit, AfterViewInit {
               // CLICK NA MARKER
               this.markers.eachLayer(function (layer:any) {
                 layer.setZIndexOffset(1);
-                layer.setIcon(personalconUrlDefault);
+                layer.setIcon(iconDefault);
                 // this.map.invalidateSize();
               });
-              marker.setIcon(iconSelected);
+              marker.setIcon(personalconUrlDefault);
               marker.setZIndexOffset(1000);
               map.panTo(marker.getLatLng());
     

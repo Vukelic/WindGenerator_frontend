@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ChartItemsComponent implements OnInit {
   @Input() selectedItems: any;
   @Input() displayedColumnsItem: any;
-
+  @Input() type: any;
 
   //  data: any = [
   //   [10,11],
@@ -16,7 +16,7 @@ export class ChartItemsComponent implements OnInit {
   //   [10,2],
 
   // ];
-  type:any= 'LineChart';
+ // type:any= 'LineChart';
   // columns:any = ['Task', 'Hours per Day'];
 
   // constructor() { }
@@ -66,5 +66,9 @@ export class ChartItemsComponent implements OnInit {
   ngOnInit(): void {
     console.warn('selectedItems', this.selectedItems);
     console.warn('displayedColumnsItem', this.displayedColumnsItem);
+
+    if(!this.type){
+      this.type = 'LineChart';
+    }
   }
 }

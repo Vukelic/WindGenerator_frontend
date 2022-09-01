@@ -34,6 +34,15 @@ constructor(public dialog: MatDialogRef<HistoriesComponent>,
   private windService: WindGeneratorDeviceService) {
 
 }
+selectedType: any;
+allTypes:any = [
+  {Name: "Line Chart",Value:"LineChart"},
+  {Name: "Area Chart",Value:"AreaChart"},
+  {Name: "Column Chart",Value:"ColumnChart"},
+  {Name: "Pie Chart",Value:"PieChart"},
+  {Name: "Histogram",Value:"Histogram"},
+
+]
   displayedColumns: string[] = ['Name', 'ValueDec', 'TimeCreated'];
   dataSource: MatTableDataSource<DtoWindGeneratorDevice_History>;
   selectedInterval:any;
@@ -64,6 +73,10 @@ constructor(public dialog: MatDialogRef<HistoriesComponent>,
 
   selectedEvent(value:any){
     console.warn('value',value);
+  }
+
+  selectedTypeEvent(value:any){
+
   }
 
 
