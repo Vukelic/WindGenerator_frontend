@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.userService.getUser();
-    this.status = "invest";
+    this.status = "map";
     this.realEstateFilters = this.formBuilder.group({
       city: [''],
       landFrom: [null, Validators.min(0)],
