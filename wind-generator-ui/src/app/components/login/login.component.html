@@ -17,17 +17,36 @@
                             <mat-form-field class="example-full-width">
                                 <mat-label>Username (email)</mat-label>
                                 <input matInput type="text" placeholder="Usernmae" formControlName="username">
+                                <mat-error *ngIf="loginForm.controls['username'].errors?.pattern">
+                                        Please enter a valid email address
+                                </mat-error>
                             </mat-form-field>
-                            <mat-form-field class="example-full-width">
-                                <mat-label>Password</mat-label>
-                                <input matInput type="password" placeholder="Password" formControlName="password">
+                            <mat-form-field  class="example-full-width">
+                              
+                                    <mat-label>Password</mat-label>
+                                    <div style="display: flex;">
+                                    <input   [type]="passwordFieldType ? 'text' : 'password'" matInput type="password" placeholder="Password" formControlName="password">
+                                   
+                                    <button mat-raised-button (click)='togglePasswordFieldType()'>
+                                        <mat-icon *ngIf='!passwordFieldType' title="Show password">
+                                            visibility
+                                        </mat-icon>
+                                        <mat-icon *ngIf='passwordFieldType' title="Hide password">
+                                            visibility_off
+                                        </mat-icon>
+                                    </button>
+                                </div>
+                                
                             </mat-form-field>
                           
                         </div>
                     </div>
 
-                    <div class="login-buttons">
-                        <button [disabled]="!loginForm.valid" (click)='onLogin()'>Login</button>
+                    <div style=" display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    width: 100%;" >
+                        <button  color="warn"  class="global-button" mat-raised-button  [disabled]="loginStatus || loginForm.invalid"  (click)='onLogin()'>Login</button>
                         <p  style="margin-top:10px">Don't have account? <a style="color:blue;border-bottom: 1px solid blue; cursor: pointer" (click)='onRegister()'>Register</a></p>
                     </div>
                 </div>

@@ -12,14 +12,15 @@ import { UserServiceService } from 'src/app/services/user.service';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+  registerStatus:any = false;
   registerForm = new FormGroup({
     firstName: new FormControl(),
     lastName: new FormControl(),
     phone: new FormControl(),
-    email: new FormControl('',[Validators.required, Validators.email]),
+    email: new FormControl('',[Validators.required,  Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     password: new FormControl('',[Validators.required]),
   });
-
+  passwordFieldType: any = false;
   isAdminUser: boolean = false;
   currentUser: DtoUser = new DtoUser();
   constructor(public dialog: MatDialog, 
@@ -34,6 +35,10 @@ export class RegistrationComponent implements OnInit {
     this.isAdminUser = this.data.isNewUser;
    }
     this.objSetConfigFormSubscription();
+  }
+
+  togglePasswordFieldType(){
+    this.passwordFieldType = !this.passwordFieldType;
   }
 
    //#region  forms
@@ -73,13 +78,15 @@ export class RegistrationComponent implements OnInit {
   onRegistration(){
     console.warn('current user:', this.currentUser);
     //SEND REQ TO SERVICE
-
+    this.registerStatus = true;
     if(this.isAdminUser){
       this.userService.RegisterAdmin(this.currentUser).subscribe(res => {
+        this.registerStatus = false;
         this.diag.close({userClickOk: true, user: this.currentUser});
       });
     }else{
       this.userService.Register(this.currentUser).subscribe(res => {
+        this.registerStatus = false;
         this.diag.close({userClickOk: true, user: this.currentUser});
       });
     }
