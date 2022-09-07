@@ -105,8 +105,8 @@ export class UserServiceService {
       }),
       catchError(error => {
         // Errors 500, 403, already resolved in interceptor
-        // return throwError(this.errService.getErrorMessage(error));
-        return error;
+         return throwError(this.errService.getErrorMessage(error));
+        //return error;
       })
     );
   }
@@ -179,8 +179,8 @@ export class UserServiceService {
       }),
       catchError(error => {
         // Errors 500, 403, already resolved in interceptor
-        // return throwError(this.errService.getErrorMessage(error));
-        return error;
+         return throwError(error);
+        //return error;
       })
     );
   }
