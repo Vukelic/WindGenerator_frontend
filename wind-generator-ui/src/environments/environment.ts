@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   apiURL:'',
  BaseAPIUrl: 'https://wind-service-web-api.azurewebsites.net/api/',
  BaseUrl: 'https://wind-service-web-api.azurewebsites.net/',
