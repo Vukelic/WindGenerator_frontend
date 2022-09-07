@@ -5,10 +5,8 @@
 export const environment = {
   production: false,
   apiURL:'',
- // BaseAPIUrl: 'http://localhost:52121/api/', //https://wind-service-web-api.azurewebsites.net/api/Role/Get
  BaseAPIUrl: 'https://wind-service-web-api.azurewebsites.net/api/',
  BaseUrl: 'https://wind-service-web-api.azurewebsites.net/',
-  //BaseUrl: 'http://localhost:52121/',
   ImageUrl: '/assets/',
 };
 
