@@ -9,13 +9,10 @@
                     Please enter a valid email address
             </mat-error>
             </mat-form-field>
-            <mat-form-field class="example-full-width">
+            <mat-form-field  *ngIf="isAdminUser" class="example-full-width">
                 <mat-label>Password</mat-label>
                 <div style="display: flex;">
                 <input [type]="passwordFieldType ? 'text' : 'password'" matInput type="password" placeholder="Password" formControlName="password">
-                <!-- <mat-error *ngIf="registerForm.controls['password].errors?.required">
-                    Please enter a passwords
-               </mat-error> -->
                     <button mat-raised-button (click)='togglePasswordFieldType()'>
                         <mat-icon *ngIf='!passwordFieldType' title="Show password">
                             visibility

@@ -82,7 +82,7 @@ export class UserServiceService {
   }
 
   Login(user: DtoUser) {
-    return this.http.post(environment.BaseAPIUrl + 'User/' + 'Login', user).pipe(
+    return this.http.post(environment.BaseAuthAPIUrl + 'Account/' + 'Login', user).pipe(
       map((resp: any) => {
         if (resp.Success && resp.Value != null) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -166,14 +166,14 @@ export class UserServiceService {
   }
 
   Register(user: DtoUser) {
-    return this.http.post(environment.BaseAPIUrl + 'User/' + 'Register', user).pipe(
+    return this.http.post(environment.BaseAuthAPIUrl + 'Account/' + 'Register', user).pipe(
       map((resp: any) => {
         if (!resp.Success) {
           // this.errService.displayErrorMessage('Unknown error', 'Success false', null, 'UserService, Post');
           this.errService.displayDescriptiveErrorMessage("User", resp.Message, resp, 5, 'popup-error');
         }
         else if (resp.Success) {
-          this.errService.displayDescriptiveMessage("User", "User created successfully!", resp, 5, 'popup-success');
+          this.errService.displayDescriptiveMessage("User", "Email sent successfully!", resp, 5, 'popup-success');
         }
         return resp;
       }),
