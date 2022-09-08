@@ -7,8 +7,8 @@ export const environment = {
   apiURL:'',
   BaseAPIUrl: 'https://wind-service-web-api.azurewebsites.net/api/',
   BaseUrl: 'https://wind-service-web-api.azurewebsites.net/',
-  BaseAuthAPIUrl: 'http://localhost:7944/api/',
-  BaseAuthUrl: 'http://localhost:7944/',
+  BaseAuthAPIUrl: 'https://windserviceauthwebapi20220908163041.azurewebsites.net/api/',
+  BaseAuthUrl: 'https://windserviceauthwebapi20220908163041.azurewebsites.net/',
   ImageUrl: '/assets/',
 };
 
@@ -20,3 +20,5 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+  // BaseAuthAPIUrl: 'http://localhost:7944/api/',
+  // BaseAuthUrl: 'http://localhost:7944/',
