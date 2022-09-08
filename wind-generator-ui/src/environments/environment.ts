@@ -7,8 +7,8 @@ export const environment = {
   apiURL:'',
   BaseAPIUrl: 'https://wind-service-web-api.azurewebsites.net/api/',
   BaseUrl: 'https://wind-service-web-api.azurewebsites.net/',
-  BaseAuthAPIUrl: 'https://windserviceauthwebapi20220908163041.azurewebsites.net/api/',
-  BaseAuthUrl: 'https://windserviceauthwebapi20220908163041.azurewebsites.net/',
+  BaseAuthAPIUrl: 'http://localhost:7944/api/',
+  BaseAuthUrl: 'http://localhost:7944/',
   ImageUrl: '/assets/',
 };
 

@@ -73,7 +73,7 @@ export class MapForSelectionComponent implements OnInit {
   addMarker(){
     this.markers = L.layerGroup().addTo(this.mapForSelection);
     const marker = L.marker([this.lat, this.long], { }).addTo( this.markers);
-    if(this.data.object.ParentUserId == this.userService.currentUser.Id)
+    //if(this.data.object.ParentUserId == this.userService.currentUser.Id)
     {            
       marker.on('click', () => {
         // CLICK NA MARKER
@@ -129,8 +129,8 @@ export class MapForSelectionComponent implements OnInit {
   searchMap() {
     this.globalService
       .getMapViewFromSearchTerm(this.mapSearchTerm)
-      .subscribe((res) => {
-        if (res != null && res != undefined && res != []) {
+      .subscribe((res:any) => {
+        if (res != null && res != undefined) {
           let cityFromSearch;
           for (let i = 0; i < 1; i++) {
             cityFromSearch = res[0];
