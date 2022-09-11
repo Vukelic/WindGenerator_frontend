@@ -1,16 +1,6 @@
-<h1> History</h1>
-<h3> View all history in system</h3>
+
 <div class="statistic-holder">
-    <div >
-        <div class="statistic-table-holder">
-            <app-data-table [dataSource]="dataSource" [columnDefs]="columns" [dtoPaging]="dtoPaging"
-            [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters($event)"
-            (sortChangeEvent)="updateSorting($event)" (pagingChangeEvent)="updatePaging($event)"
-            (allFiltersChangeEvent)="updateAllFilters($event)">
-            
-        </app-data-table>
-        </div>
-    </div>
+   
   
     <div *ngIf="false" style="margin-top: 40px; display: flex; flex-direction: row;">
         <div class="statistic-chart-holder">
@@ -51,7 +41,7 @@
         </div>
     </div>
 
-    <h1 style="margin-top: 10px;">Investments</h1>
+    <h1 style="margin-top: 10px;">Report Investments</h1>
     <h3> View all investments in system</h3>
     <div  >
         <div class="statistic-table-holder">
@@ -74,6 +64,19 @@
         </app-data-table>
         </div>
     </div>
+
+    <h1 style="margin-top: 10px;"> Report 2022</h1>
+    <h3> View all history data for 2022</h3>
+        <div >
+            <div class="statistic-table-holder">
+                <app-data-table [dataSource]="dataSource" [columnDefs]="columns" [dtoPaging]="dtoPaging"
+                [globalSettings]="globalSettingsObject" (filterChangeEvent)="updateFilters($event)"
+                (sortChangeEvent)="updateSorting($event)" (pagingChangeEvent)="updatePaging($event)"
+                (allFiltersChangeEvent)="updateAllFilters($event)">
+                
+            </app-data-table>
+            </div>
+        </div>
     
  
 </div>

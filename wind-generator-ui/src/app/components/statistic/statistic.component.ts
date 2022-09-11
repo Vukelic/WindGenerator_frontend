@@ -25,18 +25,22 @@ export class StatisticComponent implements OnInit {
   dtoPaging1: DtoPaging = new DtoPaging();
   columns: Partial<ColumnDef<DtoWindGeneratorDevice_History>>[] = [
   //  { key: 'actions', header: 'Selected', sort: ESortEnum.none, hasSorting: false, hasFiltering: false },
-    { key: 'TimeCreated', header: 'date', cell: e => new Date(e.TimeCreated).toISOString().replace(/([^T]+)T([^\.]+).*/g, '$1 $2'), sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
-    { key: 'ValueStr', header: 'power', cell: e => Number(e.ValueStr).toFixed(2), sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
-    { key: 'Name', header: 'name', cell: e => e.ParentWindGeneratorDevice?.Name, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+  { key: 'Name', header: 'Name of Turbine', cell: e => e.ParentWindGeneratorDevice?.Name, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+  { key: 'ValueStr', header: 'Power of turbine', cell: e => Number(e.ValueStr).toFixed(2), sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+  { key: 'TimeCreated', header: 'Time created', cell: e => new Date(e.TimeCreated).toISOString().replace(/([^T]+)T([^\.]+).*/g, '$1 $2'), sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
+    
+  
     // { key: 'ceo', header: 'ceo', cell: e => e.ceo, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
   ];
 
   columns1: Partial<ColumnDef<DtoWindGeneratorDevice>>[] = [
     //  { key: 'actions', header: 'Selected', sort: ESortEnum.none, hasSorting: false, hasFiltering: false },
-      { key: 'Name', header: 'name', cell: e => e.Name, sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
-      { key: 'TimeCreated', header: 'date', cell: e => new Date(e.TimeCreated).toISOString().replace(/([^T]+)T([^\.]+).*/g, '$1 $2'), sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
-      { key: 'Country', header: 'country', cell: e => e.Country, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
-      { key: 'City', header: 'city', cell: e => e.City, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      { key: 'Name', header: 'Name of Investment', cell: e => e.Name, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      { key: 'ValueStr', header: 'Current Power of Turbine', cell: e => Number(e.ValueStr).toFixed(2), sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      { key: 'PowerOfTurbines', header: 'Max Power Of Turbine', cell: e => e.ParentWindGeneratorType.PowerOfTurbines, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      { key: 'Country', header: 'Country', cell: e => e.Country, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      { key: 'FullPrice', header: 'Full Price of Investment', cell: e => e.FullPrice, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      { key: 'TimeCreated', header: 'Time created', cell: e => new Date(e.TimeCreated).toISOString().replace(/([^T]+)T([^\.]+).*/g, '$1 $2'), sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
     ];
     
     columns2: Partial<ColumnDef<Mockup2>>[] = [
