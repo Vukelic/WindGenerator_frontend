@@ -1,11 +1,11 @@
 
 <div class="statistic-holder">
    
-    <h1 *ngIf="false" style="margin-top: 10px;">Global Chart Investments</h1>
-    <h3  *ngIf="false"> Compare all power of investments in system</h3>
+    <h1  style="margin-top: 10px;">Global Chart Investments</h1>
+    <h3> View all current power of investments in system</h3>
   
-    <div  *ngIf="false">
-        <google-chart #chart  [type]="selectedType" [data]="historyItems" [columns]="displayedColumnsItemChart" [width]="widthChart" [height]="heightChart">
+    <div  >
+        <google-chart #chart [options]="options" [type]="selectedType" [data]="historyItems" [columns]="displayedColumnsItemChart" [width]="widthChart" [height]="heightChart">
       </google-chart>
         <!-- <app-chart-items style="width: 100%;margin-top: 20px;" 
         [selectedItems]="historyItems" [type]="selectedType" [displayedColumnsItem]="displayedColumnsItemChart"></app-chart-items> -->

@@ -70,8 +70,9 @@ export class StatisticComponent implements OnInit {
      ['Name5', 16.2]  
   ];  
   columnNames = ['Name', 'Percentage'];  
-  options = {      
-  };  
+  options:any= {
+    legend: { position: 'bottom', alignment: 'start' },
+} 
   width = 500;  
   height = 300;  
 
@@ -80,14 +81,14 @@ export class StatisticComponent implements OnInit {
   historyItems:any[]=[];
   selectedItems:any[] = [];
   displayedColumnsItemChart:any[] =['time'];
-  selectedType:any = "Histogram";
+  selectedType:any = "ColumnChart";
   constructor(private historyService: WindGeneratorDeviceHistoryService,
     private generatorService: WindGeneratorDeviceService) { }
 
   ngOnInit(): void {
     this.getHourAllData();
     this.getAllGenerators();
-   // this.getAllHistories();
+    this.getAllCurrentPowers();
   }
 //#region table functions
   updateFilters(data:any) {
@@ -173,16 +174,12 @@ export class StatisticComponent implements OnInit {
   }
 
   //#region 
-  getAllHistories(){
-    this.historyItems = [];
-  
-
-    
+  getAllCurrentPowers(){
+ 
     this.generatorService.GetList(null).subscribe((resp: any)=>{
-     
       if(resp && resp.Success){
        // console.warn('resp',resp);
-       
+       this.pushInitTime();
         this.selectedItems = resp.Value;
         this.selectedItems.sort(function(a, b) {
           return a.Id - b.Id;
@@ -192,17 +189,8 @@ export class StatisticComponent implements OnInit {
           console.warn('element',element);
           if(element.Name == ""){element.Name = "Turbine";}
            this.AddColumnName(element.Name);
-           this.dtoPaging.filters = {};
-           this.dtoPaging.filtersType = {};
-           this.dtoPaging.filters["ParentWindGeneratorDeviceId"] = element.Id;
-           this.dtoPaging.filtersType["ParentWindGeneratorDeviceId"] = "eq";
+           this.AddColumn(element);
 
-            this.historyService.GetList(this.dtoPaging).subscribe((resp: any) => {
-                console.warn('historyService',resp);
-                if(resp && resp.Success){
-                  this.AddColumn(resp);
-                }
-            });
         });
        
       }
@@ -213,58 +201,25 @@ export class StatisticComponent implements OnInit {
 
 
   AddColumn(historyItem: any) {
- //   this.historyItems = [];
-    //console.warn('allItemsIds', this.allItemsIds);
-    if (historyItem && historyItem.Value.length > 0) {
-      this.pushInitTime(historyItem);
-
-
+    if (historyItem) {
       if (this.historyItems && this.historyItems.length > 0) {
-
         this.historyItems.forEach((clockHistory: any, clockHistoryIndex: any) => {
-          //ulazimo u svaki clock
-
-        //  this.allItemsIds.forEach((itemId: any) => {
-            //ulazim u svaki id itema
-            var valueToPush = 0;
-            
-            for (var i = 0; i < historyItem.Value.length; i++) {
-             // console.warn('historyItem',historyItem);
-              //ulazim u svaki history koji je dosao sa servera
-              var elementHistory = historyItem.Value[i];
-              //if (itemId == elementHistory.Id) {
-                if (moment(elementHistory.TimeCreated, 'DD-MM/YY HH:mm:ss').minute() == moment(clockHistory, 'DD-MM/YY HH:mm:ss').minute()) {
-                  if (elementHistory.ValueStr) {
-                    valueToPush = Math.trunc(Number(elementHistory.ValueStr));
-                    break;
-                  }
-
-                }
-              }
-           // };
+            var valueToPush = 0;          
+              var elementHistory = historyItem;
+                 if (elementHistory.ValueStr) {
+                    valueToPush = Number(elementHistory.ValueStr);
+                  }                     
             clockHistory.push(valueToPush);
-        //  });       
         });   
       }
     }
   }
 
-  pushInitTime(historyItem: any) {
-
-    if (historyItem && historyItem.Value.length > 0) {
-      historyItem.Value.forEach((element: any, index: any) => {
-        var isExists = this.historyItems.findIndex((p: any) => {
-          return moment(p, 'DD-MM/YY HH:mm:ss').minute() == moment(element.TimeCreated, 'DD-MM/YY HH:mm:ss').minute();
-        }
-        );
-
-        if (isExists < 0) {
-          var clock = moment(element.TimeCreated).format("DD-MM/YY HH:mm:ss").toString();
-          this.historyItems.push([clock]);
-        }
-      });
-    }
-    console.warn('historyItems', this.historyItems);
+  pushInitTime() {
+      this.historyItems =[];
+      var clock = moment(new Date()).format("DD-MM/YY HH:mm:ss").toString();
+      this.historyItems.push([clock]);  
+     console.warn('historyItems', this.historyItems);
   }
 
   AddColumnName(name: string) {
