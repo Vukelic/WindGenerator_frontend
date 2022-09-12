@@ -146,6 +146,7 @@ export class PersonalContributesComponent implements OnInit {
   getHistory(data:any){
     const dialogRef = this.dialog.open(HistoriesComponent, {
       width: '800px',
+      height:'700px',
       data: data,
       autoFocus: false
     });
