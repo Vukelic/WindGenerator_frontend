@@ -138,12 +138,12 @@ export class StatisticComponent implements OnInit {
   }
 
 getHourAllData(){
-  var startTime = new Date();
-  startTime.setHours(startTime.getHours() - 5);
-  this.dtoPaging.filters["TimeCreated::-->>1"] = startTime;
-  this.dtoPaging.filtersType["TimeCreated::-->>1"] = "gtoe";
-  this.dtoPaging.filters["TimeCreated::-->>2"] = new Date;
-  this.dtoPaging.filtersType["TimeCreated::-->>2"] = "ltoe";
+  // var startTime = new Date();
+  // startTime.setHours(startTime.getHours() - 24);
+  // this.dtoPaging.filters["TimeCreated::-->>1"] = startTime;
+  // this.dtoPaging.filtersType["TimeCreated::-->>1"] = "gtoe";
+  // this.dtoPaging.filters["TimeCreated::-->>2"] = new Date;
+  // this.dtoPaging.filtersType["TimeCreated::-->>2"] = "ltoe";
   this.historyService.GetList(this.dtoPaging).subscribe((resp: any) => {
         console.warn('historyService',resp);
       if(resp && resp.Success){
