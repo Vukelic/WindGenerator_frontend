@@ -110,6 +110,8 @@
                 </div>
 
                 <div  *ngIf="checkProfitStatus" style="margin-top: 10px;" class="block-show">
+                    <h1 *ngIf="profit > 0">YES</h1>
+                    <h1 *ngIf="profit < 0">NO</h1>
                     <h1>Saved money for 20 years: {{profit}} $</h1>
                     <h2>Full price: {{currentType.FullPrice}} $</h2>
                     <h3>Base Price: {{currentType.BasePrice}}</h3>
