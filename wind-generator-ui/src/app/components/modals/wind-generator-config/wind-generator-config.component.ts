@@ -88,8 +88,13 @@ export class WindGeneratorConfigComponent implements OnInit {
     if(this.data != null && this.data != undefined){
       if(this.data.Id) {
         this.currentWindGenerator = this.data;
-        this.updatePropertiesFromObjectSetToFormGroup(this.windForm, this.currentWindGenerator);
+        //this.updatePropertiesFromObjectSetToFormGroup(this.windForm, this.currentWindGenerator);
       
+        //this.windTypeService.Get(this.currentWindGenerator.ParentWindGeneratorTypeId).subscribe((resp:any)=>{
+         // this.currentWindGenerator.ParentWindGeneratorType = resp.Value;
+          this.updatePropertiesFromObjectSetToFormGroup(this.windForm, this.currentWindGenerator);
+       // });
+        
         console.warn('this.currentWindGenerator', this.currentWindGenerator);
       }else{
        
@@ -286,6 +291,7 @@ currentType:any;
 
   setType(id:any){
     this.selectedType = this.allTypes.find( (v: DtoWindGeneratorType)=>v.Id == id);
+    this.currentWindGenerator.ParentWindGeneratorType = this.selectedType;
     this.windTypeService.PreprocessObjectFromServer(this.selectedType);
   }
 

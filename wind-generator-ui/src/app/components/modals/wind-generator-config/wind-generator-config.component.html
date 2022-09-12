@@ -44,6 +44,7 @@
                         <div class="ppe-settings-grid-layout-element" *ngFor='let gridEl of allTypes; let i = index'>
                             <div  class="ppe-settings-grid-layout-element-item">
                                 <label>Full Price: {{gridEl.FullPrice }} $  </label>
+                                <label>Max Power: {{gridEl?.PowerOfTurbines }} W  </label>
                             </div>
                             <div class="ppe-settings-grid-layout-element-item">
                                 <img style="width: 100px; height: 100px;" [src]="gridEl.Angular_FullUrl" alt='image'>
@@ -70,6 +71,7 @@
                             </div>
                             <div  class="ppe-settings-grid-layout-element-item">
                                 <label> {{selectedType?.Name}}</label>
+                                <label>Max Power: {{selectedType?.PowerOfTurbines }} W  </label>
                             </div>
                            
                          </div>

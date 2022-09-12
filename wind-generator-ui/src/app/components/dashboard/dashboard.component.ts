@@ -13,6 +13,7 @@ import { MyAccountComponent } from '../my-account/my-account.component';
 import { RoleKeys, UserServiceService } from 'src/app/services/user.service';
 import { SelectLocationMapModalComponent } from '../select-location-map-modal/select-location-map-modal.component';
 import { UserSettingsComponent } from '../account/user-settings/user-settings.component';
+import { WindGeneratorTypeService } from 'src/app/services/wind-generator-type.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -91,7 +92,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private windGeneratorService: WindGeneratorDeviceService,
-    public userService: UserServiceService
+    public userService: UserServiceService,
+    public windTypeService: WindGeneratorTypeService
   ) {
     this.options = fb.group({
       bottom: 0,
@@ -172,9 +174,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     console.warn('getAllGenerators ');
 
     this.windGeneratorService.GetList(null).subscribe((res:any) => {
-      this.emitRealEstates.next(<any>res.Value);
-      this.eventSubjectInfoBox.next();
-      this.realEstates = res.Value;
+      if(res && res.Value){
+        res.Value.forEach((element:any) => {
+          this.windTypeService.Get(element.ParentWindGeneratorTypeId).subscribe((resp:any)=>{
+            element.ParentWindGeneratorType = resp.Value;
+        
+          });
+
+          this.emitRealEstates.next(<any>res.Value);
+          this.eventSubjectInfoBox.next();
+          this.realEstates = res.Value;
+        });
+      }
+      
     console.warn('all ', res);
     });
 
