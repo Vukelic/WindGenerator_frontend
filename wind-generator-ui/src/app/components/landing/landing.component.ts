@@ -29,6 +29,7 @@ export class LandingComponent implements OnInit {
   edit(newType: DtoWindGeneratorType){
     const dialogRef = this.dialog.open(DeviceTypeModalComponent, {
       width: '800px',
+      height:'600px'
       data: { type: newType },
       //autoFocus: false,
     });
