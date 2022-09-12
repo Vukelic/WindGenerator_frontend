@@ -298,6 +298,7 @@ currentType:any;
   
  profit: any;
  index:any;
+ CurrentWind:any
   checkProfit(){
    
     console.warn('selectedType',this.selectedType);
@@ -305,6 +306,7 @@ currentType:any;
       this.checkProfitStatus = true;
       this.profit = Number(resp.Profit).toFixed(0);
       this.index = Number(resp.ProfitabillityIndex).toFixed(0);
+      this.CurrentWind = Number(resp.CurrentWind).toFixed(2);
       console.warn('************resp',resp);
     })
     // const dialogRef = this.dialog.open(ProfitComponent, {

@@ -54,7 +54,7 @@ export class PersonalContributesComponent implements OnInit {
       if(this.listOfDashboards){
         this.listOfDashboards.forEach(element => {
           var startTime = new Date(element.TimeCreated);
-          var startYear = startTime.getFullYear() + 1;
+          var startYear = startTime.getFullYear() + 20;
           element.EndTime= startYear;
           element.TimeCreated2 = startTime.toISOString().replace(/([^T]+)T([^\.]+).*/g, '$1 $2');
           element.ValueStr = Number(element.ValueStr).toFixed(2) + "";
@@ -146,9 +146,10 @@ export class PersonalContributesComponent implements OnInit {
   getHistory(data:any){
     const dialogRef = this.dialog.open(HistoriesComponent, {
       width: '800px',
-      height:'700px',
+      height:'70%',
       data: data,
-      autoFocus: false
+      autoFocus: false,
+      minHeight: '400px',
     });
     dialogRef.afterClosed().subscribe(result => {
       // kad se ovaj zatvori treba refreshovati mapu

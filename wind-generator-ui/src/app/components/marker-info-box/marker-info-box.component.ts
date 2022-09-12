@@ -87,9 +87,10 @@ export class MarkerInfoBoxComponent implements OnInit {
     object.GeographicalLongitude = markerInfo.lon;
     const dialogRef = this.dialog.open(HistoriesComponent, {
       width: '800px',
-      height:'700px',
+      height:'70%',
       data: object,
-      autoFocus: false
+      autoFocus: false,
+      minHeight: '400px',
     });
     dialogRef.afterClosed().subscribe(result => {
       // kad se ovaj zatvori treba refreshovati mapu

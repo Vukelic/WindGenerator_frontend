@@ -47,7 +47,7 @@ allTypes:any = [
   dataSource: MatTableDataSource<DtoWindGeneratorDevice_History>;
   selectedInterval:any;
   listOfIntervals:any[] = [
-    {Title: "One hour ago", Value: "Hour"},
+  //  {Title: "One hour ago", Value: "Hour"},
     {Title: "One day ago", Value: "Day"},
     {Title: "One week ago", Value: "Week"},
     {Title: "A month ago", Value: "Month"},

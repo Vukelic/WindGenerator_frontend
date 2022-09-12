@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import moment from 'moment';
 import { DtoWindGeneratorDevice } from 'src/app/dto/DtoModels/WindGeneratorDevice/DtoWindGeneratorDevice';
 import { DtoWindGeneratorDevice_History } from 'src/app/dto/DtoModels/WindGeneratorDevice_History/DtoWindGeneratorDevice_History';
 import { DtoPaging } from 'src/app/dto/DtoRequestObjectModels/DtoPaging';
@@ -39,7 +40,7 @@ export class StatisticComponent implements OnInit {
       { key: 'ValueStr', header: 'Current Power of Turbine', cell: e => Number(e.ValueStr).toFixed(2), sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
       { key: 'PowerOfTurbines', header: 'Max Power Of Turbine', cell: e => e.ParentWindGeneratorType.PowerOfTurbines, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
       { key: 'Country', header: 'Country', cell: e => e.Country, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
-      { key: 'FullPrice', header: 'Full Price of Investment', cell: e => e.FullPrice, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
+      { key: 'FullPrice', header: 'Full Price of Investment', cell: e => e.ParentWindGeneratorType.BasePrice + e.ParentWindGeneratorType.InstallationCosts, sort: ESortEnum.none, hasSorting: true, hasFiltering: true },
       { key: 'TimeCreated', header: 'Time created', cell: e => new Date(e.TimeCreated).toISOString().replace(/([^T]+)T([^\.]+).*/g, '$1 $2'), sort: ESortEnum.none, hasSorting: true, hasFiltering: false },
     ];
     
@@ -73,14 +74,22 @@ export class StatisticComponent implements OnInit {
   };  
   width = 500;  
   height = 300;  
+
+  widthChart = 550;
+  heightChart = 400;
+  historyItems:any[]=[];
+  selectedItems:any[] = [];
+  displayedColumnsItemChart:any[] =['time'];
+  selectedType:any = "Histogram";
   constructor(private historyService: WindGeneratorDeviceHistoryService,
     private generatorService: WindGeneratorDeviceService) { }
 
   ngOnInit(): void {
     this.getHourAllData();
     this.getAllGenerators();
+   // this.getAllHistories();
   }
-
+//#region table functions
   updateFilters(data:any) {
     this.dtoPaging = data;
     this.getHourAllData();
@@ -136,8 +145,9 @@ export class StatisticComponent implements OnInit {
     this.getAllGenerators();
    // this.getAllAppointments();
   }
+//#endregion
 
-getHourAllData(){
+  getHourAllData(){
   // var startTime = new Date();
   // startTime.setHours(startTime.getHours() - 24);
   // this.dtoPaging.filters["TimeCreated::-->>1"] = startTime;
@@ -161,4 +171,114 @@ getHourAllData(){
       }
     });
   }
+
+  //#region 
+  getAllHistories(){
+    this.historyItems = [];
+  
+
+    
+    this.generatorService.GetList(null).subscribe((resp: any)=>{
+     
+      if(resp && resp.Success){
+       // console.warn('resp',resp);
+       
+        this.selectedItems = resp.Value;
+        this.selectedItems.sort(function(a, b) {
+          return a.Id - b.Id;
+        });
+      console.warn('selectedItems',this.selectedItems);
+        this.selectedItems.forEach((element:any) => {
+          console.warn('element',element);
+          if(element.Name == ""){element.Name = "Turbine";}
+           this.AddColumnName(element.Name);
+           this.dtoPaging.filters = {};
+           this.dtoPaging.filtersType = {};
+           this.dtoPaging.filters["ParentWindGeneratorDeviceId"] = element.Id;
+           this.dtoPaging.filtersType["ParentWindGeneratorDeviceId"] = "eq";
+
+            this.historyService.GetList(this.dtoPaging).subscribe((resp: any) => {
+                console.warn('historyService',resp);
+                if(resp && resp.Success){
+                  this.AddColumn(resp);
+                }
+            });
+        });
+       
+      }
+
+    })
+  
+  }
+
+
+  AddColumn(historyItem: any) {
+ //   this.historyItems = [];
+    //console.warn('allItemsIds', this.allItemsIds);
+    if (historyItem && historyItem.Value.length > 0) {
+      this.pushInitTime(historyItem);
+
+
+      if (this.historyItems && this.historyItems.length > 0) {
+
+        this.historyItems.forEach((clockHistory: any, clockHistoryIndex: any) => {
+          //ulazimo u svaki clock
+
+        //  this.allItemsIds.forEach((itemId: any) => {
+            //ulazim u svaki id itema
+            var valueToPush = 0;
+            
+            for (var i = 0; i < historyItem.Value.length; i++) {
+             // console.warn('historyItem',historyItem);
+              //ulazim u svaki history koji je dosao sa servera
+              var elementHistory = historyItem.Value[i];
+              //if (itemId == elementHistory.Id) {
+                if (moment(elementHistory.TimeCreated, 'DD-MM/YY HH:mm:ss').minute() == moment(clockHistory, 'DD-MM/YY HH:mm:ss').minute()) {
+                  if (elementHistory.ValueStr) {
+                    valueToPush = Math.trunc(Number(elementHistory.ValueStr));
+                    break;
+                  }
+
+                }
+              }
+           // };
+            clockHistory.push(valueToPush);
+        //  });       
+        });   
+      }
+    }
+  }
+
+  pushInitTime(historyItem: any) {
+
+    if (historyItem && historyItem.Value.length > 0) {
+      historyItem.Value.forEach((element: any, index: any) => {
+        var isExists = this.historyItems.findIndex((p: any) => {
+          return moment(p, 'DD-MM/YY HH:mm:ss').minute() == moment(element.TimeCreated, 'DD-MM/YY HH:mm:ss').minute();
+        }
+        );
+
+        if (isExists < 0) {
+          var clock = moment(element.TimeCreated).format("DD-MM/YY HH:mm:ss").toString();
+          this.historyItems.push([clock]);
+        }
+      });
+    }
+    console.warn('historyItems', this.historyItems);
+  }
+
+  AddColumnName(name: string) {
+    var toAdd = false;
+    if(name == ""){name="generator"}
+
+    var isExistsColumnIndex = this.displayedColumnsItemChart.findIndex(k => k == name);
+    if (isExistsColumnIndex < 0) {
+      toAdd = true;
+    }
+
+    if (toAdd) {
+      this.displayedColumnsItemChart.push(name);
+    }
+  }
+  //#endregion
 }
